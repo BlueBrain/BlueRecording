@@ -63,11 +63,23 @@ def makeElectrodeDict(electrode_csv,type,region):
 
     for i in range(len(electrode_df.values)):
 
-        name = electrode_df['electrode'][i]
+        if 'electrode' in electrode_df.columns:
+
+            name = electrode_df['electrode'][i]
+
+        else:
+
+            name = str(i)
 
         position = np.array([electrode_df['x'][i],electrode_df['y'][i],electrode_df['z'][i]])
 
-        layer = electrode_df['layer'][i]
+        if 'layer' in electrode_df.columns:
+
+            layer = electrode_df['layer'][i]
+
+        else:
+
+            layer = "Not provided"
 
         electrodes[name] = {'position': position,'type': type,
         'region':region,'layer':layer}

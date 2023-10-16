@@ -1,4 +1,4 @@
-import libsonata as lb
+import bluepysnap as bp
 import numpy as np
 import h5py
 import pandas as pd
@@ -7,9 +7,8 @@ from mpi4py import MPI
 from scipy.spatial import distance
 from scipy.spatial.transform import Rotation
 from voxcell.nexus.voxelbrain import Atlas
-from scipy.interpolate import RegularGridInterpolator
 
-def add_data(h5, gid, coeffs, electrode_struc,population_name):
+def add_data(h5, gid, coeffs ,population_name):
 
     dset = 'electrodes/'+population_name+'/scaling_factors'
 
@@ -17,53 +16,17 @@ def add_data(h5, gid, coeffs, electrode_struc,population_name):
 
     gidIndex = np.where(gid==node_ids)[0][0]
 
-    
+
     offset0 = h5[population_name+'/offsets'][gidIndex]
 
 
     if gidIndex == len(h5[population_name+'/offsets'][:])-1:
-        
+
         h5[dset][offset0:] = coeffs
 
     else:
         offset1 = h5[population_name+'/offsets'][gidIndex+1]
         h5[dset][offset0:offset1] = coeffs
-
-
-def getAtlasInfo(BlueConfig,electrodePositions):
-
-
-    regionList = []
-    layerList = []
-
-
-    for position in electrodePositions:
-
-        try:
-
-            for id_ in brain_regions.lookup([position]):
-
-                region = region_map.get(id_, 'acronym')
-                regionList.append(region.split(';')[0])
-                layerList.append(region.split(';')[1])
-
-        except:
-
-            regionList.append('Outside')
-            layerList.append('Outside')
-
-    return regionList, layerList
-
-def makeElectrodeDict(names,positions,types,regions,layers):
-
-    electrodes = {}
-
-
-    for i, name in enumerate(names):
-        electrodes[name] = {'position': positions[i],'type': types[i],
-        'region':regions[i],'layer':layers[i]}
-
-    return electrodes
 
 def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
@@ -113,10 +76,8 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
         elif positions.columns[i][-1]==positions.columns[i+1][-1]:
 
-            meanPos = (positions.iloc[:,i]+positions.iloc[:,i+1])/2
-            distance = np.linalg.norm(meanPos-electrodePos)
 
-            segCoeff = 1/(4*np.pi*sigma*distance)
+            segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
 
             coeffs = np.hstack((coeffs,segCoeff))
 
@@ -146,7 +107,6 @@ def geth5Dataset(h5f, group_name, dataset_name):
         k = f[group_name].visit(find_dataset)
         return f[group_name + '/' + k][()]
 
-
 def get_coeffs_eeg(positions, path_to_fields):
 
     '''
@@ -167,7 +127,7 @@ def get_coeffs_eeg(positions, path_to_fields):
         y = geth5Dataset(path_to_fields, tmp, 'axis_y')
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
-        currentApplied = 1 #f['CurrentApplied'][0]
+        currentApplied = f['CurrentApplied'][0]
 
 
     positions *= 1e-6 # Converts um to m
@@ -184,15 +144,21 @@ def get_coeffs_eeg(positions, path_to_fields):
 
     out2rat = InterpFcn(selections)
 
-    out2rat = out2rat[np.newaxis]
 
     outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns)
 
     return outdf
 
+def load_positions(segment_position_folder, filesPerFolder, numFolders, rank, nranks):
 
+    index = rank % numFolders
+    folder = int(rank/filesPerFolder)
 
-def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,typeList,positions,sigma=0.277,path_to_fields=None):
+    allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
+
+    return allPositions
+
+def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
 
     '''
     path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -201,98 +167,66 @@ def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,
     gidList is a list of the desired gids
     '''
 
-    regionList, layerList = getAtlasInfo(path_to_blueconfig,electrodePositions)
+    r = bp.Simulation(path_to_simconfig)
 
-    nameList = electrodeNames
-    electrodeType = typeList[0]
+    population_name = r.population_names[0]
 
-    r = lb.ElementReportReader('reporting/voltage.h5')
+    report = r[population_name]
+    allNodeIds = report.node_ids
 
-    population_name = r.get_population_names()[0]
+    numGids = len(allNodeIds)
 
-    r = r[population_name]
+    numFolders = np.ceil(numGids/1000)
 
     rank = MPI.COMM_WORLD.Get_rank()
     nranks = MPI.COMM_WORLD.Get_size()
 
-    iterPerFile = int(nranks/212)
-    iterSize = int(1000/iterPerFile)
+    positions = load_positions(segment_position_folder,numFilesPerFolder, numFolders, rank, nranks)
 
-    set = int(rank/212)
-    
-#    iterSize = 1
-    electrodes = makeElectrodeDict(nameList,electrodePositions,typeList,regionList,layerList)
+    iterationsPerFile = int(nranks/numFolders)
+    iterationSize = int(1000/iterationsPerFile)
+
+    iteration = int(rank/numFolders)
 
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
-    try:
-        g = np.unique(np.array(list(positions.columns))[:,0])[set*iterSize:(set+1)*iterSize]
-    except:
-        g = np.unique(np.array(list(positions.columns))[:,0])[set*iterSize:]
 
-    if len(g) == 0:
+    try:
+        node_ids= np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
+    except:
+        node_ids = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
+
+    if len(node_ids) == 0:
         h5.close()
         return 1
 
-    gSonata = lb.Selection(values=g)
-    
-    data_frame = r.get(node_ids=gSonata,tstart=0,tstop=0.1)
+    data_frame = report.get(node_ids=node_ids,tstart=0,tstop=r.dt)
 
     data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids)), names=['gid','section']), index=data_frame.times)
 
 
     columns = data.columns
 
-    positions = positions[g]
+    positions = positions[node_ids]
 
-    for gidx, gid in enumerate(g):
-       
-        position = positions[gid]
-
-        segIds = np.array(list(position.columns))
-        uniqueSegIds = np.unique(segIds)
-
-        for sId in uniqueSegIds:
-            
-            
-            pos = position.iloc[:,np.where(sId == segIds)[0]]
-    
-            if sId == 0:
-                
-                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
-                pos.columns = newcols
-
-                if gidx == 0:
-                    newPos = pos
-                else:
-                    newPos = pd.concat((newPos,pos),axis=1)
-                
-            elif np.shape(pos.values)[-1] == 1:
-                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
-                pos.columns = newcols
-                newPos = pd.concat((newPos,pos),axis=1)
-            else:
-                pos = (pos.iloc[:,:-1]+pos.iloc[:,1:])/2
-            
-                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
-                pos.columns = newcols
-                newPos = pd.concat((newPos,pos),axis=1)
-
-    positions = newPos
-    
     coeffList = []
-    
-    for ePos in electrodePositions:
 
-        if electrodeType == 'LFP':
-            coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
-        else:
-            coeffs = get_coeffs_eeg(positions,path_to_fields)
+    for electrode in h5['electrodes'].keys():
 
-        coeffList.append(coeffs)
+        if electrode != population_name:
+
+            epos = h5['electrodes'][electrode]['position']
+
+            if electrodeType == 'LFP':
+                coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
+            else:
+                coeffs = get_coeffs_eeg(positions,path_to_fields)
+
+            coeffList.append(coeffs)
 
 
     for i, gid in enumerate(g):
+
 
         for j, l in enumerate(coeffList):
 
@@ -303,27 +237,36 @@ def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,
             else:
                 newCoeffs = np.hstack((newCoeffs, coeffs))
 
-        add_data(h5, gid, newCoeffs, electrodes,population_name)
+        add_data(h5, gid, newCoeffs ,population_name)
 
     h5.close()
 
     return 0
 
+
 if __name__=='__main__':
 
 
-    probe_name = sys.argv[1]
+    type = sys.argv[1]
 
-    path_to_Blueconfig = sys.argv[3]
-    inputfolder = sys.argv[4]
-    outputfolder = sys.argv[5]
+    path_to_simconfig = sys.argv[2]
+    segment_position_folder = sys.argv[3]
+    outputfile = sys.argv[4]
 
-    numElectrodes = np.arange(1)
+    numFilesPerFolder = int(sys.argv[5])
+
+    numElectrodes = np.arange(384)
+
+    sigma = 0.277
+    path_to_fields = None
+
+    if len(sys.argv)>6:
+        sigma = float(sys.argv[6])
+        if len(sys.argv)>8:
+            path_to_fields = sys.argv[7]
 
 
-    type = sys.argv[2]
-    
-    file = h5py.File(outputfolder)
+    file = h5py.File(outputfile)
 
     names = []
     types = []
@@ -334,41 +277,10 @@ if __name__=='__main__':
 
         positions.append(file['electrodes'][probe_name+'_'+str(i)]['position'][:])
 
-    numFilesPerFolder = int(sys.argv[6])
-    
+
+
     file.close()
+
     electrodePositions = np.array(positions)
 
-    sigma = 0.277
-    path_to_fields = '/gpfs/bbp.cscs.ch/project/proj85/scratch/bbp_workflow/SSCx-O1-Calibrated-Workflow-5-12-22/81adc949-b514-4d78-853a-b369e4420dff/3/C6SurfNew.h5'
-
-
-    if len(sys.argv)>7:
-        sigma = float(sys.argv[7])
-        if len(sys.argv)>8:
-            path_to_fields = sys.argv[8]
-
-            
-    r = lb.ElementReportReader('reporting/voltage.h5')
-    r = r[r.get_population_names()[0]]
-    node_ids = r.get_node_ids()
-                            
-
-    numGids = len(node_ids)
-
-    numFolders = int(np.ceil(numGids/1000))
-
-    rank = MPI.COMM_WORLD.rank
-
-    nranks = MPI.COMM_WORLD.Get_size()
-
-    filesPerFolder = 50
-
-    rank = MPI.COMM_WORLD.Get_rank() % 212
-    
-    folder = int(rank/filesPerFolder)
-
-    allPositions = pd.read_pickle(inputfolder+'/'+str(folder)+'/positions'+str(rank)+'.pkl')
-
-
-    writeH5File(path_to_Blueconfig,outputfolder,electrodePositions,names,types,allPositions,sigma,path_to_fields)
+    writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

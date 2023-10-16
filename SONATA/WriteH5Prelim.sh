@@ -15,10 +15,9 @@
 
 module purge
 
-mkdir neuropixels_sonata_new
+mkdir eeg_sonata_new
 
 source ~/probevenv/bin/activate
 
-#module load unstable py-bluepy py-mpi4py
 
-srun -n 1 python writeH5_MPI_prelim_MEA_SONATA_newspec.py 'Neuropixels-384' 'LFP' 'BlueConfig' 'positions0' 'neuropixels_sonata_new' 50 
+srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' 'S1FL' 'simulation_config.json' 'positionsO1_new' 'eeg_sonata_new' 50

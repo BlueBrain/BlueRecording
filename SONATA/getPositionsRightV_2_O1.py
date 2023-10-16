@@ -342,8 +342,9 @@ def main(path_to_BlueConfig, newidx,chunk_size):
 
                 try:
 
-                    sec = m.sections[secName-1]
-                    pts = sec.points
+                    secId = secName-1
+                    ptIdx = m.indices[secId]
+                    pts = m.points[ptIdx]
 
                     secPts = np.array(pts)
 

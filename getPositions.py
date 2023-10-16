@@ -137,7 +137,11 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         axonRelevant = axonPoints[idx]
 
+        axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonPoints[idx]))
+
         lensRelevant = runningLens[idx] / secLen
+
+        lensRelevant = np.hstack((0,lensRelevant))
 
         if len(axonRelevant) < 2:
             idx = 0
@@ -185,10 +189,10 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
         startPoint = 60
         endPoint = 1060
 
-        idx = np.where(runningLens >= startPoint)
+        idx = np.where(runningLens >= startPoint)[0]
 
         if len(idx) == 1:
-            idx = [idx[0][0] - 1, idx[0][0]]
+            idx = [idx[0] - 1, idx[0]]
 
         axonRelevant = axonPoints[idx]
 
@@ -219,7 +223,7 @@ def main(path_to_BlueConfig, newidx,chunk_size):
     s = bp.Simulation(path_to_BlueConfig)
 
     r = s.report('Current')
-    g = c.cells.ids({'$target':'hex0'})
+    g = c.cells.ids({'$target':'hex_O1'})
 
     try:
         ids = g[1000*newidx:1000*(newidx+1)]#{'$target':colName,Cell.SYNAPSE_CLASS:'EXC',Cell.LAYER:5})
@@ -301,7 +305,7 @@ def main(path_to_BlueConfig, newidx,chunk_size):
 
     positionsOut = pd.DataFrame(xyz,columns=newCols)
     
-    positionsOut.to_pickle('positions0/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
+    positionsOut.to_pickle('positionsO1_new/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
 
 if __name__=='__main__':
 

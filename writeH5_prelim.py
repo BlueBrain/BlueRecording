@@ -117,9 +117,9 @@ def writer_factory(circ, seg_counts):
 
         elecIdx = 0
 
-       
+
         file.create_dataset(h5.weights(gid, idx), data=np.ones([len(sec_ids.values),len(electrode_struc.items())+1]))
-           
+
 
         file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values)
     return write_neuron
@@ -225,7 +225,7 @@ def writeH5File(path_to_blueconfig,inputfolder,outputfolder,electrodePositions,e
 
     circ = sim.circuit
 
-    
+
     rep = sim.report('Current')
     col = 'hex0'
     g = circ.cells.ids({'$target':col})
@@ -236,10 +236,10 @@ def writeH5File(path_to_blueconfig,inputfolder,outputfolder,electrodePositions,e
     f = data.columns.to_frame()
     f.index = range(len(f))
 
-    
+
     seg_counts = f.groupby("gid").apply(count_segments)
-    
-    
+
+
 
     electrodes = makeElectrodeDict(nameList,electrodePositions,typeList,regionList,layerList)
 
@@ -264,13 +264,13 @@ def writeH5File(path_to_blueconfig,inputfolder,outputfolder,electrodePositions,e
         write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid],i)
 
     h5file.close()
-    
-def repositionElectrode(probe):
-    
+
+def repositionElectrode(probe, path_to_Blueconfig):
+
     '''
     Aligns probe with center of cortical column
     '''
-    
+
     c = bp.Circuit(path_to_Blueconfig)
     somaPos = c.cells.get({'$target': 'hex0'},properties=[bp.Cell.X, bp.Cell.Y, bp.Cell.Z])
     center = np.mean(somaPos,axis=0).values
@@ -286,11 +286,11 @@ def repositionElectrode(probe):
     probe.rotate([0,1,0],elevation*180/np.pi)
     probe.rotate([0,0,1],azimuth*180/np.pi)
     probe.move(center)
-    
+
     return(probe)
 
 if __name__=='__main__':
- 
+
 
     probe_name = sys.argv[1]
 
@@ -300,7 +300,7 @@ if __name__=='__main__':
 
     probe = MEA.return_mea(probe_name)
 
-    repositionElectrode(probe)
+    repositionElectrode(probe,path_to_Blueconfig)
 
     electrodePositions = probe.positions
 

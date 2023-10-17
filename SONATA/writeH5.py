@@ -168,6 +168,7 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
     '''
 
     r = bp.Simulation(path_to_simconfig)
+    r = r.reports[list(r.reports.keys())[0]]
 
     population_name = r.population_names[0]
 
@@ -216,7 +217,6 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
         if electrode != population_name:
 
             epos = h5['electrodes'][electrode]['position']
-
             if electrodeType == 'LFP':
                 coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
             else:

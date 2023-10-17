@@ -101,6 +101,7 @@ def writeH5File(path_to_simconfig,inputfolder,outputfile,electrode_csv,electrode
         circuitpath = json.load(f)['network']
 
     r = bp.Simulation(path_to_simconfig)
+    r = r.reports[list(r.reports.keys())[0]]
 
     circuit = r.circuit
 

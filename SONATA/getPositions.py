@@ -2,6 +2,7 @@ import numpy as np
 from morphio import SectionType
 from morphio import Morphology
 import libsonata as lb
+import bluepysnap as bp
 
 import pandas as pd
 import sys
@@ -73,7 +74,7 @@ def get_axon_points(m,center):
             while not thisSec.is_root:
                 newSec = thisSec.parent
                 length += np.linalg.norm(m.points[m.indices[newSec.id][-1]] - m.points[m.indices[thisSec.id][-1]])
-                
+
                 thisSec = newSec
                 idxs.append(thisSec.id)
 
@@ -99,7 +100,7 @@ def get_axon_points(m,center):
         sec = m.sections[x]
 
         pts = m.points[m.indices[sec.id]]
-        
+
 
         for pt in pts:
 
@@ -110,7 +111,7 @@ def get_axon_points(m,center):
             else:
                 currentLen += np.linalg.norm(pt - lastpt)
 
-            
+
 
             if (pt == lastpt).all():
                 pt += 1e-3
@@ -240,53 +241,56 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         segPos.append([newx, newy, newz])
 
-    
+
     segPos = np.array(segPos)
     return segPos
 
 def main(path_to_BlueConfig, newidx,chunk_size):
 
 
-    r = lb.ElementReportReader('reporting/voltage.h5')
+    rSim = bp.Simulation(path_to_simconfig)
+    r = rSim.reports[list(r.reports.keys())[0]]
 
-    r = r[r.get_population_names()[0]]
-    g = r.get_node_ids()
+    circuit = r.circuit
+
+    population_name = r.population_names[0]
+
+    report = r[population_name]
+    nodeIds = report.node_ids
 
     try:
-        ids = g[1000*newidx:1000*(newidx+1)]#{'$target':colName,Cell.SYNAPSE_CLASS:'EXC',Cell.LAYER:5})
+        ids = nodeIds[1000*newidx:1000*(newidx+1)]#{'$target':colName,Cell.SYNAPSE_CLASS:'EXC',Cell.LAYER:5})
     except:
-        ids = g[1000*newidx:]
-    
+        ids = nodeIds[1000*newidx:]
 
-    data_frame = r.get(node_ids=ids,tstart=0,tstop=1)
+
+    data_frame = r.get(node_ids=ids,tstart=0,tstop=r.dt)
 
     data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids))), index=data_frame.times)
-    
 
-    
-    
-    nodes = lb.NodeStorage('/gpfs/bbp.cscs.ch/project/proj83/jira-tickets/NSETM-1948-extract-hex-O1/data/O1_data/S1nonbarrel_neurons/nodes.h5')
-    population = nodes.open_population(list(nodes.population_names)[0])
 
+
+
+    population = rSim.circuit.nodes[population_name]
 
     colIdx = data.columns
     cols = np.array(list(data.columns))
 
     for idx, i in enumerate(ids):
-        
+
         try:
-        
+
             numSomas = len(data[i][0].iloc[0])
         except:
             numSomas = 1
-        
-    
+
+
         num = 0
 
-        
-        morphName = population.get_attribute('morphology',i)
 
-         
+        morphName = population.get(i, 'morphology')
+
+
         mImmutable = Morphology('/gpfs/bbp.cscs.ch/project/proj83/jira-tickets/NSETM-1948-extract-hex-O1/data/O1_data/morphologies/ascii/'+morphName+'.asc')
 
         m = MutableMorph(mImmutable)
@@ -311,16 +315,16 @@ def main(path_to_BlueConfig, newidx,chunk_size):
         axonPoints, runningLens = get_axon_points(m,center)
 
         sections = np.unique(cols[np.where(cols[:,0]==i),1:].flatten())
-        
+
 
         somaPos = center[:,np.newaxis]
 
-    
+
         if idx ==0:
             xyz = somaPos.reshape(3,1)
         else:
             xyz = np.hstack((xyz,somaPos.reshape(3,1)))
-            
+
         if numSomas > 1:
             for k in np.arange(1,numSomas):
                 xyz = np.hstack((xyz,somaPos.reshape(3,1)))
@@ -358,7 +362,7 @@ def main(path_to_BlueConfig, newidx,chunk_size):
             xyz = np.hstack((xyz,segPos.T))
 
 
-    
+
     newIdx = []
 
     for i, col in enumerate(colIdx):
@@ -375,12 +379,13 @@ def main(path_to_BlueConfig, newidx,chunk_size):
 
 
     positionsOut = pd.DataFrame(xyz,columns=newCols)
-    
-    positionsOut.to_pickle('positionsO1_new/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
+
+    positionsOut.to_pickle(path_to_positions+'/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
 
 if __name__=='__main__':
 
-    path_to_BlueConfig = sys.argv[1]
+    path_tosimconfig = sys.argv[1]
+    path_to_positions = sys.argv[2]
     newidx = MPI.COMM_WORLD.Get_rank()
-    chunk_size = int(sys.argv[2])
+    chunk_size = int(sys.argv[3])
     main(path_to_BlueConfig, newidx, chunk_size)

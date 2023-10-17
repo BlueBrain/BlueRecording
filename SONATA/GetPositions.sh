@@ -24,13 +24,13 @@ CHUNK_SIZE=50
 
 for i in {0..212}
 do
-    
+
     folder="positionsO1_new/$(($i/$CHUNK_SIZE))"
     mkdir -p $folder 2>/dev/null
-    
+
 done
 
-srun -n 212 python getPositionsRightV_2_O1.py ./BlueConfig $CHUNK_SIZE
+srun -n 212 python getPositions.py "./simulation_config.json" "positionsO1_new" $CHUNK_SIZE
 
 #python getPositions2.py $SLURM_ARRAY_TASK_ID
 #python combineFiles.py $SLURM_ARRAY_TASK_ID

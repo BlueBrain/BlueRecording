@@ -8,6 +8,7 @@ from scipy.spatial import distance
 from scipy.spatial.transform import Rotation
 from voxcell.nexus.voxelbrain import Atlas
 import json
+from scipy.interpolate import RegularGridInterpolator
 
 def add_data(h5, gid, coeffs ,population_name):
 
@@ -128,8 +129,10 @@ def get_coeffs_eeg(positions, path_to_fields):
         y = geth5Dataset(path_to_fields, tmp, 'axis_y')
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
-        currentApplied = f['CurrentApplied'][0]
-
+        try:
+            currentApplied = f['CurrentApplied'][0]
+        except:
+            currentApplied = 1
 
     positions *= 1e-6 # Converts um to m
 
@@ -143,7 +146,7 @@ def get_coeffs_eeg(positions, path_to_fields):
 
     InterpFcn = RegularGridInterpolator((x, y, z), pot[:, :, :, 0], method='linear')
 
-    out2rat = InterpFcn(selections)
+    out2rat = InterpFcn(selections)[np.newaxis]
 
 
     outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns)
@@ -159,7 +162,43 @@ def load_positions(segment_position_folder, filesPerFolder, numFolders, rank, nr
 
     return allPositions
 
-def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
+def getSegmentMidpts(positions,node_ids):
+    
+    for gidx, gid in enumerate(node_ids):
+        
+        position = positions[gid]
+
+        segIds = np.array(list(position.columns))
+        uniqueSegIds = np.unique(segIds)
+
+        for sId in uniqueSegIds:
+
+            pos = position.iloc[:,np.where(sId == segIds)[0]]
+
+            if sId == 0:
+
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+
+                if gidx == 0:
+                    newPos = pos
+                else:
+                    newPos = pd.concat((newPos,pos),axis=1)
+
+            elif np.shape(pos.values)[-1] == 1:
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+                newPos = pd.concat((newPos,pos),axis=1)
+            else:
+                pos = (pos.iloc[:,:-1]+pos.iloc[:,1:])/2
+
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+                newPos = pd.concat((newPos,pos),axis=1)
+                
+    return newPos
+
+def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
 
     '''
     path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -170,18 +209,18 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
     
     with open(path_to_simconfig) as f:
         
-        simconfig = json.open(f)
+        simconfig = json.load(f)
         
         outputdir = simconfig['output']['output_dir']
         
         report = simconfig['reports']['compartment']['file_name']
         
-        path_to_report = outputdir + '/' + report + '.h5
+        path_to_report = outputdir + '/' + report + '.h5'
         
     r = lb.ElementReportReader(path_to_report)
     population_name = r.get_population_names()[0]
 
-    r = r.reports[population_bame]
+    r = r[population_name]
     
 
     allNodeIds = r.get_node_ids()
@@ -232,12 +271,14 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
             if electrodeType == 'LFP':
                 coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
             else:
-                coeffs = get_coeffs_eeg(positions,path_to_fields)
+                
+                newPositions = getSegmentMidpts(positions,node_ids)
+                coeffs = get_coeffs_eeg(newPositions,path_to_fields)
 
             coeffList.append(coeffs)
 
 
-    for i, gid in enumerate(g):
+    for i, gid in enumerate(node_ids):
 
 
         for j, l in enumerate(coeffList):
@@ -277,19 +318,19 @@ if __name__=='__main__':
     path_to_fields = None
 
     if len(sys.argv)>7:
-        sigma = float(sys.argv[7])
-        if len(sys.argv)>8:
-            path_to_fields = sys.argv[8]
+
+        try:
+            sigma = float(sys.argv[7])
+        except:
+            path_to_fields = sys.argv[7]
 
 
     file = h5py.File(outputfile)
 
     names = []
-    types = []
     positions = []
     for i in range(numElectrodes):
         names.append(electrode_df.index[i])
-        types.append(type)
 
         positions.append(file['electrodes'][str(i)]['position'][:])
 

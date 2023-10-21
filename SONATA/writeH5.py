@@ -151,8 +151,8 @@ def get_coeffs_eeg(positions, path_to_fields):
 
 def load_positions(segment_position_folder, filesPerFolder, numFolders, rank, nranks):
 
-    index = rank % numFolders
-    folder = int(rank/filesPerFolder)
+    index = int(rank % numFolders)
+    folder = int(index/filesPerFolder)
 
     allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
 
@@ -201,9 +201,10 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
         h5.close()
         return 1
 
-    data_frame = report.get(node_ids=node_ids,tstart=0,tstop=r.dt)
+    data = report.get(node_ids=node_ids,tstart=0,tstop=r.dt)
 
-    data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids)), names=['gid','section']), index=data_frame.times)
+    data.columns = data.columns.rename('gid',level=0)
+    data.columns = data.columns.rename('section',level=1)
 
 
     columns = data.columns
@@ -254,16 +255,20 @@ if __name__=='__main__':
     outputfile = sys.argv[4]
 
     numFilesPerFolder = int(sys.argv[5])
+    
+    electrode_csv = sys.argv[6]
+    
+    electrode_df = pd.read_csv(electrode_csv,header=0,index_col=0)
 
-    numElectrodes = np.arange(384)
+    numElectrodes = len(electrode_df.index)
 
     sigma = 0.277
     path_to_fields = None
 
-    if len(sys.argv)>6:
-        sigma = float(sys.argv[6])
+    if len(sys.argv)>7:
+        sigma = float(sys.argv[7])
         if len(sys.argv)>8:
-            path_to_fields = sys.argv[7]
+            path_to_fields = sys.argv[8]
 
 
     file = h5py.File(outputfile)
@@ -271,11 +276,11 @@ if __name__=='__main__':
     names = []
     types = []
     positions = []
-    for i in range(len(numElectrodes)):
-        names.append(probe_name+'_'+str(i))
+    for i in range(numElectrodes):
+        names.append(electrode_df.index[i])
         types.append(type)
 
-        positions.append(file['electrodes'][probe_name+'_'+str(i)]['position'][:])
+        positions.append(file['electrodes'][str(i)]['position'][:])
 
 
 

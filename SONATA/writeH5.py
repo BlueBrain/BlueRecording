@@ -1,4 +1,4 @@
-import bluepysnap as bp
+import libsonata as lb
 import numpy as np
 import h5py
 import pandas as pd
@@ -7,6 +7,7 @@ from mpi4py import MPI
 from scipy.spatial import distance
 from scipy.spatial.transform import Rotation
 from voxcell.nexus.voxelbrain import Atlas
+import json
 
 def add_data(h5, gid, coeffs ,population_name):
 
@@ -166,14 +167,24 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
     electrodePositions is a list containing the positions (in 3D cartesian space) of the recording and reference electrodes (if EEG)
     gidList is a list of the desired gids
     '''
+    
+    with open(path_to_simconfig) as f:
+        
+        simconfig = json.open(f)
+        
+        outputdir = simconfig['output']['output_dir']
+        
+        report = simconfig['reports']['compartment']['file_name']
+        
+        path_to_report = outputdir + '/' + report + '.h5
+        
+    r = lb.ElementReportReader(path_to_report)
+    population_name = r.get_population_names()[0]
 
-    r = bp.Simulation(path_to_simconfig)
-    r = r.reports[list(r.reports.keys())[0]]
+    r = r.reports[population_bame]
+    
 
-    population_name = r.population_names[0]
-
-    report = r[population_name]
-    allNodeIds = report.node_ids
+    allNodeIds = r.get_node_ids()
 
     numGids = len(allNodeIds)
 
@@ -200,11 +211,11 @@ def writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFil
     if len(node_ids) == 0:
         h5.close()
         return 1
-
-    data = report.get(node_ids=node_ids,tstart=0,tstop=r.dt)
-
-    data.columns = data.columns.rename('gid',level=0)
-    data.columns = data.columns.rename('section',level=1)
+    
+    node_ids_sonata = lb.Selection(values=node_ids)
+    
+    data_frame = r.get(node_ids=node_ids_sonata,tstart=0,tstop=0.1)
+    data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids)), names=['gid','section']), index=data_frame.times)
 
 
     columns = data.columns

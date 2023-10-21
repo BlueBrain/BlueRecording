@@ -10,7 +10,7 @@ from scipy.interpolate import interp1d
 import time
 from mpi4py import MPI
 import warnings
-
+import json
 from scipy.spatial.transform import Rotation as R
 
 warnings.filterwarnings('error', '', RuntimeWarning)
@@ -245,13 +245,13 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
     segPos = np.array(segPos)
     return segPos
 
-def main(path_to_BlueConfig, newidx,chunk_size):
+def main(path_to_simconfig, newidx,chunk_size):
 
 
     rSim = bp.Simulation(path_to_simconfig)
-    r = rSim.reports[list(r.reports.keys())[0]]
+    r = rSim.reports[list(rSim.reports.keys())[0]]
 
-    circuit = r.circuit
+    circuit = rSim.circuit
 
     population_name = r.population_names[0]
 
@@ -264,11 +264,7 @@ def main(path_to_BlueConfig, newidx,chunk_size):
         ids = nodeIds[1000*newidx:]
 
 
-    data_frame = r.get(node_ids=ids,tstart=0,tstop=r.dt)
-
-    data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids))), index=data_frame.times)
-
-
+    data = report.get(group=ids,t_start=0,t_stop=r.dt)
 
 
     population = rSim.circuit.nodes[population_name]
@@ -289,25 +285,41 @@ def main(path_to_BlueConfig, newidx,chunk_size):
 
 
         morphName = population.get(i, 'morphology')
+        
+        with open(path_to_simconfig) as f:
+
+            circuitpath = json.load(f)['network']
+            
+        with open(circuitpath) as f:
+            
+            js = json.load(f)
+            
+            basedir = js['manifest']['$BASE_DIR']
+            morphpath = js['manifest']['$MORPHOLOGIES']
+            finalmorphpath = basedir 
+            for m in morphpath.split('/')[1:]:
+                finalmorphpath = finalmorphpath + '/'+m
 
 
-        mImmutable = Morphology('/gpfs/bbp.cscs.ch/project/proj83/jira-tickets/NSETM-1948-extract-hex-O1/data/O1_data/morphologies/ascii/'+morphName+'.asc')
+        mImmutable = Morphology(finalmorphpath+'/ascii/'+morphName+'.asc')
 
         m = MutableMorph(mImmutable)
 
-        center = np.array([population.get_attribute('x',i),population.get_attribute('y',i),population.get_attribute('z',i)])
+        center = np.array([population.get(group=[i],properties='x'),population.get(group=[i],properties='y'),population.get(group=[i],properties='z')])
 
-        rotW = population.get_attribute('orientation_w',i)
-        rotX = population.get_attribute('orientation_x',i)
-        rotY = population.get_attribute('orientation_y',i)
-        rotZ = population.get_attribute('orientation_z',i)
+        center = center.flatten()
+        
+        rotW = population.get(group=[i],properties='orientation_w')
+        rotX = population.get(group=[i],properties='orientation_x')
+        rotY = population.get(group=[i],properties='orientation_y')
+        rotZ = population.get(group=[i],properties='orientation_z')
 
         rotQuat = np.array([rotX,rotY,rotZ,rotW])
         rotQuat /= np.linalg.norm(rotQuat)
 
-        rotation = R.from_quat(rotQuat)
+        rotation = R.from_quat(rotQuat.flatten())
 
-
+        
         m.points = R.apply(rotation,m.points)
 
         m.points += center
@@ -388,4 +400,4 @@ if __name__=='__main__':
     path_to_positions = sys.argv[2]
     newidx = MPI.COMM_WORLD.Get_rank()
     chunk_size = int(sys.argv[3])
-    main(path_to_BlueConfig, newidx, chunk_size)
+    main(path_tosimconfig, newidx, chunk_size)

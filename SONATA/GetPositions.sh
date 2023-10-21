@@ -18,19 +18,19 @@
 module purge
 #source ~/sirio/bin/activate
 
-module load unstable py-bluepy py-mpi4py #hdf5 py-h5py
+module load unstable py-bluepysnap py-mpi4py #hdf5 py-h5py
 
 CHUNK_SIZE=50
 
 for i in {0..212}
 do
 
-    folder="positionsO1_new/$(($i/$CHUNK_SIZE))"
+    folder="positions_hex0_new/$(($i/$CHUNK_SIZE))"
     mkdir -p $folder 2>/dev/null
 
 done
 
-srun -n 212 python getPositions.py "./simulation_config.json" "positionsO1_new" $CHUNK_SIZE
+srun -n 212 python getPositions.py "./simulation_config.json" "positions_hex0_new" $CHUNK_SIZE
 
 #python getPositions2.py $SLURM_ARRAY_TASK_ID
 #python combineFiles.py $SLURM_ARRAY_TASK_ID

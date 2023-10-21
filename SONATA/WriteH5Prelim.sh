@@ -20,4 +20,4 @@ mkdir eeg_sonata_new
 source ~/probevenv/bin/activate
 
 
-srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' 'S1FL' 'simulation_config.json' 'positionsO1_new' 'eeg_sonata_new' 50
+srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' 'S1FL' 'simulation_config.json' 'positionsO1_new' 'eeg_sonata_new/coeffs.h5' 50

@@ -96,23 +96,24 @@ def writeH5File(path_to_simconfig,inputfolder,outputfile,electrode_csv,electrode
     gidList is a list of the desired gids
     '''
 
-    with f as open(path_to_simconfig):
+    with open(path_to_simconfig) as f:
 
         circuitpath = json.load(f)['network']
 
-    r = bp.Simulation(path_to_simconfig)
-    r = r.reports[list(r.reports.keys())[0]]
+    r1 = bp.Simulation(path_to_simconfig)
+    r = r1.reports[list(r1.reports.keys())[0]]
 
-    circuit = r.circuit
+    circuit = r1.circuit
 
     population_name = r.population_names[0]
 
     report = r[population_name]
     nodeIds = report.node_ids
 
-    data_frame = report.get(node_ids=nodeIds,tstart=0,tstop=r.dt)
+    data = report.get(group=nodeIds,t_start=0,t_stop=r.dt)
+    data.columns = data.columns.rename('gid',level=0)
+    data.columns = data.columns.rename('section',level=1)
 
-    data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids)), names=['gid','section']), index=data_frame.times)
 
     f = data.columns.to_frame()
     f.index = range(len(f))

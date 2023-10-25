@@ -15,16 +15,32 @@ import MEAutility as MEA
 from sklearn.decomposition import PCA
 
 class ElectrodeFileStructure(object):
+
+    '''
+    This class writes datasets to the h5 file
+    '''
+
     def __init__(self, fn, h5, lst_gids, electrodes, **kwargs):
+
+        '''
+        fn: filename
+        h5: h5 file returned by h5py.File(filename,'w')
+        **kwargs: currently expected to take the circuit path
+        '''
+
         self._fn = fn
 
         dset = h5.create_dataset("neuron_ids", data=sorted(lst_gids))
+
         for k, v in kwargs.items():
             dset.attrs.create(k, v)
-        for k, electrode in electrodes.items():
-            for item in electrode.items():
+
+        ### Iterates through electrode dictionary to write metadata
+        for k, electrode in electrodes.items(): # Iterates through electrodes
+            for item in electrode.items(): # Iterates through metadata fields for each electrode
                 h5.create_dataset("electrodes/" + k + '/' + item[0],
                               data=item[1])
+
         self._gids = np.array(lst_gids)
 
     def file(self):
@@ -44,97 +60,63 @@ class ElectrodeFileStructure(object):
         folder = int(idx/50)
         return '/electrodes/electrode_grid/'+str(int(gid))
 
-
 def morph_stats_for_neuron(m):
-    out_L = [10.0]
-    for sec in m.sections:
-        out_L.append(np.sum(np.diff(sec.points, axis=0) ** 2, axis=1))
-    out_L = np.hstack(out_L)
+
+    '''
+    Reutns list of offsets for each section in neuron
+    '''
+
     out_offsets = np.hstack([0, 1, 1 + np.cumsum(np.diff(m.section_offsets) - 1).astype(int)])
-    return out_L, out_offsets
 
-
-def weights_for_neuron(m, location):
-    out_W = [1. / distance.cdist(m.soma.center.reshape((1, 3)), location)]
-    for sec in m.sections:
-        midpoints = 0.5 * (sec.points[:-1] + sec.points[1:])
-        out_W.append(1. / distance.cdist(midpoints, location))
-    out_W = np.vstack(out_W)
-    return out_W
-
+    return  out_offsets
 
 def offsets_for_compartments(count_dict, in_offsets):
+
+    '''
+    Returns list of offsets for each segment in neuron
+    '''
+
     out_offsets = np.zeros_like(in_offsets, dtype=int)
+
     for sec_id in range(len(in_offsets) - 1):
         out_offsets[sec_id + 1] = out_offsets[sec_id] + count_dict.get(sec_id, 0)
+
     return out_offsets
 
-
-def weights_for_compartments(count_dict, in_offsets, in_weights, in_lengths):
-    out_W = []
-    for sec_id in range(len(in_offsets) - 1):
-        if sec_id in count_dict:
-            sec_len = count_dict[sec_id]
-            lst_weights = in_weights[in_offsets[sec_id]:in_offsets[sec_id + 1]]
-            lst_lengths = in_lengths[in_offsets[sec_id]:in_offsets[sec_id + 1]]
-            out = ad_hoc_interpolation(lst_weights, lst_lengths, sec_len)
-            out_W.append(out)
-    return np.vstack(out_W)
-
-def ad_hoc_interpolation(lst_weights, lst_lengths, n_seg):
-    nrmlz_len = np.hstack([0.0, np.cumsum(lst_lengths)]) / np.sum(lst_lengths)
-    splts = np.linspace(0.0, 1.0, n_seg + 1)
-
-    out = []
-    for a, b in zip(splts[:-1], splts[1:]):
-        w1 = np.minimum(1.0,
-                           np.maximum(0.0,
-                                         (nrmlz_len[1:] - a) / (nrmlz_len[1:] - nrmlz_len[:-1])
-                                         )
-                           )
-        w2 = np.minimum(1.0,
-                           np.maximum(0.0,
-                                         (b - nrmlz_len[:-1]) / (nrmlz_len[1:] - nrmlz_len[:-1])
-                                         )
-                           )
-        w_use = (lst_lengths * w1 * w2).reshape((len(w1), 1))
-        out.append(np.sum(lst_weights * w_use, axis=0) / np.sum(w_use))
-    return np.array(out)
-
 def writer_factory(circ, seg_counts):
+
     def write_neuron(h5, file, gid, electrode_struc,sec_ids,idx):
-        m = circ.morph.get(gid, transform=True)
-        count_dict = seg_counts.loc[gid].values[0][0]
 
+        ###### This block writes a dataset that lists the offset for each section in the neuron
 
+        m = circ.morph.get(gid, transform=True) #MorphIO morphology object for given neuron
+
+        count_dict = seg_counts.loc[gid].values[0][0] # Number of segments in the neuron
         count_dict = dict(zip(count_dict[0], count_dict[1]))
 
-        in_L, in_offsets = morph_stats_for_neuron(m)
+        in_offsets = morph_stats_for_neuron(m)
         out_offsets = offsets_for_compartments(count_dict, in_offsets)
 
+        file.create_dataset(h5.offsets(gid), data=out_offsets) # Creates dataset containing offset for each section in the gid
 
-        file.create_dataset(h5.offsets(gid), data=out_offsets)
+        ###################
 
         elecIdx = 0
 
 
-        file.create_dataset(h5.weights(gid, idx), data=np.ones([len(sec_ids.values),len(electrode_struc.items())+1]))
+        file.create_dataset(h5.weights(gid, idx), data=np.ones([len(sec_ids.values),len(electrode_struc.items())+1])) # Initializes the coefficient dataset for the gid, with a matrix of ones of size (number_of_segments x number_of_electrodes+1 (the last column is a check; LFP reports from that electrode should always read 0 ) )
 
 
-        file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values)
+        file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values) # Creates dataset with section ids for the given neuron
+
     return write_neuron
 
-def add_data(h5, gid, coeffs, electrode_struc):
-    with h5.file() as h5_file:
-
-        i = 0
-        for elec_name, elec_location in electrode_struc.items():
-            dset = h5.weights(elec_name, gid)
-            h5_file[dset] = coeffs[i].values
-            i += 1
 
 def count_segments(in_data):
 
+    '''
+    Returns dataframe containing a count of the number of segments in each gid
+    '''
 
     gid = in_data.values[0,0]
 
@@ -147,79 +129,52 @@ def count_segments(in_data):
 
     return df
 
-def applyParallel(dfGrouped, func):
-    retLst = Parallel(n_jobs=multiprocessing.cpu_count())(delayed(func)(group) for name, group in dfGrouped)
-    return pd.concat(retLst)
-
-def getAtlasInfo(BlueConfig,electrodePositions):
 
 
-    bluefile = open(BlueConfig,'r')
-    bluelines = bluefile.readlines()
-    bluefile.close()
+def makeElectrodeDict(electrode_csv,type):
 
-    for line in bluelines:
-        if 'Atlas' in line:
-            atlasName = line.split('Atlas ')[-1].split('\n')[0]
-            break
-
-    atlas = Atlas.open(atlasName)
-    brain_regions = atlas.load_data('brain_regions')
-
-    region_map = atlas.load_region_map()
-
-    regionList = []
-    layerList = []
-
-
-    for position in electrodePositions:
-
-        try:
-
-            for id_ in brain_regions.lookup([position]):
-
-                region = region_map.get(id_, 'acronym')
-                regionList.append(region.split(';')[0])
-                layerList.append(region.split(';')[1])
-
-        except:
-
-            regionList.append('Outside')
-            layerList.append('Outside')
-
-
-    print(regionList,flush=True)
-    return regionList, layerList
-
-def makeElectrodeDict(names,positions,types,regions,layers):
+    electrode_df = pd.read_csv(electrode_csv,header=0,index_col=0)
 
     electrodes = {}
 
+    for i in range(len(electrode_df.values)):
 
-    for i, name in enumerate(names):
-        electrodes[name] = {'location': positions[i],'type': types[i],
-        'region':regions[i],'layer':layers[i],'offset':i}
+        if 'electrode' in electrode_df.columns:
+
+            name = electrode_df['electrode'][i]
+
+        else:
+
+            name = str(i)
+
+        position = np.array([electrode_df['x'][i],electrode_df['y'][i],electrode_df['z'][i]])
+
+        if 'layer' in electrode_df.columns:
+            layer = electrode_df['layer'][i]
+        else:
+            layer = "Not provided"
+
+        if 'region' in electrode_df.columns:
+            region = electrode_df['region'][i]
+        else:
+            region= "Not provided"
+
+
+        electrodes[name] = {'position': position,'type': type,
+        'region':region,'layer':layer}
+
 
     return electrodes
 
-
-
-def writeH5File(path_to_blueconfig,inputfolder,outputfolder,electrodePositions,electrodeNames,electrodeType,numFilesPerFolder,sigma=0.277,path_to_fields=None):
+def getCellInfo(path_to_blueconfig):
 
     '''
-    path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
-    inputfile refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
-    electrodePositions is a list containing the positions (in 3D cartesian space) of the recording and reference electrodes (if EEG)
-    gidList is a list of the desired gids
+    Returns the following:
+    circuit: Path to the circuit used to generate the time steps. Gets written to the h5 file and is checked by neurodamus when and LFP simulation is run. LFP simulation will fail if it uses a different circuit than the one in the h5 file
+    gids: list of gids for which segment coefficients will be written
+    sectionIds: dataframe containing the gid and sectionId of each neuron
+    seg_counts: data frame containing the number of segments in each gid
     '''
-
-
-    regionList, layerList = getAtlasInfo(path_to_blueconfig, electrodePositions)
-
-    electrodeName = electrodeNames[0].split('_')[0]
-
-    nameList = electrodeNames
-    typeList = electrodeType
 
     sim = bp.Simulation(path_to_blueconfig)
 
@@ -227,100 +182,65 @@ def writeH5File(path_to_blueconfig,inputfolder,outputfolder,electrodePositions,e
 
 
     rep = sim.report('Current')
-    col = 'hex0'
+    col = 'hex_O1'
     g = circ.cells.ids({'$target':col})
 
     data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g)
 
 
-    f = data.columns.to_frame()
-    f.index = range(len(f))
+    sectionIds = data.columns.to_frame()
+    sectionIds.index = range(len(f))
+
+    seg_counts = sectionIds.groupby("gid").apply(count_segments)
+
+    return circuit, gids, sectionIds, seg_counts
 
 
-    seg_counts = f.groupby("gid").apply(count_segments)
+def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
 
+    '''
+    path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
+    inputfile refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
+    electrode_csv is a csv file containing the position, region, and layer of each electrode
+    type is either EEG or LFP
+    '''
 
+    circ, gids, seg_counts = getCellInfo(path_to_blueconfig)
 
-    electrodes = makeElectrodeDict(nameList,electrodePositions,typeList,regionList,layerList)
+    electrodes = makeElectrodeDict(electrode_csv,type) # Dictionary containing metadata about the electrodes
 
-    filename = outputfolder+'/coeffs'+electrodeName+'.h5'
+    h5file = h5py.File(outputfile,'w') # Creates h5 file for coefficients
 
-    h5file = h5py.File(filename,'w')
-
+    ### This block sets memory parameters that make writing the H5 file faster
     h5id = h5file.id
     cc = h5id.get_mdc_config()
     cc.max_size = 1024*1024*124
     h5id.set_mdc_config(cc)
+    #####
 
 
-    h5 = ElectrodeFileStructure(filename, h5file, g, electrodes, circuit=circ.config["cells"])
+    h5 = ElectrodeFileStructure(filename, h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
 
-    write_neuron = writer_factory(circ, seg_counts)
-    secIds = pd.DataFrame(data=f.values[:,1],index=f.values[:,0])
+    write_neuron = writer_factory(circ, seg_counts) # Creates function to initialize coefficient field in h5 file for each neuron
+
+    secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0])
 
 
-    for i, gid in enumerate(g):
+    for i, gid in enumerate(g): # For each gid, initializes coefficient field in h5 file
 
         write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid],i)
 
     h5file.close()
 
-def repositionElectrode(probe, path_to_Blueconfig):
-
-    '''
-    Aligns probe with center of cortical column
-    '''
-
-    c = bp.Circuit(path_to_Blueconfig)
-    somaPos = c.cells.get({'$target': 'hex0'},properties=[bp.Cell.X, bp.Cell.Y, bp.Cell.Z])
-    center = np.mean(somaPos,axis=0).values
-
-
-    pca = PCA(n_components=3)
-    pca.fit(somaPos)
-    main_axis = pca.components_[0]
-
-    elevation = np.arctan2(np.sqrt(main_axis[0]**2+main_axis[1]**2),main_axis[2])
-    azimuth = np.arctan2(main_axis[1],main_axis[0])
-
-    probe.rotate([0,1,0],elevation*180/np.pi)
-    probe.rotate([0,0,1],azimuth*180/np.pi)
-    probe.move(center)
-
-    return(probe)
-
 if __name__=='__main__':
 
+    electrode_csv = sys.argv[1]
 
-    probe_name = sys.argv[1]
+    type = sys.argv[2]
 
-    path_to_Blueconfig = sys.argv[3]
-    inputfolder = sys.argv[4]
-    outputfolder = sys.argv[5]
+    path_to_simconfig = sys.argv[3]
 
-    probe = MEA.return_mea(probe_name)
-
-    repositionElectrode(probe,path_to_Blueconfig)
-
-    electrodePositions = probe.positions
-
-    type = sys.argv[2] # Either EEG or LFP
-
-    names = []
-    types = []
-    for i in range(len(electrodePositions)):
-        names.append(probe_name+'_'+str(i))
-        types.append(type)
-
-    numFilesPerFolder = int(sys.argv[6]) # Number of files per folder in the cell position data folder
-
-    sigma = 0.277 # Conductivity of brain. Used for LFP only
-    path_to_fields = None # Path to finite elemnt results. Used for EEG only
-
-    if len(sys.argv)>7:
-        sigma = float(sys.argv[7])
-        if len(sys.argv)>8:
-            path_to_fields = sys.argv[8]
+    outputfile = sys.argv[4]
 
 
-    writeH5File(path_to_Blueconfig,inputfolder,outputfolder,electrodePositions,names,types,numFilesPerFolder,sigma,path_to_fields)
+    writeH5File(path_to_simconfig,outputfile,electrode_csv,type)

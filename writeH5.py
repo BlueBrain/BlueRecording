@@ -11,63 +11,16 @@ from voxcell.nexus.voxelbrain import Atlas
 def add_data(h5, gid, coeffs, electrode_struc, rank):
 
     dset = 'electrodes/electrode_grid/'+str(int(gid))
-    h5[dset][:] = coeffs
+    h5[dset][:-1] = coeffs
 
-
-def getAtlasInfo(BlueConfig,electrodePositions):
-
-
-    bluefile = open(BlueConfig,'r')
-    bluelines = bluefile.readlines()
-    bluefile.close()
-
-    for line in bluelines:
-        if 'Atlas' in line:
-            atlasName = line.split('Atlas ')[-1].split('\n')[0]
-            break
-
-    atlas = Atlas.open(atlasName)
-    brain_regions = atlas.load_data('brain_regions')
-
-    region_map = atlas.load_region_map()
-
-    regionList = []
-    layerList = []
-
-
-    for position in electrodePositions:
-
-        try:
-
-            for id_ in brain_regions.lookup([position]):
-
-                region = region_map.get(id_, 'acronym')
-                regionList.append(region.split(';')[0])
-                layerList.append(region.split(';')[1])
-
-        except:
-
-            regionList.append('Outside')
-            layerList.append('Outside')
-
-    return regionList, layerList
-
-def makeElectrodeDict(names,positions,types,regions,layers):
-
-    electrodes = {}
-
-
-    for i, name in enumerate(names):
-        electrodes[name] = {'location': positions[i],'type': types[i],
-        'region':regions[i],'layer':layers[i],'offset':i}
-
-    return electrodes
 
 def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
     '''
+    Uses line soruce approximation to get contribution from a segment
     startPos and endPos are the starting and ending positions of the segment
     sigma is the extracellular conductivity
+    Implementation copied from LFPy
     '''
 
     segLength = np.linalg.norm(startPos-endPos)
@@ -94,13 +47,13 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
     for i in range(len(positions.columns)-1):
 
-        if positions.columns[i][-1]==0:
+        if positions.columns[i][-1]==0: # Implies that it is a soma
 
             somaPos = positions.iloc[:,i]
 
             distance = np.linalg.norm(somaPos-electrodePos)
 
-            somaCoeff = 1/(4*np.pi*sigma*distance)
+            somaCoeff = 1/(4*np.pi*sigma*distance) # We treat the soma as a point, so the contribution at the electrode follows the formula for the potential from a point source
 
             if i == 0:
                 coeffs = somaCoeff
@@ -108,12 +61,9 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
                 coeffs = np.hstack((coeffs,somaCoeff))
 
-        elif positions.columns[i][-1]==positions.columns[i+1][-1]:
+        elif positions.columns[i][-1]==positions.columns[i+1][-1]: # Ensures we are not at the far end of a section
 
-            meanPos = (positions.iloc[:,i]+positions.iloc[:,i+1])/2
-            distance = np.linalg.norm(meanPos-electrodePos)
-
-            segCoeff = 1/(4*np.pi*sigma*distance)
+            segCoeff = get_line_coeffs(startPos,endPos,electrodePos,sigma)
 
             coeffs = np.hstack((coeffs,segCoeff))
 
@@ -164,10 +114,14 @@ def get_coeffs_eeg(positions, path_to_fields):
         y = geth5Dataset(path_to_fields, tmp, 'axis_y')
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
-        currentApplied = f['CurrentApplied'][0]
+
+        try:
+            currentApplied = f['CurrentApplied'][0] # The potential field should have a current, but if not, just assume it is 1
+        except:
+            currentApplied = 1
 
 
-    positions *= 1e-6 # Converts um to m
+    positions *= 1e-6 # Converts um to m, to match the potential field file
 
     xSelect = positions.values[0]
     ySelect = positions.values[1]
@@ -179,74 +133,129 @@ def get_coeffs_eeg(positions, path_to_fields):
 
     InterpFcn = RegularGridInterpolator((x, y, z), pot[:, :, :, 0], method='linear')
 
-    out2rat = InterpFcn(selections)
+    out2rat = InterpFcn(selections) # Interpolate potential field at location of neural segments
 
 
-    outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns)
+    outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns) # Scale potential field by applied current
 
     return outdf
 
-
-
-def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,typeList,positions,sigma=0.277,path_to_fields=None):
-
-    '''
-    path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
-    inputfile refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
-    electrodePositions is a list containing the positions (in 3D cartesian space) of the recording and reference electrodes (if EEG)
-    gidList is a list of the desired gids
-    '''
-
-    regionList, layerList = getAtlasInfo(path_to_blueconfig,electrodePositions)
-
-    nameList = electrodeNames
-    electrodeType = typeList[0]
+def getGids(path_to_blueconfig):
 
     sim = bp.Simulation(path_to_blueconfig)
 
     rep = sim.report('Current')
 
     c = bp.Circuit(path_to_blueconfig)
-    ids = c.cells.ids({'$target':'hex0'})
+    ids = c.cells.ids({'$target':'hex0_O1'})
+
+    return ids
+
+def load_positions(segment_position_folder, filesPerFolder, numFolders, rank, nranks):
+
+    index = int(rank % numFolders)
+    folder = int(index/filesPerFolder)
+
+    allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
+
+    return allPositions
+
+def getSegmentMidpts(positions,node_ids):
+
+    for gidx, gid in enumerate(node_ids):
+
+        position = positions[gid]
+
+        secIds = np.array(list(position.columns))
+        uniqueSecIds = np.unique(secIds)
+
+        for sId in uniqueSecIds: # Iterates through sections
+
+            pos = position.iloc[:,np.where(sId == secIds)[0]]
+
+            if sId == 0: # Implies that section is a soma, so we just take the position from the file
+
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+
+                if gidx == 0:
+                    newPos = pos
+                else:
+                    newPos = pd.concat((newPos,pos),axis=1)
+
+            elif np.shape(pos.values)[-1] == 1: # If there is only one point in the section, we just take the value
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+                newPos = pd.concat((newPos,pos),axis=1)
+
+            else: # We take the midpoints of the values in the file, which are the endpoints of the segments
+                pos = (pos.iloc[:,:-1]+pos.iloc[:,1:])/2
+
+                newcols = pd.MultiIndex.from_product([[gid],pos.columns])
+                pos.columns = newcols
+                newPos = pd.concat((newPos,pos),axis=1)
+
+    return newPos
+
+
+def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
+
+    '''
+    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
+    segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
+    '''
+
+    ids = getGids(path_to_simconfig)
+
 
     rank = MPI.COMM_WORLD.Get_rank()
     nranks = MPI.COMM_WORLD.Get_size()
 
-    iterPerFile = int(nranks/31)
-    iterSize = int(1000/iterPerFile)
+    numPositionFiles = np.ceil(len(ids)/1000) # Each position file has 1000 gids
 
-    set = int(rank/31)
+    positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank, nranks)
 
+    iterationsPerFile = int(nranks/numPositionFiles)
 
-    electrodes = makeElectrodeDict(nameList,electrodePositions,typeList,regionList,layerList)
+    iterationSize = int(1000/iterationsPerFile)
 
+    iteration = int(rank/numFolders)
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
+
+    #### For the current rank, selects gids for which to calculate the coefficients
     try:
-        g = np.unique(np.array(list(positions.columns))[:,0])[set*iterSize:(set+1)*iterSize]
+        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
     except:
-        g = np.unique(np.array(list(positions.columns))[:,0])[set*iterSize:]
+        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
 
     if len(g) == 0:
         h5.close()
         return 1
+    ##########
 
-    data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g)
+    data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g) # Loads compartment report for selected GIDs
 
     columns = data.columns
 
-    positions = positions[g]
+    positions = positions[g] # Gets positions for specific gids
 
     coeffList = []
 
-    for ePos in electrodePositions:
+    for electrode in h5['electrodes'].keys():
 
-        if electrodeType == 'LFP':
-            coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
-        else:
-            coeffs = get_coeffs_eeg(positions,path_to_fields)
+        if electrode != population_name:
 
-        coeffList.append(coeffs)
+            epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
+
+            if electrodeType == 'LFP':
+                coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
+            else:
+
+                newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
+                coeffs = get_coeffs_eeg(newPositions,path_to_fields)
+
+            coeffList.append(coeffs)
 
 
     for i, gid in enumerate(g):
@@ -254,7 +263,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,
 
         for j, l in enumerate(coeffList):
 
-            coeffs = np.array(l.loc[:,gid].values).T
+            coeffs = np.array(coeffList.loc[:,gid].values).T
 
             if j == 0:
                 newCoeffs = coeffs
@@ -269,60 +278,43 @@ def writeH5File(path_to_blueconfig,outputfile,electrodePositions,electrodeNames,
 
 if __name__=='__main__':
 
+    type = sys.argv[1] # Either EEG or LFP
 
-    probe_name = sys.argv[1]
+    path_to_simconfig = sys.argv[2]
+    segment_position_folder = sys.argv[3]
+    outputfile = sys.argv[4]
 
-    path_to_Blueconfig = sys.argv[3]
-    inputfolder = sys.argv[4]
-    outputfolder = sys.argv[5]
+    numFilesPerFolder = int(sys.argv[5])
 
-    numElectrodes = np.arange(23,74)
+    electrode_csv = sys.argv[6]
+
+    electrode_df = pd.read_csv(electrode_csv,header=0,index_col=0)
+
+    numElectrodes = len(electrode_df.index)
+
+    sigma = 0.277 # Conductance of the brain tissue, in S/m
+    path_to_fields = None # H5 file generated by the finite element solver with the potential field resulting from a current between two recording electrodes
+
+    if len(sys.argv)>7: # Specify either conductance or a potential field, not both
+
+        try:
+            sigma = float(sys.argv[7]) # If the argument is a number, assume it is a conductance
+        except:
+            path_to_fields = sys.argv[7]
 
 
-    type = sys.argv[2]
-    
-    file = h5py.File(outputfolder)
+    file = h5py.File(outputfile)
 
-    names = []
-    types = []
     positions = []
-    for i in range(len(numElectrodes)):
-        names.append(probe_name+'_'+str(i))
-        types.append(type)
 
-        positions.append(file['electrodes'][probe_name+'_'+str(i)]['location'][:])
+    for i in range(numElectrodes):
 
-    numFilesPerFolder = int(sys.argv[6])
-    
+        positions.append(file['electrodes'][str(i)]['position'][:]) # Take electrode positions from h5 coefficient file
+
+
+
     file.close()
+
     electrodePositions = np.array(positions)
 
-    sigma = 0.277
-    path_to_fields = None
-
-    if len(sys.argv)>7:
-        sigma = float(sys.argv[7])
-        if len(sys.argv)>8:
-            path_to_fields = sys.argv[8]
-
-    sim = bp.Simulation(path_to_Blueconfig)
-
-    rep = sim.report('Current')
-
-    numGids = len(rep.gids)
-
-    numFolders = int(np.ceil(numGids/1000))
-
-    rank = MPI.COMM_WORLD.rank
-
-    nranks = MPI.COMM_WORLD.Get_size()
-
-    filesPerFolder = 50
-
-    rank = MPI.COMM_WORLD.Get_rank() % 31
-    folder = int(rank/filesPerFolder)
-
-    allPositions = pd.read_pickle(inputfolder+'/'+str(folder)+'/positions'+str(rank)+'.pkl')
-
-
-    writeH5File(path_to_Blueconfig,outputfolder,electrodePositions,names,types,allPositions,sigma,path_to_fields)
+    writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

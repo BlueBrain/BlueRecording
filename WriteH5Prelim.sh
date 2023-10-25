@@ -18,4 +18,4 @@ module purge
 mkdir neuropixels
 
 source ~/probevenv/bin/activate
-srun -n 1 python writeH5_MPI_prelim_MEA_full.py 'Neuropixels-384' 'LFP' 'BlueConfig' 'positions0' 'neuropixels_full' 50 
+srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'LFP' './BlueConfig' 'positionsO1_new' 'electrodes/electrode.h5'

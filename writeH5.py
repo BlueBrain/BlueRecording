@@ -147,13 +147,13 @@ def getGids(path_to_blueconfig):
     rep = sim.report('Current')
 
     c = bp.Circuit(path_to_blueconfig)
-    ids = c.cells.ids({'$target':'hex0_O1'})
+    ids = c.cells.ids({'$target':'hex_O1'})
 
-    return ids
+    return ids, rep
 
-def load_positions(segment_position_folder, filesPerFolder, numFolders, rank, nranks):
+def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank, nranks):
 
-    index = int(rank % numFolders)
+    index = int(rank % numPositionFiles)
     folder = int(index/filesPerFolder)
 
     allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
@@ -205,7 +205,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
     '''
 
-    ids = getGids(path_to_simconfig)
+    ids, rep = getGids(path_to_simconfig)
 
 
     rank = MPI.COMM_WORLD.Get_rank()
@@ -219,7 +219,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     iterationSize = int(1000/iterationsPerFile)
 
-    iteration = int(rank/numFolders)
+    iteration = int(rank/numPositionFiles)
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
 
@@ -244,18 +244,16 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     for electrode in h5['electrodes'].keys():
 
-        if electrode != population_name:
+        epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
 
-            epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
+        if electrodeType == 'LFP':
+            coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
+        else:
 
-            if electrodeType == 'LFP':
-                coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
-            else:
+            newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
+            coeffs = get_coeffs_eeg(newPositions,path_to_fields)
 
-                newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
-                coeffs = get_coeffs_eeg(newPositions,path_to_fields)
-
-            coeffList.append(coeffs)
+        coeffList.append(coeffs)
 
 
     for i, gid in enumerate(g):

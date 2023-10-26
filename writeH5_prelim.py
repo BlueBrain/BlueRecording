@@ -189,11 +189,11 @@ def getCellInfo(path_to_blueconfig):
 
 
     sectionIds = data.columns.to_frame()
-    sectionIds.index = range(len(f))
+    sectionIds.index = range(len(sectionIds))
 
     seg_counts = sectionIds.groupby("gid").apply(count_segments)
 
-    return circuit, gids, sectionIds, seg_counts
+    return circ, g, sectionIds, seg_counts
 
 
 def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
@@ -205,7 +205,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     type is either EEG or LFP
     '''
 
-    circ, gids, seg_counts = getCellInfo(path_to_blueconfig)
+    circ, gids, sectionIds, seg_counts = getCellInfo(path_to_blueconfig)
 
     electrodes = makeElectrodeDict(electrode_csv,type) # Dictionary containing metadata about the electrodes
 
@@ -219,14 +219,14 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     #####
 
 
-    h5 = ElectrodeFileStructure(filename, h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(outputfile, h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
 
     write_neuron = writer_factory(circ, seg_counts) # Creates function to initialize coefficient field in h5 file for each neuron
 
     secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0])
 
 
-    for i, gid in enumerate(g): # For each gid, initializes coefficient field in h5 file
+    for i, gid in enumerate(gids): # For each gid, initializes coefficient field in h5 file
 
         write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid],i)
 

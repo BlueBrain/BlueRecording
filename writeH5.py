@@ -11,7 +11,7 @@ from voxcell.nexus.voxelbrain import Atlas
 def add_data(h5, gid, coeffs, electrode_struc, rank):
 
     dset = 'electrodes/electrode_grid/'+str(int(gid))
-    h5[dset][:-1] = coeffs
+    h5[dset][:,:-1] = coeffs
 
 
 def get_line_coeffs(startPos,endPos,electrodePos,sigma):

@@ -1,0 +1,7800 @@
+{
+  "_meta": {
+    "file-type": "spack-lockfile",
+    "lockfile-version": 4,
+    "specfile-version": 3
+  },
+  "roots": [
+    {
+      "hash": "zl4guqckp5gp7iprj3f45nnnifabkgwm",
+      "spec": "py-h5py"
+    },
+    {
+      "hash": "sqxqirbl5dqk3ms3xdkkzijpjjgnahz4",
+      "spec": "py-bluepysnap"
+    }
+  ],
+  "concrete_specs": {
+    "zl4guqckp5gp7iprj3f45nnnifabkgwm": {
+      "name": "py-h5py",
+      "version": "3.8.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "mpi": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2wcjksxkoaoy3l3ectlspwjalcypqqwad6cmrcus7l5rxyatphbq====",
+      "dependencies": [
+        {
+          "name": "hdf5",
+          "hash": "h22zdqe2uwxvsh46yhrxpccurwhr4ocr",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "hpe-mpi",
+          "hash": "qk754fsip5huicz34oar3tlywrt5q2hf",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-cython",
+          "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-mpi4py",
+          "hash": "glx4cfnu5cionch2hbeyzns5ol3vexp7",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pkgconfig",
+          "hash": "3tba42shhr6poc3gd32dxscdisn7pxzc",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "zl4guqckp5gp7iprj3f45nnnifabkgwm"
+    },
+    "h22zdqe2uwxvsh46yhrxpccurwhr4ocr": {
+      "name": "hdf5",
+      "version": "1.14.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "bluebrain",
+      "parameters": {
+        "api": "default",
+        "build_system": "cmake",
+        "build_type": "RelWithDebInfo",
+        "cxx": true,
+        "fortran": false,
+        "hl": true,
+        "ipo": false,
+        "java": false,
+        "map": false,
+        "mpi": true,
+        "page_buffer_patch": false,
+        "patches": [
+          "0b5dd6f233bc23532ccc79034a136605ec8c6a695f9d82fbcc3caf0c1c8c3119"
+        ],
+        "shared": true,
+        "szip": false,
+        "threadsafe": false,
+        "tools": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "patches": [
+        "0b5dd6f233bc23532ccc79034a136605ec8c6a695f9d82fbcc3caf0c1c8c3119"
+      ],
+      "package_hash": "xnnp2mzbpdr5ro5g2clkgl7jerlvd74t3prsgevbfl2brq4bnv4a====",
+      "dependencies": [
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "hpe-mpi",
+          "hash": "qk754fsip5huicz34oar3tlywrt5q2hf",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "pkgconf",
+          "hash": "q4mt2xu6ghl7otueh4scm5whmtot42ih",
+          "type": [
+            "run"
+          ]
+        },
+        {
+          "name": "zlib",
+          "hash": "ogdpwovxjavmphqzlyrjfggoexpa4di2",
+          "type": [
+            "build",
+            "link"
+          ]
+        }
+      ],
+      "hash": "h22zdqe2uwxvsh46yhrxpccurwhr4ocr"
+    },
+    "vb7bdpgsupe5e2klkhkqos6vje2u4pns": {
+      "name": "cmake",
+      "version": "3.24.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "build_type": "Release",
+        "doc": false,
+        "ncurses": true,
+        "ownlibs": true,
+        "qt": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/cmake-3.24.3-4blf3d",
+        "module": [
+          "cmake/3.24.3"
+        ],
+        "extra_attributes": {}
+      },
+      "package_hash": "vg5w57ax575o45kvwry2cl3pf3wbarc6xmpovqsh5hf7vh4zeiha====",
+      "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns"
+    },
+    "qk754fsip5huicz34oar3tlywrt5q2hf": {
+      "name": "hpe-mpi",
+      "version": "2.25.hmpt",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "patches",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/hpe-mpi-2.25.hmpt-bvghnw",
+        "module": [
+          "hpe-mpi/2.25.hmpt"
+        ],
+        "extra_attributes": {}
+      },
+      "package_hash": "5k5px547hkye2w5we7dh57bpyuhrien7brl6ayv6zz3fr2p5ov5a====",
+      "hash": "qk754fsip5huicz34oar3tlywrt5q2hf"
+    },
+    "q4mt2xu6ghl7otueh4scm5whmtot42ih": {
+      "name": "pkgconf",
+      "version": "1.8.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "autotools",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "olr5zscvqru56pgiiqlnzc4ud5e7iuyntj6fsplcrjh3jngqjpja====",
+      "hash": "q4mt2xu6ghl7otueh4scm5whmtot42ih"
+    },
+    "ogdpwovxjavmphqzlyrjfggoexpa4di2": {
+      "name": "zlib",
+      "version": "1.2.13",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "makefile",
+        "optimize": true,
+        "pic": true,
+        "shared": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/zlib-1.2.13-7d6hpk",
+        "module": null,
+        "extra_attributes": {}
+      },
+      "package_hash": "ghj4qyx3sv3so5vpvnodld6r372mc6oqefofmoer3xbpq5tcwvca====",
+      "hash": "ogdpwovxjavmphqzlyrjfggoexpa4di2"
+    },
+    "bjojgfinig2mqz5blgmhssxroi3tswsa": {
+      "name": "py-cython",
+      "version": "0.29.32",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "elqjkhhg7are3j5mmauzyjjm6zzn7rgnqrtqo7z34yqeym2x6xga====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa"
+    },
+    "3wgk4cbtae6dsej2dok3a26qewqe4n6s": {
+      "name": "py-pip",
+      "version": "22.2.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2elrmqyirk4gxdqmshjjtzvvucnqpejng4rtiy4cjzpq7e4iik4a====",
+      "dependencies": [
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s"
+    },
+    "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m": {
+      "name": "python",
+      "version": "3.10.8",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "patches",
+      "parameters": {
+        "build_system": "generic",
+        "bz2": true,
+        "ctypes": true,
+        "dbm": true,
+        "debug": false,
+        "libxml2": true,
+        "lzma": true,
+        "nis": false,
+        "optimizations": false,
+        "patches": [
+          "0d98e93189bc278fbc37a50ed7f183bd8aaf249a8e1670a465f0db6bb4f8cf87",
+          "7d4092366f2e9c19ba85132402e70eb96cac94fdda6a33810c2a980a129c7a22",
+          "f2fd060afc4b4618fe8104c4c5d771f36dc55b1db5a4623785a4ea707ec72fb4"
+        ],
+        "pic": true,
+        "pyexpat": true,
+        "pythoncmd": true,
+        "readline": true,
+        "shared": true,
+        "sqlite3": true,
+        "ssl": true,
+        "tix": false,
+        "tkinter": false,
+        "ucs4": false,
+        "uuid": true,
+        "zlib": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l5",
+        "module": [
+          "python/3.10.8"
+        ],
+        "extra_attributes": {}
+      },
+      "patches": [
+        "0d98e93189bc278fbc37a50ed7f183bd8aaf249a8e1670a465f0db6bb4f8cf87",
+        "f2fd060afc4b4618fe8104c4c5d771f36dc55b1db5a4623785a4ea707ec72fb4",
+        "7d4092366f2e9c19ba85132402e70eb96cac94fdda6a33810c2a980a129c7a22"
+      ],
+      "package_hash": "viv25gwf2zxnwyuoepnfndxbkud2klazqpsrsy4khdw3jeprcsyq====",
+      "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m"
+    },
+    "c6hdpvjjddmcm3xf5begyfpkjkzj2oke": {
+      "name": "py-setuptools",
+      "version": "63.0.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "3pt4wh623dreoruh7tgphetbsokaqccnwvfy5362rsu3vpr4lj4a====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke"
+    },
+    "ffmy45c42gghqlynjyvf4jgqcr2jgbzy": {
+      "name": "py-wheel",
+      "version": "0.37.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "42yxdwjn56uiq4oxtykdpej774rxu3ad6dppvxretiamva7exjfq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy"
+    },
+    "glx4cfnu5cionch2hbeyzns5ol3vexp7": {
+      "name": "py-mpi4py",
+      "version": "3.1.4",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "hxucqyk66twh7cquw25jstsfmdkya2z2cdlkw6g2rtujqnzgz7bq====",
+      "dependencies": [
+        {
+          "name": "hpe-mpi",
+          "hash": "qk754fsip5huicz34oar3tlywrt5q2hf",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "glx4cfnu5cionch2hbeyzns5ol3vexp7"
+    },
+    "ly6cmfc3te7agzn6gzifal4ufdj3bixb": {
+      "name": "py-numpy",
+      "version": "1.22.4",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "blas": true,
+        "build_system": "python_pip",
+        "lapack": true,
+        "patches": [
+          "873745d7b547857fcfec9cae90b09c133b42a4f0c23b6c2d84cf37e2dd816604"
+        ],
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "patches": [
+        "873745d7b547857fcfec9cae90b09c133b42a4f0c23b6c2d84cf37e2dd816604"
+      ],
+      "package_hash": "zmaomibkjaoc2oxgcys2yavku7hfmvmxrawgj7dt77aecoyt3dhq====",
+      "dependencies": [
+        {
+          "name": "intel-oneapi-mkl",
+          "hash": "fnkrysrw7agok7ie2ffw2psaxrrcygjm",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-cython",
+          "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb"
+    },
+    "fnkrysrw7agok7ie2ffw2psaxrrcygjm": {
+      "name": "intel-oneapi-mkl",
+      "version": "2021.4.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cluster": false,
+        "ilp64": false,
+        "shared": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/intel-oneapi-mkl-2021.4.0-q7vl7m",
+        "module": [
+          "intel-oneapi-mkl/2021.4.0"
+        ],
+        "extra_attributes": {}
+      },
+      "package_hash": "42ylahvi5cmubkhof4hrovdthooggd2qrf5fg6urujm36yjgam3a====",
+      "hash": "fnkrysrw7agok7ie2ffw2psaxrrcygjm"
+    },
+    "3tba42shhr6poc3gd32dxscdisn7pxzc": {
+      "name": "py-pkgconfig",
+      "version": "1.5.5",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "ksszbfvnagsftxmf3hsmcwhpcd4oybo4q7dnvsr6t4fr3q3lvwjq====",
+      "dependencies": [
+        {
+          "name": "pkgconf",
+          "hash": "q4mt2xu6ghl7otueh4scm5whmtot42ih",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-poetry-core",
+          "hash": "qmnnajsfdg2o2jswxt7fexn5envh2dmi",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "3tba42shhr6poc3gd32dxscdisn7pxzc"
+    },
+    "qmnnajsfdg2o2jswxt7fexn5envh2dmi": {
+      "name": "py-poetry-core",
+      "version": "1.2.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "woxgujjpkq33cclh6hz437eu3zcwh77psqjk7ckjxoc3ydhzfdgq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "qmnnajsfdg2o2jswxt7fexn5envh2dmi"
+    },
+    "sqxqirbl5dqk3ms3xdkkzijpjjgnahz4": {
+      "name": "py-bluepysnap",
+      "version": "1.0.7",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "bluebrain",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "ccyganax2ggeiax7w2bqro4t7gru6ndhsfursuh2miwts5lryj4q====",
+      "dependencies": [
+        {
+          "name": "py-cached-property",
+          "hash": "nhmtalhtweotcmxejfe4wk5vrpzv77fk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-click",
+          "hash": "hogerxyr7gzbwys3ryq5wpsjvk4jihxp",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-h5py",
+          "hash": "zl4guqckp5gp7iprj3f45nnnifabkgwm",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-jsonschema",
+          "hash": "d2ju7zkv24h3ejr7sppbqtjz5ffhxjnp",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-libsonata",
+          "hash": "cu2sl2ahhu7fpijkb4p3f7xaxznwzuim",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-more-itertools",
+          "hash": "5c3pblhkegdko5mrtlbifx3pnp6a6mie",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-morph-tool",
+          "hash": "74cxynhfth47satkkepklm3rqsidu5oj",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-morphio",
+          "hash": "bkmy3tqcrqvbblay72shgz226wgj2qlk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pandas",
+          "hash": "fdurvm4ytt4zjhafmm27xzed6sdsvnar",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "spatial-index",
+          "hash": "5ndowrebsgqlxrxvmaarikthu35qeali",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "sqxqirbl5dqk3ms3xdkkzijpjjgnahz4"
+    },
+    "nhmtalhtweotcmxejfe4wk5vrpzv77fk": {
+      "name": "py-cached-property",
+      "version": "1.5.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "rfbtmv7dy6x5zrvrguk22lb5sp2azpiizkr7vz3bik4un4m2bbbq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "nhmtalhtweotcmxejfe4wk5vrpzv77fk"
+    },
+    "hogerxyr7gzbwys3ryq5wpsjvk4jihxp": {
+      "name": "py-click",
+      "version": "8.1.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "o3pani7izkhxslobv22p3urcbqhelec3ky5jcjm37rutvoaje3ua====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "hogerxyr7gzbwys3ryq5wpsjvk4jihxp"
+    },
+    "d2ju7zkv24h3ejr7sppbqtjz5ffhxjnp": {
+      "name": "py-jsonschema",
+      "version": "4.16.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "djkzvk4zyp2mkxfffveypikrmskxlt7eadd56ivyzz5gayj7bhga====",
+      "dependencies": [
+        {
+          "name": "py-attrs",
+          "hash": "axib53z2qt24fpvyozhfapgoqvph7m4k",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-hatch-fancy-pypi-readme",
+          "hash": "onbqflgztv4s6sss255pkejlhwrjckrv",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-hatch-vcs",
+          "hash": "vjv5lmyp6f42arpwomylhevbdkoyp5ma",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-hatchling",
+          "hash": "wxgaens2ycqxlpyini24vlnc2753b45z",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pyrsistent",
+          "hash": "oahxvt7jla54tfja5t7rrlrtj7yehrn5",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "d2ju7zkv24h3ejr7sppbqtjz5ffhxjnp"
+    },
+    "axib53z2qt24fpvyozhfapgoqvph7m4k": {
+      "name": "py-attrs",
+      "version": "22.1.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "gxq3yhqdz4jp76rlwwwicvugdrkzlhjibyx6oiepg36mhytjxaqq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "axib53z2qt24fpvyozhfapgoqvph7m4k"
+    },
+    "onbqflgztv4s6sss255pkejlhwrjckrv": {
+      "name": "py-hatch-fancy-pypi-readme",
+      "version": "22.7.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "nf4zh4gv2hgsronmuf2nkblkf7rq6yi4qe4m2dcqp2bsxkupci5q====",
+      "dependencies": [
+        {
+          "name": "py-hatchling",
+          "hash": "wxgaens2ycqxlpyini24vlnc2753b45z",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "onbqflgztv4s6sss255pkejlhwrjckrv"
+    },
+    "wxgaens2ycqxlpyini24vlnc2753b45z": {
+      "name": "py-hatchling",
+      "version": "1.10.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "ewytnqk3f3oq3z5li6ah7djvcocxfyivn4vuinjbddtljkpvtboq====",
+      "dependencies": [
+        {
+          "name": "py-editables",
+          "hash": "tnt6v7fs4grqg4dpurzjhan5gfjtlrku",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pathspec",
+          "hash": "qukcrb2n24k5t4rbcmh4kh46jift7xfx",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pluggy",
+          "hash": "2zoh6fg752aoimkpcp7dpijcd6u6tn35",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "wxgaens2ycqxlpyini24vlnc2753b45z"
+    },
+    "tnt6v7fs4grqg4dpurzjhan5gfjtlrku": {
+      "name": "py-editables",
+      "version": "0.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "cgk5lq6aw3ac4leszypbmfj3lsv4y4yczsv6h6rjovw4vxla5ifa====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "tnt6v7fs4grqg4dpurzjhan5gfjtlrku"
+    },
+    "ugynn7hp3af6db6k3j4d7m5qktfiav5g": {
+      "name": "py-packaging",
+      "version": "21.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "oeidmrjnlxj6i3nrzeejipugxxhaj2ax2hwsy2vq5wd56xhh7qjq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pyparsing",
+          "hash": "4ld7fkigcpkytqnavpn63xk2sysacq4e",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g"
+    },
+    "4ld7fkigcpkytqnavpn63xk2sysacq4e": {
+      "name": "py-pyparsing",
+      "version": "3.0.9",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "yscpembwjuw4s42m6ez6r5xrvoykxa7okkvz5okzvaattkxpbt2q====",
+      "dependencies": [
+        {
+          "name": "py-flit-core",
+          "hash": "d7dkmvvds5lag7c3zajliyev3bczdjji",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "4ld7fkigcpkytqnavpn63xk2sysacq4e"
+    },
+    "d7dkmvvds5lag7c3zajliyev3bczdjji": {
+      "name": "py-flit-core",
+      "version": "3.7.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "m7ft6hn3ekcqosmholwdy2z5t4willynwxwn2lgcahg3jhm7vrda====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "d7dkmvvds5lag7c3zajliyev3bczdjji"
+    },
+    "qukcrb2n24k5t4rbcmh4kh46jift7xfx": {
+      "name": "py-pathspec",
+      "version": "0.10.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "m4vvehc2iiuhv7jpv4ed4spa2bwfomegmvimvhiqswny3jo63qda====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "qukcrb2n24k5t4rbcmh4kh46jift7xfx"
+    },
+    "2zoh6fg752aoimkpcp7dpijcd6u6tn35": {
+      "name": "py-pluggy",
+      "version": "1.0.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "x247sy4tiyghiv6svxaanpqehfftxfsfo5afzipgjnlb6cng2nga====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "2zoh6fg752aoimkpcp7dpijcd6u6tn35"
+    },
+    "6tqbi2i74gkzttgoavyzklscllvpgqp3": {
+      "name": "py-setuptools-scm",
+      "version": "7.0.5",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "toml": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "4gzrh7tbgcoyxihjslzq5tfg4ac5rvlcv422efbpm65cq6xvoh4q====",
+      "dependencies": [
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-typing-extensions",
+          "hash": "c564cvoei6w7reih5dw3fd6ad7ydiezg",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3"
+    },
+    "ksqdpfxu5mdklremuvunhpy7bxmgadky": {
+      "name": "py-tomli",
+      "version": "2.0.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "fanyzrs4x2yuh2iz2hyzax5jge7k4iypith3r4okvpzzae3dwhya====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky"
+    },
+    "c564cvoei6w7reih5dw3fd6ad7ydiezg": {
+      "name": "py-typing-extensions",
+      "version": "4.8.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "5buyritu5qlx5rbezt4kx7owc2dus3clwjibgsjapq32efmgi3jq====",
+      "dependencies": [
+        {
+          "name": "py-flit-core",
+          "hash": "d7dkmvvds5lag7c3zajliyev3bczdjji",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "c564cvoei6w7reih5dw3fd6ad7ydiezg"
+    },
+    "vjv5lmyp6f42arpwomylhevbdkoyp5ma": {
+      "name": "py-hatch-vcs",
+      "version": "0.2.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "ychpr6vjev7yszhmj4sisue2jxlms5epgggwcjt25vyyk64lgbka====",
+      "dependencies": [
+        {
+          "name": "py-hatchling",
+          "hash": "wxgaens2ycqxlpyini24vlnc2753b45z",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "vjv5lmyp6f42arpwomylhevbdkoyp5ma"
+    },
+    "oahxvt7jla54tfja5t7rrlrtj7yehrn5": {
+      "name": "py-pyrsistent",
+      "version": "0.18.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "lkkrxnjfh2ht4jetas6zmld2habvsndtycohfqzkouvw7zjlt6yq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "oahxvt7jla54tfja5t7rrlrtj7yehrn5"
+    },
+    "cu2sl2ahhu7fpijkb4p3f7xaxznwzuim": {
+      "name": "py-libsonata",
+      "version": "0.1.24",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "bluebrain",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "whvu4kqvwvv633mr67rvaxksvrd37kxd2q6kct3ba24ofwzyns6a====",
+      "dependencies": [
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "hdf5",
+          "hash": "h22zdqe2uwxvsh46yhrxpccurwhr4ocr",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pybind11",
+          "hash": "pi3gdajagsx24lfqvhqw5kscq2izydam",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "cu2sl2ahhu7fpijkb4p3f7xaxznwzuim"
+    },
+    "pi3gdajagsx24lfqvhqw5kscq2izydam": {
+      "name": "py-pybind11",
+      "version": "2.10.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "cmake",
+        "build_type": "RelWithDebInfo",
+        "ipo": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "4k5x5chpjgsu5s4jvpw64bnq6ztl5dvqqprzrsyknripxoprvmlq====",
+      "dependencies": [
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "ninja",
+          "hash": "zk4skoxmkt7do2mk5lgnesas7ol3hhgg",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "pi3gdajagsx24lfqvhqw5kscq2izydam"
+    },
+    "zk4skoxmkt7do2mk5lgnesas7ol3hhgg": {
+      "name": "ninja",
+      "version": "1.11.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/ninja-1.11.1-o5qggc",
+        "module": [
+          "ninja/1.11.1"
+        ],
+        "extra_attributes": {}
+      },
+      "package_hash": "qofqaxef5kod3daoau5p4ys23owvb35wvgbkc2njvgeu3crpgjdq====",
+      "hash": "zk4skoxmkt7do2mk5lgnesas7ol3hhgg"
+    },
+    "5c3pblhkegdko5mrtlbifx3pnp6a6mie": {
+      "name": "py-more-itertools",
+      "version": "8.14.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "br6paqdixoa535tqbmjg6keryjbwqbg6sug5vmw4hl62kfqw7w4q====",
+      "dependencies": [
+        {
+          "name": "py-flit-core",
+          "hash": "d7dkmvvds5lag7c3zajliyev3bczdjji",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "5c3pblhkegdko5mrtlbifx3pnp6a6mie"
+    },
+    "74cxynhfth47satkkepklm3rqsidu5oj": {
+      "name": "py-morph-tool",
+      "version": "2.9.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "nrn": false,
+        "parallel": false,
+        "plot": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "vs2fk5fqvg5kbcbdhfv45x7j3rfjbm7z27xev75mlqvdbbczarba====",
+      "dependencies": [
+        {
+          "name": "py-click",
+          "hash": "hogerxyr7gzbwys3ryq5wpsjvk4jihxp",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-deprecation",
+          "hash": "jug3e4tdfyrfhb2rp2ijjix3ncd5hkpk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-more-itertools",
+          "hash": "5c3pblhkegdko5mrtlbifx3pnp6a6mie",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-morphio",
+          "hash": "bkmy3tqcrqvbblay72shgz226wgj2qlk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-neurom",
+          "hash": "7npzclqha3ecp6y63sx4fyzd2g66wzrx",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pandas",
+          "hash": "fdurvm4ytt4zjhafmm27xzed6sdsvnar",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-xmltodict",
+          "hash": "tdkuh6b22klzyihbsurstyhsu2pl3nyy",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "74cxynhfth47satkkepklm3rqsidu5oj"
+    },
+    "jug3e4tdfyrfhb2rp2ijjix3ncd5hkpk": {
+      "name": "py-deprecation",
+      "version": "2.1.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "52lprt5sdukqbmc6pfi52vy7os35dh4rtl7dvabeiyv65kr4syga====",
+      "dependencies": [
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "jug3e4tdfyrfhb2rp2ijjix3ncd5hkpk"
+    },
+    "bkmy3tqcrqvbblay72shgz226wgj2qlk": {
+      "name": "py-morphio",
+      "version": "3.3.6",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "jmo4wgpzd62lye2o6fw46mp2rrc5yw4myvjyy2phvc6vib7s4maq====",
+      "dependencies": [
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "hdf5",
+          "hash": "h22zdqe2uwxvsh46yhrxpccurwhr4ocr",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "ninja",
+          "hash": "zk4skoxmkt7do2mk5lgnesas7ol3hhgg",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "bkmy3tqcrqvbblay72shgz226wgj2qlk"
+    },
+    "7npzclqha3ecp6y63sx4fyzd2g66wzrx": {
+      "name": "py-neurom",
+      "version": "3.2.4",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "plotly": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "my3zfwoohwx6h4drrmcv32dzwdignv4czkad4xav2jbj46wgku6a====",
+      "dependencies": [
+        {
+          "name": "py-click",
+          "hash": "hogerxyr7gzbwys3ryq5wpsjvk4jihxp",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-matplotlib",
+          "hash": "cgds3t4alfworjdlok4yk4rvoy36awoc",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-morphio",
+          "hash": "bkmy3tqcrqvbblay72shgz226wgj2qlk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pandas",
+          "hash": "fdurvm4ytt4zjhafmm27xzed6sdsvnar",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pyyaml",
+          "hash": "d4xzk5tnn4irdwh3qxoa6ttihne35b4l",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-scipy",
+          "hash": "hhwv3ka77tvxq36oflay5j4f4lz4naf7",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-tqdm",
+          "hash": "gxkzq5srq3wq7dhblj3qx3ahi4cdq67y",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "7npzclqha3ecp6y63sx4fyzd2g66wzrx"
+    },
+    "cgds3t4alfworjdlok4yk4rvoy36awoc": {
+      "name": "py-matplotlib",
+      "version": "3.6.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "animation": false,
+        "backend": "agg",
+        "build_system": "python_pip",
+        "fonts": false,
+        "latex": false,
+        "movies": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "luapudf277sumlxbfkjnernf3r2x7qbqa4kqy3vd4mq3ox3s32qa====",
+      "dependencies": [
+        {
+          "name": "freetype",
+          "hash": "h2dq52ydpnlaensxcfejdnf73t5z7n3b",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "libpng",
+          "hash": "lathsbpf4hrl4ytihzc7ntmqvgqiggg4",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "pkgconf",
+          "hash": "q4mt2xu6ghl7otueh4scm5whmtot42ih",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-certifi",
+          "hash": "tle7w753dtmfpfghsgadu7g6gtixtxxi",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-contourpy",
+          "hash": "wzxdnvh2maqacj2xzlfvuxsi6v7ybycv",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-cycler",
+          "hash": "4keh3r62hagsaf7l5jdp5tbp4tepkhas",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-fonttools",
+          "hash": "ufovmgzagmjigaobnv56vt5pg46jilqz",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-kiwisolver",
+          "hash": "oce7fookr2hn44kdgoxoodkabkk6xo4s",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pillow",
+          "hash": "bu6x5asg3kf6vaefgaziwdvuepfbjlx5",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pyparsing",
+          "hash": "4ld7fkigcpkytqnavpn63xk2sysacq4e",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-python-dateutil",
+          "hash": "7nzr7r7gpmyr2n5rpc7otxy6qntcbjqw",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        },
+        {
+          "name": "qhull",
+          "hash": "6xqwwmok3vmorpoqbaa2ob6p2lzusvuz",
+          "type": [
+            "build",
+            "link"
+          ]
+        }
+      ],
+      "hash": "cgds3t4alfworjdlok4yk4rvoy36awoc"
+    },
+    "h2dq52ydpnlaensxcfejdnf73t5z7n3b": {
+      "name": "freetype",
+      "version": "2.11.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "autotools",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/freetype-2.11.1-g5j4ct",
+        "module": null,
+        "extra_attributes": {}
+      },
+      "package_hash": "gubvocotjgleacupyaomvutwjqzw2bdp6o2vkbmgqh7q62lobjuq====",
+      "hash": "h2dq52ydpnlaensxcfejdnf73t5z7n3b"
+    },
+    "lathsbpf4hrl4ytihzc7ntmqvgqiggg4": {
+      "name": "libpng",
+      "version": "1.6.37",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "autotools",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2x6lks7dwud56tembw7kkmaxbp3pvyrdpwikov2kx2gj3iodf2vq====",
+      "dependencies": [
+        {
+          "name": "zlib",
+          "hash": "ogdpwovxjavmphqzlyrjfggoexpa4di2",
+          "type": [
+            "build",
+            "link"
+          ]
+        }
+      ],
+      "hash": "lathsbpf4hrl4ytihzc7ntmqvgqiggg4"
+    },
+    "tle7w753dtmfpfghsgadu7g6gtixtxxi": {
+      "name": "py-certifi",
+      "version": "2022.9.14",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "patches",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "r2z7m24ewqdjgwpe7xahz7mczlhizyxwyzjhlhhic5xdf4epainq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "tle7w753dtmfpfghsgadu7g6gtixtxxi"
+    },
+    "wzxdnvh2maqacj2xzlfvuxsi6v7ybycv": {
+      "name": "py-contourpy",
+      "version": "1.0.5",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "jotimurpuuwloqwuzrsut6vshbfermmbrl4hwlwcchhwysopdi5q====",
+      "dependencies": [
+        {
+          "name": "py-build",
+          "hash": "xqpyxtv24a5g2rh3ywrmp6nptu5elah6",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pybind11",
+          "hash": "pi3gdajagsx24lfqvhqw5kscq2izydam",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "wzxdnvh2maqacj2xzlfvuxsi6v7ybycv"
+    },
+    "xqpyxtv24a5g2rh3ywrmp6nptu5elah6": {
+      "name": "py-build",
+      "version": "0.7.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "patches": [
+          "9a151ac81d78c01399ae5ff68c59c16161c86db4ba0a7a127cdcb527926ffcef"
+        ],
+        "virtualenv": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "patches": [
+        "9a151ac81d78c01399ae5ff68c59c16161c86db4ba0a7a127cdcb527926ffcef"
+      ],
+      "package_hash": "j3biihkl4h3fncuvkoegns6372nzc4qt7bitact42w64npvnmzla====",
+      "dependencies": [
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pep517",
+          "hash": "wfwawnytacxxatay7td5t5dro5gtxpzt",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "xqpyxtv24a5g2rh3ywrmp6nptu5elah6"
+    },
+    "wfwawnytacxxatay7td5t5dro5gtxpzt": {
+      "name": "py-pep517",
+      "version": "0.12.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "lanod72pud26csknkrklmb2p55lp4cnvl3fagotzxig3eokvsusa====",
+      "dependencies": [
+        {
+          "name": "py-flit-core",
+          "hash": "d7dkmvvds5lag7c3zajliyev3bczdjji",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "wfwawnytacxxatay7td5t5dro5gtxpzt"
+    },
+    "4keh3r62hagsaf7l5jdp5tbp4tepkhas": {
+      "name": "py-cycler",
+      "version": "0.11.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "3i7m77nnqkaagjklgntynskq7kxyhei7xzmqlndif74z4efmnzha====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "4keh3r62hagsaf7l5jdp5tbp4tepkhas"
+    },
+    "ufovmgzagmjigaobnv56vt5pg46jilqz": {
+      "name": "py-fonttools",
+      "version": "4.37.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "r7patv4grqjptvfdflxp75x7foa5zsvsqbmdbmuvtandbxbburna====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ufovmgzagmjigaobnv56vt5pg46jilqz"
+    },
+    "oce7fookr2hn44kdgoxoodkabkk6xo4s": {
+      "name": "py-kiwisolver",
+      "version": "1.3.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "4nhgcwigt4rdf3z4tjd7wyu73rajemicvabf3ltic7wkt6slysza====",
+      "dependencies": [
+        {
+          "name": "py-cppy",
+          "hash": "mu2fbd5s7koplmxlfe2a7nlmzlqxr53g",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "oce7fookr2hn44kdgoxoodkabkk6xo4s"
+    },
+    "mu2fbd5s7koplmxlfe2a7nlmzlqxr53g": {
+      "name": "py-cppy",
+      "version": "1.2.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "y26vxlbje4cbmtoqnekr6teun2mfq4glp47ruuk6kzxpa6tkscpa====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "mu2fbd5s7koplmxlfe2a7nlmzlqxr53g"
+    },
+    "bu6x5asg3kf6vaefgaziwdvuepfbjlx5": {
+      "name": "py-pillow",
+      "version": "9.2.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "freetype": false,
+        "imagequant": false,
+        "jpeg": true,
+        "jpeg2000": false,
+        "lcms": false,
+        "raqm": false,
+        "tiff": false,
+        "webp": false,
+        "xcb": false,
+        "zlib": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "yyzf5u36ggbnt3r2py6nyhpdczpp22mdph4uaziytxevfb6dx7ka====",
+      "dependencies": [
+        {
+          "name": "libjpeg-turbo",
+          "hash": "uvumzpb2f5j7zigrptq4agmfpivpf4fi",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "zlib",
+          "hash": "ogdpwovxjavmphqzlyrjfggoexpa4di2",
+          "type": [
+            "build",
+            "link"
+          ]
+        }
+      ],
+      "hash": "bu6x5asg3kf6vaefgaziwdvuepfbjlx5"
+    },
+    "uvumzpb2f5j7zigrptq4agmfpivpf4fi": {
+      "name": "libjpeg-turbo",
+      "version": "2.1.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "generic",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "zrnzgofpvyatzsy54dngenuasv6keio27lkqcd4gsagsi4zxj3aq====",
+      "dependencies": [
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "nasm",
+          "hash": "fgcmuef53cllty4jzwrg2utqvz6pju3n",
+          "type": [
+            "build"
+          ]
+        }
+      ],
+      "hash": "uvumzpb2f5j7zigrptq4agmfpivpf4fi"
+    },
+    "fgcmuef53cllty4jzwrg2utqvz6pju3n": {
+      "name": "nasm",
+      "version": "2.15.05",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "autotools",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2pbc5spqrbem22ukg3yi2pmerkbxlrxgdlim5ntkbwj4kvy2zkfq====",
+      "hash": "fgcmuef53cllty4jzwrg2utqvz6pju3n"
+    },
+    "7nzr7r7gpmyr2n5rpc7otxy6qntcbjqw": {
+      "name": "py-python-dateutil",
+      "version": "2.8.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "u5ziqbjre7dtt56jogszej6bbg4fjv4jwkj2vogfhxgqc6avbmaa====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-six",
+          "hash": "4jvgkuyxgnqwcwvoniqpkoqu3j75psbo",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "7nzr7r7gpmyr2n5rpc7otxy6qntcbjqw"
+    },
+    "4jvgkuyxgnqwcwvoniqpkoqu3j75psbo": {
+      "name": "py-six",
+      "version": "1.16.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "r377dbdkdylpic6o76ws6tvzaaijdnceb4qjymcmshzf6m2hedaa====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "4jvgkuyxgnqwcwvoniqpkoqu3j75psbo"
+    },
+    "6xqwwmok3vmorpoqbaa2ob6p2lzusvuz": {
+      "name": "qhull",
+      "version": "2020.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "cmake",
+        "build_type": "RelWithDebInfo",
+        "ipo": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "external": {
+        "path": "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/qhull-2020.2-am3pcu",
+        "module": null,
+        "extra_attributes": {}
+      },
+      "package_hash": "jneyhopeil3mzs4qn627q37x47p7dt4tdro2djwlqe4elwhenrrq====",
+      "hash": "6xqwwmok3vmorpoqbaa2ob6p2lzusvuz"
+    },
+    "fdurvm4ytt4zjhafmm27xzed6sdsvnar": {
+      "name": "py-pandas",
+      "version": "1.5.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "isgtjll4xjbwn6b4xecpbafcbe72fkcokcivj2c7yiji42g5f5gq====",
+      "dependencies": [
+        {
+          "name": "py-bottleneck",
+          "hash": "nbtnkqkzw4r5grmy2ha2xyriyik6gdmf",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-cython",
+          "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-numexpr",
+          "hash": "nk3nggbgzt4frjfma5y34mktwd7y6nkb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-python-dateutil",
+          "hash": "7nzr7r7gpmyr2n5rpc7otxy6qntcbjqw",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pytz",
+          "hash": "lz6epubukcjpcvtjsipt2fdw6xiw4wgq",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "fdurvm4ytt4zjhafmm27xzed6sdsvnar"
+    },
+    "nbtnkqkzw4r5grmy2ha2xyriyik6gdmf": {
+      "name": "py-bottleneck",
+      "version": "1.3.5",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "tpsb3vr2vnto5irugpoje5kghwlhobk3vh24bxy7on5c2p7enarq====",
+      "dependencies": [
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-versioneer",
+          "hash": "t7ghkunlr7yrglghk3wxxmrx3pzwqwpo",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "nbtnkqkzw4r5grmy2ha2xyriyik6gdmf"
+    },
+    "t7ghkunlr7yrglghk3wxxmrx3pzwqwpo": {
+      "name": "py-versioneer",
+      "version": "0.28",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "toml": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "wyq57wgd2gejorz6bvohkgqoainx2wv64by6ywylhb4zaazm3vqa====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "t7ghkunlr7yrglghk3wxxmrx3pzwqwpo"
+    },
+    "nk3nggbgzt4frjfma5y34mktwd7y6nkb": {
+      "name": "py-numexpr",
+      "version": "2.8.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2ugusqnckdqrvh6llyxy6khbkjloz3jw4a4ahufcdebclryz6g4a====",
+      "dependencies": [
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "nk3nggbgzt4frjfma5y34mktwd7y6nkb"
+    },
+    "lz6epubukcjpcvtjsipt2fdw6xiw4wgq": {
+      "name": "py-pytz",
+      "version": "2023.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "bbpkpnskf36clu3j4jbjr6nrd3lwlzp23mysnjni2hqy7ec2gbia====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "lz6epubukcjpcvtjsipt2fdw6xiw4wgq"
+    },
+    "d4xzk5tnn4irdwh3qxoa6ttihne35b4l": {
+      "name": "py-pyyaml",
+      "version": "6.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "libyaml": true,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "y6uwv7plqhosn6kbtkd3ewg4v576jqfxtolqjiae25wvbiszwf3a====",
+      "dependencies": [
+        {
+          "name": "libyaml",
+          "hash": "skgytubmhfxmpw7vtz3btgbx4rhsfdux",
+          "type": [
+            "link"
+          ]
+        },
+        {
+          "name": "py-cython",
+          "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "d4xzk5tnn4irdwh3qxoa6ttihne35b4l"
+    },
+    "skgytubmhfxmpw7vtz3btgbx4rhsfdux": {
+      "name": "libyaml",
+      "version": "0.2.5",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "autotools",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "g7bnnjbbeunsomfugjulylalc7iascu3ap6uctagn2pal5jgjxva====",
+      "hash": "skgytubmhfxmpw7vtz3btgbx4rhsfdux"
+    },
+    "hhwv3ka77tvxq36oflay5j4f4lz4naf7": {
+      "name": "py-scipy",
+      "version": "1.10.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "x5x5khfnsvmotm5j6i2s4lfgsc2k2m32xukygfoskthdkxnixz5q====",
+      "dependencies": [
+        {
+          "name": "intel-oneapi-mkl",
+          "hash": "fnkrysrw7agok7ie2ffw2psaxrrcygjm",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "pkgconf",
+          "hash": "q4mt2xu6ghl7otueh4scm5whmtot42ih",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-build",
+          "hash": "xqpyxtv24a5g2rh3ywrmp6nptu5elah6",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-cython",
+          "hash": "bjojgfinig2mqz5blgmhssxroi3tswsa",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-meson-python",
+          "hash": "hplzjkw2bt23pdh3vmbkvtgffqa24zzb",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pybind11",
+          "hash": "pi3gdajagsx24lfqvhqw5kscq2izydam",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-pythran",
+          "hash": "5glnbtrqigtjtqfkajbnh47izx7txr2j",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "link",
+            "run"
+          ]
+        }
+      ],
+      "hash": "hhwv3ka77tvxq36oflay5j4f4lz4naf7"
+    },
+    "hplzjkw2bt23pdh3vmbkvtgffqa24zzb": {
+      "name": "py-meson-python",
+      "version": "0.11.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "2wq4j7kpeo25c6oispsfm6vsvo6pbpx7reng4l6nx6oxmry5qhua====",
+      "dependencies": [
+        {
+          "name": "meson",
+          "hash": "aqh75p6ipew6ss7ifk4sovaaeyavunnt",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-pyproject-metadata",
+          "hash": "r5j5l2yjvuwzkzh4337fw7uedchaikno",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-tomli",
+          "hash": "ksqdpfxu5mdklremuvunhpy7bxmgadky",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "hplzjkw2bt23pdh3vmbkvtgffqa24zzb"
+    },
+    "aqh75p6ipew6ss7ifk4sovaaeyavunnt": {
+      "name": "meson",
+      "version": "1.0.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "patches": [
+          "0f0b1bd854856c5f0926723437c9cd0507836bb93b45bdb434f5d3f618cc78dc"
+        ],
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "patches": [
+        "0f0b1bd854856c5f0926723437c9cd0507836bb93b45bdb434f5d3f618cc78dc"
+      ],
+      "package_hash": "vrmgddohdq3345s26fovycq6ij2qtelzjwdb7phaxvp6mat5q3sa====",
+      "dependencies": [
+        {
+          "name": "ninja",
+          "hash": "zk4skoxmkt7do2mk5lgnesas7ol3hhgg",
+          "type": [
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "aqh75p6ipew6ss7ifk4sovaaeyavunnt"
+    },
+    "r5j5l2yjvuwzkzh4337fw7uedchaikno": {
+      "name": "py-pyproject-metadata",
+      "version": "0.6.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "z3c6isa3jloffxc343gx5adzqpwyq2laok6ygeygtjvctp7g5g6q====",
+      "dependencies": [
+        {
+          "name": "py-packaging",
+          "hash": "ugynn7hp3af6db6k3j4d7m5qktfiav5g",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "r5j5l2yjvuwzkzh4337fw7uedchaikno"
+    },
+    "5glnbtrqigtjtqfkajbnh47izx7txr2j": {
+      "name": "py-pythran",
+      "version": "0.12.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "tinigs5fyv5vetx7wlcrm553btmn4w4suaauvicaylfx7wackpea====",
+      "dependencies": [
+        {
+          "name": "py-beniget",
+          "hash": "p4p3jqv6leybti5o5lzqws3vufcwrzm5",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-gast",
+          "hash": "szrs2rb4ffkwykvkls5a5xzbffoqzszq",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-ply",
+          "hash": "mhymq2b6dnbcwew7p3ntmpojowxcfoyz",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "5glnbtrqigtjtqfkajbnh47izx7txr2j"
+    },
+    "p4p3jqv6leybti5o5lzqws3vufcwrzm5": {
+      "name": "py-beniget",
+      "version": "0.4.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "djx6hzp47vtz5v6lo5ngxr42p5kujvrqhf5bbwej3gslnkzcrpbq====",
+      "dependencies": [
+        {
+          "name": "py-gast",
+          "hash": "szrs2rb4ffkwykvkls5a5xzbffoqzszq",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "p4p3jqv6leybti5o5lzqws3vufcwrzm5"
+    },
+    "szrs2rb4ffkwykvkls5a5xzbffoqzszq": {
+      "name": "py-gast",
+      "version": "0.5.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "xtycrcsbxhq5wuqrjjffvhxc44abtn6r3rjhvp52wd36xyqdy2sq====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "szrs2rb4ffkwykvkls5a5xzbffoqzszq"
+    },
+    "mhymq2b6dnbcwew7p3ntmpojowxcfoyz": {
+      "name": "py-ply",
+      "version": "3.11",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "rhrvmtbjjelmfns2khe76jrpthmigexa3mkvcxodgs2akcua4u2a====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "mhymq2b6dnbcwew7p3ntmpojowxcfoyz"
+    },
+    "gxkzq5srq3wq7dhblj3qx3ahi4cdq67y": {
+      "name": "py-tqdm",
+      "version": "4.64.1",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "notebook": false,
+        "telegram": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "ot3rbvvh4myha3jdffuu4btpznyzyl5ti5bxyqxg476zouwoqv2a====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-setuptools-scm",
+          "hash": "6tqbi2i74gkzttgoavyzklscllvpgqp3",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "gxkzq5srq3wq7dhblj3qx3ahi4cdq67y"
+    },
+    "tdkuh6b22klzyihbsurstyhsu2pl3nyy": {
+      "name": "py-xmltodict",
+      "version": "0.12.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "55vb55iogyk2r5cjsvgizp5d32w3uy54sbupvvkmzgy4manqhr3a====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "tdkuh6b22klzyihbsurstyhsu2pl3nyy"
+    },
+    "5ndowrebsgqlxrxvmaarikthu35qeali": {
+      "name": "spatial-index",
+      "version": "2.1.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "bluebrain",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "dtojl4dwdta2lcuiwvxem763m7cvsfvya6g76uhypnvv7eylq4qa====",
+      "dependencies": [
+        {
+          "name": "boost",
+          "hash": "hedfprbg53vrqbkmruqmrkatyljxqgor",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "cmake",
+          "hash": "vb7bdpgsupe5e2klkhkqos6vje2u4pns",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "hpe-mpi",
+          "hash": "qk754fsip5huicz34oar3tlywrt5q2hf",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-docopt",
+          "hash": "u7r3e4y6uhhphn7jhq2tdqsw3w3nxspx",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-libsonata",
+          "hash": "cu2sl2ahhu7fpijkb4p3f7xaxznwzuim",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-morphio",
+          "hash": "bkmy3tqcrqvbblay72shgz226wgj2qlk",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-mpi4py",
+          "hash": "glx4cfnu5cionch2hbeyzns5ol3vexp7",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-numpy-quaternion",
+          "hash": "ruwz5jclchgwe34sng7vn6rxtq4ctt75",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build",
+            "link"
+          ]
+        },
+        {
+          "name": "py-tqdm",
+          "hash": "gxkzq5srq3wq7dhblj3qx3ahi4cdq67y",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "5ndowrebsgqlxrxvmaarikthu35qeali"
+    },
+    "hedfprbg53vrqbkmruqmrkatyljxqgor": {
+      "name": "boost",
+      "version": "1.80.0",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "atomic": false,
+        "build_system": "generic",
+        "chrono": false,
+        "clanglibcpp": false,
+        "container": false,
+        "context": false,
+        "contract": false,
+        "coroutine": false,
+        "cxxstd": "98",
+        "date_time": false,
+        "debug": false,
+        "exception": false,
+        "fiber": false,
+        "filesystem": true,
+        "graph": false,
+        "graph_parallel": false,
+        "icu": false,
+        "iostreams": false,
+        "json": false,
+        "locale": false,
+        "log": false,
+        "math": false,
+        "mpi": false,
+        "multithreaded": true,
+        "nowide": false,
+        "numpy": false,
+        "patches": [
+          "a440f9696d3bbb77e7eab1516c004730f622e59c71d39960b472026ef92f88e8"
+        ],
+        "pic": true,
+        "program_options": false,
+        "python": false,
+        "random": false,
+        "regex": false,
+        "serialization": true,
+        "shared": true,
+        "signals": false,
+        "singlethreaded": false,
+        "stacktrace": false,
+        "system": false,
+        "taggedlayout": false,
+        "test": true,
+        "thread": false,
+        "timer": false,
+        "type_erasure": false,
+        "versionedlayout": false,
+        "visibility": "hidden",
+        "wave": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "patches": [
+        "a440f9696d3bbb77e7eab1516c004730f622e59c71d39960b472026ef92f88e8"
+      ],
+      "package_hash": "e2x6kljj54rj6mli5kfi3wjqw4j5o7kz723of75t63wxhjc7z7iq====",
+      "hash": "hedfprbg53vrqbkmruqmrkatyljxqgor"
+    },
+    "u7r3e4y6uhhphn7jhq2tdqsw3w3nxspx": {
+      "name": "py-docopt",
+      "version": "0.6.2",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "u4ffnygxe5glqyoy4zzt6klpqjfdpvyskmola63f7x75jdswsdka====",
+      "dependencies": [
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "u7r3e4y6uhhphn7jhq2tdqsw3w3nxspx"
+    },
+    "ruwz5jclchgwe34sng7vn6rxtq4ctt75": {
+      "name": "py-numpy-quaternion",
+      "version": "2021.11.4.15.26.3",
+      "arch": {
+        "platform": "linux",
+        "platform_os": "rhel7",
+        "target": {
+          "name": "skylake",
+          "vendor": "GenuineIntel",
+          "features": [
+            "adx",
+            "aes",
+            "avx",
+            "avx2",
+            "bmi1",
+            "bmi2",
+            "clflushopt",
+            "f16c",
+            "fma",
+            "mmx",
+            "movbe",
+            "pclmulqdq",
+            "popcnt",
+            "rdrand",
+            "rdseed",
+            "sse",
+            "sse2",
+            "sse4_1",
+            "sse4_2",
+            "ssse3",
+            "xsavec",
+            "xsaveopt"
+          ],
+          "generation": 0,
+          "parents": [
+            "broadwell"
+          ]
+        }
+      },
+      "compiler": {
+        "name": "gcc",
+        "version": "12.2.0"
+      },
+      "namespace": "builtin",
+      "parameters": {
+        "build_system": "python_pip",
+        "numba": false,
+        "scipy": false,
+        "cflags": [],
+        "cppflags": [],
+        "cxxflags": [],
+        "fflags": [],
+        "ldflags": [],
+        "ldlibs": []
+      },
+      "package_hash": "qn6i5r4bopks4vou66flyaun5ljmgxae3diht5f5ae5ln47edjjq====",
+      "dependencies": [
+        {
+          "name": "py-numpy",
+          "hash": "ly6cmfc3te7agzn6gzifal4ufdj3bixb",
+          "type": [
+            "build",
+            "run"
+          ]
+        },
+        {
+          "name": "py-pip",
+          "hash": "3wgk4cbtae6dsej2dok3a26qewqe4n6s",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-setuptools",
+          "hash": "c6hdpvjjddmcm3xf5begyfpkjkzj2oke",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "py-wheel",
+          "hash": "ffmy45c42gghqlynjyvf4jgqcr2jgbzy",
+          "type": [
+            "build"
+          ]
+        },
+        {
+          "name": "python",
+          "hash": "c2xj4m2nyz6efq4m7arw3lneeqoz4z5m",
+          "type": [
+            "build",
+            "run"
+          ]
+        }
+      ],
+      "hash": "ruwz5jclchgwe34sng7vn6rxtq4ctt75"
+    }
+  }
+}

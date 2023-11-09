@@ -200,7 +200,6 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
 
     '''
     path_to_blueconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
-    inputfile refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
     electrode_csv is a csv file containing the position, region, and layer of each electrode
     type is either EEG or LFP
     '''

@@ -223,7 +223,7 @@ def getReport(path_to_simconfig):
 
     r = r[population_name]
 
-    return r
+    return r, population_name
 
 def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
 
@@ -232,7 +232,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
     '''
 
-    r = getReport(path_to_simconfig)
+    r, population_name = getReport(path_to_simconfig)
 
 
     allNodeIds = r.get_node_ids()

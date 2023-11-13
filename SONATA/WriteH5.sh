@@ -17,8 +17,6 @@
 module purge
 
 
-spack env activate h5mpi
-module load unstable py-scipy
+spack env activate writeCoefficientsEnv 
 
-
-srun -n 4240 python writeH5.py 'EEG' 'simulation_config.json' 'positionsO1_new' 'eeg_sonata_new/coeffs.h5'
+srun -n 4240 python writeH5.py 'EEG' '/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json' 'positions_hex0_new' 'eeg_sonata_new/coeffs.h5' 50 'electrode_file.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/bbp_workflow/SSCx-O1-Calibrated-Workflow-5-12-22/81adc949-b514-4d78-853a-b369e4420dff/3/C6SurfNew.h5'

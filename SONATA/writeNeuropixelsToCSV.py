@@ -3,21 +3,12 @@ from sklearn.decomposition import PCA
 import numpy as np
 import pandas as pd
 from voxcell.nexus.voxelbrain import Atlas
+import bluepysnap as bp
 import sys
 
-def getAtlasInfo(BlueConfig,electrodePositions):
+def getAtlasInfo(path_to_atlas,electrodePositions):
 
-
-    bluefile = open(BlueConfig,'r')
-    bluelines = bluefile.readlines()
-    bluefile.close()
-
-    for line in bluelines:
-        if 'Atlas' in line:
-            atlasName = line.split('Atlas ')[-1].split('\n')[0]
-            break
-
-    atlas = Atlas.open(atlasName)
+    atlas = Atlas.open(path_to_atlas)
     brain_regions = atlas.load_data('brain_regions')
 
     region_map = atlas.load_region_map()
@@ -43,16 +34,22 @@ def getAtlasInfo(BlueConfig,electrodePositions):
 
     return regionList, layerList
 
-def repositionElectrode(probe, path_to_Blueconfig):
+def repositionElectrode(probe, path_to_simconfig):
 
     '''
     Aligns probe with center of cortical column
     '''
 
-    c = bp.Circuit(path_to_Blueconfig)
-    somaPos = c.cells.get({'$target': 'hex0'},properties=[bp.Cell.X, bp.Cell.Y, bp.Cell.Z])
-    center = np.mean(somaPos,axis=0).values
+    rSim = bp.Simulation(path_to_simconfig)
+    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
 
+    population_name = r.population_names[0]
+
+    population = rSim.circuit.nodes[population_name]
+
+    somaPos = population.get(properties=['x','y','z'],group='hex0') # Gets soma position
+
+    center = np.mean(somaPos,axis=0).values
 
     pca = PCA(n_components=3)
     pca.fit(somaPos)
@@ -70,21 +67,25 @@ def repositionElectrode(probe, path_to_Blueconfig):
 if __name__=='__main__':
 
     probe_name = sys.argv[1]
-    path_to_Blueconfig = sys.argv[2]
-    electrode_csv = sys.argv[3]
+    path_to_simconfig = sys.argv[2]
+    path_to_atlas = sys.argv[3]
+    electrode_csv = sys.argv[4]
 
     probe = MEA.return_mea(probe_name)
 
-    repositionElectrode(probe, path_to_Blueconfig)
+    repositionElectrode(probe, path_to_simconfig)
 
     electrodePositions = probe.positions
 
-    regionList, layerList = getAtlasInfo(path_to_Blueconfig, electrodePositions)
+    regionList, layerList = getAtlasInfo(path_to_atlas, electrodePositions)
 
     electrodeData = pd.DataFrame(data=electrodePositions,columns=['x','y','z'])
 
     layerData = pd.DataFrame(data=layerList,columns=['layer'])
 
+    regionData = pd.DataFrame(data=regionList,columns=['region'])
+
     data = pd.concat((electrodeData,layerData),axis=1)
+    data = pd.concat((data,regionData),axis=1)
 
     data.to_csv(electrode_csv)

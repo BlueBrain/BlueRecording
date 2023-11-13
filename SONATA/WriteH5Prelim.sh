@@ -17,7 +17,7 @@ module purge
 
 mkdir eeg_sonata_new
 
-source ~/probevenv/bin/activate
+source ~/envForReqGeneration/bin/activate
 
 
-srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' 'S1FL' 'simulation_config.json' 'positionsO1_new' 'eeg_sonata_new/coeffs.h5' 50
+srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' '/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json' 'eeg_sonata_new/coeffs.h5' 

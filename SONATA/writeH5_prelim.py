@@ -160,7 +160,7 @@ def writeH5File(path_to_simconfig,outputfile,electrode_csv,electrodeType):
     f.index = range(len(f))
 
 
-    electrodes = makeElectrodeDict(electrode_csv,electrodeType,region) # Dictionary containing metadata about the electrodes
+    electrodes = makeElectrodeDict(electrode_csv,electrodeType) # Dictionary containing metadata about the electrodes
 
     h5file = h5py.File(outputfile,'w') # Creates h5 file for coefficients
 

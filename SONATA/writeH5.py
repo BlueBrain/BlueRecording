@@ -11,6 +11,8 @@ from scipy.interpolate import RegularGridInterpolator
 
 def add_data(h5, id, coeffs ,population_name):
 
+    print(coeffs.shape)
+    
     dset = 'electrodes/'+population_name+'/scaling_factors'
 
     node_ids = h5[population_name+'/node_ids'][:]
@@ -23,11 +25,11 @@ def add_data(h5, id, coeffs ,population_name):
 
     if idIndex == len(h5[population_name+'/offsets'][:])-1: # If this is the last node in the list, we write the coefficients up to the end of the coefficient array
 
-        h5[dset][offset0:] = coeffs
+        h5[dset][offset0:,:-1] = coeffs
 
     else: # Otherwise, we write up to the offset for the next node
         offset1 = h5[population_name+'/offsets'][idIndex+1]
-        h5[dset][offset0:offset1] = coeffs
+        h5[dset][offset0:offset1,:-1] = coeffs
 
 def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
@@ -234,6 +236,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     r, population_name = getReport(path_to_simconfig)
 
+    print(population_name)
 
     allNodeIds = r.get_node_ids()
 
@@ -283,6 +286,8 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
         if electrode != population_name: # The field /electrodes/{population_name} contains the scaling factors, not the metadata
 
+            print(electrode)
+            
             epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
 
             if electrodeType == 'LFP':

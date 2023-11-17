@@ -35,11 +35,14 @@ class ElectrodeFileStructure(object):
         ### Iterates through electrode dictionary to write metadata
         for k, electrode in electrodes.items(): # Iterates through electrodes
 
-            h5.create_dataset("electrodes/" + electrode + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
+            print(k)
+            
+            h5.create_dataset("electrodes/" + k + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
             index += 1
 
             for item in electrode.items(): # Iterates through metadata fields for each electrode
-                h5.create_dataset("electrodes/" + electrode + '/' + item[0],
+            
+                h5.create_dataset("electrodes/" + k + '/' + item[0],
                               data=item[1])
         ####
 

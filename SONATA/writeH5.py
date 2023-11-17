@@ -285,9 +285,8 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
         if electrode != population_name: # The field /electrodes/{population_name} contains the scaling factors, not the metadata
 
-            epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
-
             if electrodeType == 'LFP':
+                epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
                 coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
             else:
 
@@ -350,19 +349,5 @@ if __name__=='__main__':
     else:
         path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
-    file = h5py.File(outputfile)
-
-    names = []
-    positions = []
-    for i in range(numElectrodes):
-        names.append(electrode_df.index[i])
-
-        positions.append(file['electrodes'][names[i]]['position'][:]) # Take electrode positions from h5 coefficient file
-
-
-
-    file.close()
-
-    electrodePositions = np.array(positions)
 
     writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

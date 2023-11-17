@@ -35,11 +35,11 @@ class ElectrodeFileStructure(object):
         ### Iterates through electrode dictionary to write metadata
         for k, electrode in electrodes.items(): # Iterates through electrodes
 
-            h5.create_dataset("electrodes/" + k + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
+            h5.create_dataset("electrodes/" + electrode + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
             index += 1
 
             for item in electrode.items(): # Iterates through metadata fields for each electrode
-                h5.create_dataset("electrodes/" + k + '/' + item[0],
+                h5.create_dataset("electrodes/" + electrode + '/' + item[0],
                               data=item[1])
         ####
 
@@ -87,13 +87,7 @@ def makeElectrodeDict(electrode_csv,type):
 
     for i in range(len(electrode_df.values)): # Iterates through each electrode in array
 
-        if 'electrode' in electrode_df.columns:
-
-            name = electrode_df['electrode'][i]
-
-        else:
-
-            name = str(i)
+        name = electrode_df.index.values[i]
 
         position = np.array([electrode_df['x'][i],electrode_df['y'][i],electrode_df['z'][i]])
 

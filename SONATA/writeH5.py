@@ -282,12 +282,11 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     coeffList = []
 
-    for electrode in h5['electrodes'].keys():
+    electrodeIdx = 0
+    for electrode in enumerate(h5['electrodes'].keys():
 
         if electrode != population_name: # The field /electrodes/{population_name} contains the scaling factors, not the metadata
 
-            print(electrode)
-            
             epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
 
             if electrodeType == 'LFP':
@@ -295,7 +294,9 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
             else:
 
                 newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
-                coeffs = get_coeffs_eeg(newPositions,path_to_fields)
+                coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
+
+            electrodeIdx += 1
 
             coeffList.append(coeffs)
 
@@ -346,6 +347,10 @@ if __name__=='__main__':
         except:
             path_to_fields = sys.argv[7]
 
+    if ' ' in path_to_fields: # If multiple potential field files, splits them into a list
+        path_to_fields = path_to_fields.split(' ')
+    else:
+        path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
     file = h5py.File(outputfile)
 

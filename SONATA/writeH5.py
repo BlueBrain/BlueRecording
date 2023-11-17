@@ -11,8 +11,6 @@ from scipy.interpolate import RegularGridInterpolator
 
 def add_data(h5, id, coeffs ,population_name):
 
-    print(coeffs.shape)
-    
     dset = 'electrodes/'+population_name+'/scaling_factors'
 
     node_ids = h5[population_name+'/node_ids'][:]
@@ -359,7 +357,7 @@ if __name__=='__main__':
     for i in range(numElectrodes):
         names.append(electrode_df.index[i])
 
-        positions.append(file['electrodes'][str(i)]['position'][:]) # Take electrode positions from h5 coefficient file
+        positions.append(file['electrodes'][names[i]]['position'][:]) # Take electrode positions from h5 coefficient file
 
 
 

@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name="EEG_2_CoordsV"
 #SBATCH --partition=prod
-#SBATCH --nodes=160
+#SBATCH --nodes=1
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2
 #SBATCH --time=24:00:00
@@ -18,4 +18,4 @@ module purge
 
 source  ~/envForReqGenerationCsv/bin/activate
 
-srun -n 1 python writeEEGToCSV.py 'ecog.csv' 2
+srun -n 1 python writeEEGToCSV.py 'ecog.csv' 2 'Forelimb Shoulder'

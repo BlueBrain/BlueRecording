@@ -9,16 +9,17 @@ import sys
 
 if __name__=='__main__':
 
-    probe_name = sys.argv[1]
-    path_to_simconfig = sys.argv[2]
-    path_to_atlas = sys.argv[3]
-    electrode_csv = sys.argv[4]
+    electrode_csv = sys.argv[1]
+    numContacts = int(sys.argv[2])
 
 
-    electrodePositions = np.array([0,0,0]).reshape(1,3)
+    electrodePositions = np.zeros((numContacts,3))
 
-    regionList = ['Outside']
-    layerList = ['Outside']
+    regionList = []
+    layerList = []
+    for i in range(numContacts):
+        regionList.append('Outside')
+        layerList.append('Outside')
 
     electrodeData = pd.DataFrame(data=electrodePositions,columns=['x','y','z'])
 

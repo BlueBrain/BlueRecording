@@ -1,18 +1,8 @@
 import bluepy as bp
 import numpy as np
 import h5py
-import os
-import tqdm
 import pandas as pd
 import sys
-from scipy.spatial import distance
-from scipy.spatial.transform import Rotation
-import time
-from voxcell.nexus.voxelbrain import Atlas
-import datetime
-import multiprocessing
-import MEAutility as MEA
-from sklearn.decomposition import PCA
 
 class ElectrodeFileStructure(object):
 

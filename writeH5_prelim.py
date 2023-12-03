@@ -10,15 +10,13 @@ class ElectrodeFileStructure(object):
     This class writes datasets to the h5 file
     '''
 
-    def __init__(self, fn, h5, lst_gids, electrodes, **kwargs):
+    def __init__(self, h5, lst_gids, electrodes, **kwargs):
 
         '''
         fn: filename
         h5: h5 file returned by h5py.File(filename,'w')
         **kwargs: currently expected to take the circuit path
         '''
-
-        self._fn = fn
 
         dset = h5.create_dataset("neuron_ids", data=sorted(lst_gids))
 
@@ -33,37 +31,21 @@ class ElectrodeFileStructure(object):
 
         self._gids = np.array(lst_gids)
 
-    def file(self):
-        return h5py.File(self._fn, "r+")
 
-    def lengths(self, gid):
-        assert gid in self._gids
-        return "lengths/" + str(int(gid))
-
-    def offsets(self, gid):
-        assert gid in self._gids
-        return "offsets/" + str(int(gid))
-
-    def weights(self, gid, idx):
+    def weights(self, gid):
         assert gid in self._gids
 
-        folder = int(idx/50)
         return '/electrodes/electrode_grid/'+str(int(gid))
 
-def writer_factory(circ):
 
-    def write_neuron(h5, file, gid, electrode_struc,sec_ids,idx):
-
-
-        elecIdx = 0
+def write_neuron(h5, file, gid, electrode_struc,sec_ids):
 
 
-        file.create_dataset(h5.weights(gid, idx), data=np.ones([len(sec_ids.values),len(electrode_struc.items())+1])) # Initializes the coefficient dataset for the gid, with a matrix of ones of size (number_of_segments x number_of_electrodes+1 (the last column is a check; LFP reports from that electrode should always read 0 ) )
+    file.create_dataset(h5.weights(gid), data=np.ones([len(sec_ids.values),len(electrode_struc.items())+1])) # Initializes the coefficient dataset for the gid, with a matrix of ones of size (number_of_segments x number_of_electrodes+1 (the last column is a check; LFP reports from that electrode should always read 0 ) )
 
 
-        file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values) # Creates dataset with section ids for the given neuron
+    file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values) # Creates dataset with section ids for the given neuron
 
-    return write_neuron
 
 
 def makeElectrodeDict(electrode_csv,type):
@@ -115,7 +97,7 @@ def getCellInfo(path_to_blueconfig):
     data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g)
 
 
-    sectionIds = data.columns.to_frame()
+    sectionIds = data.columns.to_frame() # Data frame containing gids and section ids
     sectionIds.index = range(len(sectionIds))
 
 
@@ -144,16 +126,14 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     #####
 
 
-    h5 = ElectrodeFileStructure(outputfile, h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
 
-    write_neuron = writer_factory(circ) # Creates function to initialize coefficient field in h5 file for each neuron
-
-    secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0])
+    secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0]) # Data frame containing section ids, with gids as index
 
 
     for i, gid in enumerate(gids): # For each gid, initializes coefficient field in h5 file
 
-        write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid],i)
+        write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid])
 
     h5file.close()
 

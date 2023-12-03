@@ -130,7 +130,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     type is either EEG or LFP
     '''
 
-    circ, gids, sectionIds, = getCellInfo(path_to_blueconfig)
+    circ, gids, sectionIds = getCellInfo(path_to_blueconfig)
 
     electrodes = makeElectrodeDict(electrode_csv,type) # Dictionary containing metadata about the electrodes
 

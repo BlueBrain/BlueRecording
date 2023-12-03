@@ -50,46 +50,10 @@ class ElectrodeFileStructure(object):
         folder = int(idx/50)
         return '/electrodes/electrode_grid/'+str(int(gid))
 
-def morph_stats_for_neuron(m):
-
-    '''
-    Reutns list of offsets for each section in neuron
-    '''
-
-    out_offsets = np.hstack([0, 1, 1 + np.cumsum(np.diff(m.section_offsets) - 1).astype(int)])
-
-    return  out_offsets
-
-def offsets_for_compartments(count_dict, in_offsets):
-
-    '''
-    Returns list of offsets for each segment in neuron
-    '''
-
-    out_offsets = np.zeros_like(in_offsets, dtype=int)
-
-    for sec_id in range(len(in_offsets) - 1):
-        out_offsets[sec_id + 1] = out_offsets[sec_id] + count_dict.get(sec_id, 0)
-
-    return out_offsets
-
-def writer_factory(circ, seg_counts):
+def writer_factory(circ):
 
     def write_neuron(h5, file, gid, electrode_struc,sec_ids,idx):
 
-        ###### This block writes a dataset that lists the offset for each section in the neuron
-
-        m = circ.morph.get(gid, transform=True) #MorphIO morphology object for given neuron
-
-        count_dict = seg_counts.loc[gid].values[0][0] # Number of segments in the neuron
-        count_dict = dict(zip(count_dict[0], count_dict[1]))
-
-        in_offsets = morph_stats_for_neuron(m)
-        out_offsets = offsets_for_compartments(count_dict, in_offsets)
-
-        file.create_dataset(h5.offsets(gid), data=out_offsets) # Creates dataset containing offset for each section in the gid
-
-        ###################
 
         elecIdx = 0
 
@@ -100,25 +64,6 @@ def writer_factory(circ, seg_counts):
         file.create_dataset('sec_ids/'+str(gid),shape=len(sec_ids.values),data=sec_ids.values) # Creates dataset with section ids for the given neuron
 
     return write_neuron
-
-
-def count_segments(in_data):
-
-    '''
-    Returns dataframe containing a count of the number of segments in each gid
-    '''
-
-    gid = in_data.values[0,0]
-
-    in_data = in_data[in_data.columns[1]]
-    bins = np.hstack([np.unique(in_data), np.max(in_data) + 1]).astype(int)
-
-    df = pd.DataFrame.from_dict({gid:[np.vstack((bins[:-1], np.histogram(in_data, bins=bins)[0].astype(int)))]},orient='index')
-
-    df.index.name = 'gid'
-
-    return df
-
 
 
 def makeElectrodeDict(electrode_csv,type):
@@ -156,7 +101,6 @@ def getCellInfo(path_to_blueconfig):
     circuit: Path to the circuit used to generate the time steps. Gets written to the h5 file and is checked by neurodamus when and LFP simulation is run. LFP simulation will fail if it uses a different circuit than the one in the h5 file
     gids: list of gids for which segment coefficients will be written
     sectionIds: dataframe containing the gid and sectionId of each neuron
-    seg_counts: data frame containing the number of segments in each gid
     '''
 
     sim = bp.Simulation(path_to_blueconfig)
@@ -174,9 +118,8 @@ def getCellInfo(path_to_blueconfig):
     sectionIds = data.columns.to_frame()
     sectionIds.index = range(len(sectionIds))
 
-    seg_counts = sectionIds.groupby("gid").apply(count_segments)
 
-    return circ, g, sectionIds, seg_counts
+    return circ, g, sectionIds
 
 
 def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
@@ -187,7 +130,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     type is either EEG or LFP
     '''
 
-    circ, gids, sectionIds, seg_counts = getCellInfo(path_to_blueconfig)
+    circ, gids, sectionIds, = getCellInfo(path_to_blueconfig)
 
     electrodes = makeElectrodeDict(electrode_csv,type) # Dictionary containing metadata about the electrodes
 
@@ -203,7 +146,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
 
     h5 = ElectrodeFileStructure(outputfile, h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
 
-    write_neuron = writer_factory(circ, seg_counts) # Creates function to initialize coefficient field in h5 file for each neuron
+    write_neuron = writer_factory(circ) # Creates function to initialize coefficient field in h5 file for each neuron
 
     secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0])
 

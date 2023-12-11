@@ -7,6 +7,7 @@ from morphio import Morphology
 import h5py
 from writeH5_prelim import *
 
+
 @pytest.fixture
 def secCounts():
 
@@ -17,6 +18,7 @@ def secCounts():
     sec_counts = pd.DataFrame(data=np.array([[1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2],[0,1,1,1,1,1,2,2,2,2,2,3,3,3,0,1,1,1,1,1]]).T,columns=('gid',bp.Section.ID))
     
     return sec_counts
+
 
 @pytest.fixture
 def h5File(tmp_path):
@@ -36,6 +38,7 @@ def h5File(tmp_path):
 
     return Morphology(filename)
 
+
 def test_makeElectrodeDict():
 
     csv = '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/tests/data/electrode.csv'
@@ -45,3 +48,45 @@ def test_makeElectrodeDict():
     np.testing.assert_equal(makeElectrodeDict(csv,'EEG')['name'], expected['name'])
 
 
+def test_ElectrodeFileStructure(tmp_path):
+
+    outputfile = tmp_path / 'testfile.h5'
+
+    h5file = h5py.File(outputfile,'w')
+
+    gids = [1]
+
+    electrodes = {'name':{'position':np.array([1,2,3]),'type':'EEG','region':'Outside','layer':'Outside'}}
+
+    h5 = ElectrodeFileStructure(h5file, gids, electrodes, circuit='test') # Initializes fields in h5 file
+
+    h5file.close()
+
+    newFile = h5py.File(outputfile,'r')
+
+    for key, value in electrodes['name'].items():
+
+        if key == 'position':
+            np.testing.assert_equal(newFile['electrodes/name/'+key][:], value)
+        else: 
+            np.testing.assert_equal(newFile['electrodes/name/'+key][()].decode(), value)
+
+    np.testing.assert_equal(newFile['neuron_ids'][:],gids)
+
+def test_write_neuron(tmp_path,secCounts):
+    
+    outputfile = tmp_path / 'testfile.h5'
+    h5file = h5py.File(outputfile,'w')
+    gids = [1]
+    gid = gids[0]
+    electrodes = {'name':{'position':np.array([1,2,3]),'type':'EEG','region':'Outside','layer':'Outside'}}
+    h5 = ElectrodeFileStructure(h5file, gids, electrodes, circuit='test') # Initializes fields in h5 file
+    secIds = pd.DataFrame(data=secCounts.values[:,1],index=secCounts.values[:,0]) # Data frame containing section ids, with gids as index
+
+    write_neuron(h5, h5file, gid, electrodes,secIds.loc[gid])
+    
+    h5file.close()
+
+    newFile = h5py.File(outputfile,'r')
+
+    np.testing.assert_equal( newFile['electrodes/electrode_grid/1'][:],np.ones((14,2)) )

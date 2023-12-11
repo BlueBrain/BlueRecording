@@ -93,7 +93,7 @@ def get_axon_points(m):
 
     lastpt = somaPos
 
-    points = somaPos
+    points = somaPos.reshape(-1,3)
     runningLen = [0]
 
     for x in idxs: # We iterate through the selected axonal sections

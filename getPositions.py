@@ -159,12 +159,12 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
         lensRelevant = runningLens[idx] / secLen # Gets fraction of the total section length for each 3d point
 
 
-        if len(axonRelevant) < 2: # If there are not enough points, we use the soma position and the first point in the axon
+        if len(axonRelevant) < 2: # If there are not enough points, we use the soma position (which would be included in the axon point list) and the first real point in the axon
             idx = 0
 
-            axonRelevant = np.vstack((somaPos.reshape((-1,3)), axonPoints[idx]))
+            axonRelevant = axonPoints[:2]
 
-            lensRelevant = np.array([0, runningLens[idx] / secLen])
+            lensRelevant = runningLens[:2] / secLen
 
 
     elif secName == 2: # Second AIS section
@@ -187,14 +187,16 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
             idxBig = np.argmin(np.abs(runningLens - endPoint)) # Index closest to 60 um
 
+            if idxSmall == idxBig: # If these two points are the same, we use different points
+                if idxBig < len(runningLens)-1:
+                    idxBig += 1
+                else:
+                    idxSmall -= 1 # If the two points are identical, then idxSmall can never be zero, since otherwise this would imply a one-point axon
+            
             idx = [idxSmall, idxBig]
 
             axonRelevant = axonPoints[idx]
             lensRelevant = (runningLens[idx] - startPoint) / secLen
-
-            if idxSmall == idxBig: # If these two points are the same, we estimate based on the soma
-                axonRelevant = np.vstack((somaPos.reshape((-1,3)), axonPoints[idxBig]))
-                lensRelevant = np.array([0, (runningLens[idxBig] - startPoint) / secLen])
 
 
     else: # Myelinated section

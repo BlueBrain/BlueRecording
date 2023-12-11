@@ -103,10 +103,6 @@ def get_axon_points(m):
             else:
                 currentLen += np.linalg.norm(pt - lastpt)
 
-            if (pt == lastpt).all(): # If the point is identical to the previous one, we add a small offset
-                pt += 1e-3
-                currentLen += 1e-5
-
             runningLen.append(currentLen)
 
             if np.any(points == np.Inf): # If this is the first point, we initialize the list of 3d positions
@@ -288,8 +284,8 @@ def getNewIndex(colIdx):
         if i == len(colIdx)-1: # For the last compartment, we need to add an index to account for the end point
             newIdx.append(col)
         elif col[-1]!=0: # If the compartment is not a soma
-         if colIdx[i+1]!=col: # and if the segment is not in the middle of the section
-            newIdx.append(col)
+            if colIdx[i+1]!=col: # and if the segment is not in the middle of the section
+                newIdx.append(col)
 
     newCols = pd.MultiIndex.from_tuples(newIdx, names=colIdx.names)
 

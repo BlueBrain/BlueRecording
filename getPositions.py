@@ -99,7 +99,7 @@ def get_axon_points(m):
         for pt in pts: # Iterate through 3d points in the section
 
             if (lastpt == somaPos).all(): # We calculate the distance of the current point from the soma
-                currentLen += np.linalg.norm(np.diagonal(pt - lastpt))
+                currentLen += np.linalg.norm(pt - lastpt)
             else:
                 currentLen += np.linalg.norm(pt - lastpt)
 

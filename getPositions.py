@@ -50,7 +50,6 @@ def get_axon_points(m):
     points = np.Inf
 
     currentLen = 0
-    runningLen = []
 
     somaPos = np.mean(m.soma.points, axis=0)[:, np.newaxis]
 
@@ -94,6 +93,9 @@ def get_axon_points(m):
 
     lastpt = somaPos
 
+    points = somaPos
+    runningLen = [0]
+
     for x in idxs: # We iterate through the selected axonal sections
 
         sec = m.sections[x]
@@ -109,10 +111,7 @@ def get_axon_points(m):
 
             runningLen.append(currentLen)
 
-            if np.any(points == np.Inf): # If this is the first point, we initialize the list of 3d positions
-                points = pt
-            else: # Otherwise, we append to the list
-                points = np.vstack((points, pt))
+            points = np.vstack((points, pt))
 
             lastpt = pt
 
@@ -136,7 +135,7 @@ def get_axon_points(m):
 
         runningLen.append(currentLen)
 
-    return np.unique(np.array(points),axis=0), np.unique(np.array(runningLen))
+    return np.unique(np.array(points),axis=0), np.unique(np.array(runningLen)) # We delete duplicate points that may occur if the morphology is in a format where section start and end points are repeated
 
 
 def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPos):
@@ -156,11 +155,9 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         axonRelevant = axonPoints[idx]
 
-#        axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonPoints[idx]))
 
         lensRelevant = runningLens[idx] / secLen # Gets fraction of the total section length for each 3d point
 
-#        lensRelevant = np.hstack((0,lensRelevant))
 
         if len(axonRelevant) < 2: # If there are not enough points, we use the soma position and the first point in the axon
             idx = 0

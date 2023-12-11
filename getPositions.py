@@ -25,7 +25,11 @@ def interp_points(coords, ncomps):
     npoints = coords.shape[0]
 
     for dim in range(coords.shape[1]):
-        f = interp1d(np.linspace(0, 1, npoints), coords[:, dim], kind='linear')
+        distances = np.cumsum(np.linalg.norm(np.diff(coords,axis=0),axis=1))
+        distances /= distances[-1]
+        distances = np.insert(distances,0,0)
+
+        f = interp1d(distances, coords[:, dim], kind='linear')
         ic = f(np.linspace(0, 1, ncomps + 1)).reshape(ncomps + 1, 1)
         xyz = np.hstack((xyz, ic))
 

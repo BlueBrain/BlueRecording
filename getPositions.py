@@ -136,7 +136,7 @@ def get_axon_points(m):
 
         runningLen.append(currentLen)
 
-    return np.array(points), np.array(runningLen)
+    return np.unique(np.array(points),axis=0), np.unique(np.array(runningLen))
 
 
 def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPos):
@@ -156,11 +156,11 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         axonRelevant = axonPoints[idx]
 
-        axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonPoints[idx]))
+#        axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonPoints[idx]))
 
         lensRelevant = runningLens[idx] / secLen # Gets fraction of the total section length for each 3d point
 
-        lensRelevant = np.hstack((0,lensRelevant))
+#        lensRelevant = np.hstack((0,lensRelevant))
 
         if len(axonRelevant) < 2: # If there are not enough points, we use the soma position and the first point in the axon
             idx = 0

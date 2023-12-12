@@ -151,15 +151,6 @@ def getGids(path_to_blueconfig):
 
     return ids, rep
 
-def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank, nranks):
-
-    index = int(rank % numPositionFiles)
-    folder = int(index/filesPerFolder)
-
-    allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
-
-    return allPositions
-
 def getSegmentMidpts(positions,node_ids):
 
     for gidx, gid in enumerate(node_ids):
@@ -197,6 +188,14 @@ def getSegmentMidpts(positions,node_ids):
 
     return newPos
 
+def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank, nranks):
+
+    index = int(rank % numPositionFiles)
+    folder = int(index/filesPerFolder)
+
+    allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
+
+    return allPositions
 
 def getCurrentIds(ids, segment_position_folder, numFilesPerFolder):
     
@@ -251,8 +250,8 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     columns = data.columns
 
     coeffList = []
-
-    for electrode in h5['electrodes'].keys():
+    
+    for electrodeIdx, electrode in enumerate(h5['electrodes'].keys()):
 
         epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
 
@@ -260,8 +259,8 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
             coeffs = get_coeffs_lfp(positions,columns,ePos,sigma)
         else:
 
-            newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
-            coeffs = get_coeffs_eeg(newPositions,path_to_fields)
+            newPositions = getSegmentMidpts(positions,g) # For EEG, we need the segment centers, not the endpoints
+            coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
 
         coeffList.append(coeffs)
 
@@ -303,5 +302,10 @@ if __name__=='__main__':
             sigma = float(sys.argv[6]) # If the argument is a number, assume it is a conductance
         except:
             path_to_fields = sys.argv[6]
+            
+    if ' ' in path_to_fields: # If multiple potential field files, splits them into a list
+        path_to_fields = path_to_fields.split(' ')
+    else:
+        path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
     writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

@@ -198,19 +198,15 @@ def getSegmentMidpts(positions,node_ids):
     return newPos
 
 
-def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
-
+def getCurrentIds(ids, segment_position_folder, numFilesPerFolder):
+    
     '''
-    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
-    segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
+    For the current rank, selects gids for which to calculate the coefficients
     '''
-
-    ids, rep = getGids(path_to_simconfig)
-
-
+    
     rank = MPI.COMM_WORLD.Get_rank()
     nranks = MPI.COMM_WORLD.Get_size()
-
+    
     numPositionFiles = np.ceil(len(ids)/1000) # Each position file has 1000 gids
 
     positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank, nranks)
@@ -220,9 +216,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     iterationSize = int(1000/iterationsPerFile)
 
     iteration = int(rank/numPositionFiles)
-
-    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
-
+    
     #### For the current rank, selects gids for which to calculate the coefficients
     try:
         g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
@@ -233,12 +227,28 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
         h5.close()
         return 1
     ##########
+    
+    positions = positions[g] # Gets positions for specific gids
+    
+    return g, positions
+    
+def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
+
+    '''
+    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
+    segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
+    '''
+
+    ids, rep = getGids(path_to_simconfig)
+
+    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
+    
+    g, positions = getCurrentIds(ids, segment_position_folder,numFilesPerFolder)
+
 
     data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g) # Loads compartment report for selected GIDs
 
     columns = data.columns
-
-    positions = positions[g] # Gets positions for specific gids
 
     coeffList = []
 

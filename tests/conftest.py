@@ -89,7 +89,7 @@ def writeNeuron(write_ElectrodeFileStructure, secCounts, electrodes, gids):
     
     h5file.close()
     
-    return path
+    return path, h5
 
 @pytest.fixture(scope="module")
 def morphology_short(path_to_morphology_file):

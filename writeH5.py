@@ -8,7 +8,7 @@ from scipy.spatial import distance
 from scipy.spatial.transform import Rotation
 from voxcell.nexus.voxelbrain import Atlas
 
-def add_data(h5, gid, coeffs, electrode_struc, rank):
+def add_data(h5, gid, coeffs):
 
     dset = 'electrodes/electrode_grid/'+str(int(gid))
     h5[dset][:,:-1] = coeffs

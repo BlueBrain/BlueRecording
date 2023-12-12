@@ -274,6 +274,22 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     return 0
 
+def getElectrodePositions(outputfile):
+    
+    file = h5py.File(outputfile)
+
+    positions = []
+
+    for i in range(numElectrodes):
+
+        positions.append(file['electrodes'][str(i)]['position'][:]) # Take electrode positions from h5 coefficient file
+
+    file.close()
+
+    electrodePositions = np.array(positions)
+    
+    return electrodePositions
+
 if __name__=='__main__':
 
     type = sys.argv[1] # Either EEG or LFP
@@ -301,18 +317,6 @@ if __name__=='__main__':
             path_to_fields = sys.argv[7]
 
 
-    file = h5py.File(outputfile)
-
-    positions = []
-
-    for i in range(numElectrodes):
-
-        positions.append(file['electrodes'][str(i)]['position'][:]) # Take electrode positions from h5 coefficient file
-
-
-
-    file.close()
-
-    electrodePositions = np.array(positions)
+    electrodePositions = getElectrodePositions(outputfile)
 
     writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

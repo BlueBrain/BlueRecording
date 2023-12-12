@@ -63,7 +63,7 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
         elif positions.columns[i][-1]==positions.columns[i+1][-1]: # Ensures we are not at the far end of a section
 
-            segCoeff = get_line_coeffs(startPos,endPos,electrodePos,sigma)
+            segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
 
             coeffs = np.hstack((coeffs,segCoeff))
 
@@ -188,16 +188,47 @@ def getSegmentMidpts(positions,node_ids):
 
     return newPos
 
-def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank, nranks):
-
+def get_position_file(filesPerFolder, numPositionFiles, rank):
+    
     index = int(rank % numPositionFiles)
     folder = int(index/filesPerFolder)
+    
+    return str(folder)+'/positions'+str(index)+'.pkl'
 
-    allPositions = pd.read_pickle(segment_position_folder+'/'+str(folder)+'/positions'+str(index)+'.pkl')
+def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank):
+    
+    position_file = get_position_file(filesPerFolder, numPositionFiles, rank)
+
+    allPositions = pd.read_pickle(segment_position_folder+'/'+position_file)
 
     return allPositions
 
-def getCurrentIds(ids, segment_position_folder, numFilesPerFolder):
+def get_indices(rank, nranks,numPositionFiles):
+    
+    iterationsPerFile = int(nranks/numPositionFiles)
+
+    iterationSize = int(1000/iterationsPerFile)
+
+    iteration = int(rank/numPositionFiles)
+    
+    return iteration, iterationSize
+
+def getCurrentIds(positions,iteration,iterationSize):
+    
+    #### For the current rank, selects gids for which to calculate the coefficients
+    try:
+        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
+    except:
+        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
+
+    if len(g) == 0:
+        h5.close()
+        raise Warning('Not enough GIDs or too many ranks')
+    ##########
+    
+    return g
+
+def getIdsAndPositions(ids, segment_position_folder, numFilesPerFolder):
     
     '''
     For the current rank, selects gids for which to calculate the coefficients
@@ -208,24 +239,11 @@ def getCurrentIds(ids, segment_position_folder, numFilesPerFolder):
     
     numPositionFiles = np.ceil(len(ids)/1000) # Each position file has 1000 gids
 
-    positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank, nranks)
+    positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank)
 
-    iterationsPerFile = int(nranks/numPositionFiles)
-
-    iterationSize = int(1000/iterationsPerFile)
-
-    iteration = int(rank/numPositionFiles)
+    iteration, iterationSize = get_indices(rank, nranks,numPositionFiles)
     
-    #### For the current rank, selects gids for which to calculate the coefficients
-    try:
-        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
-    except:
-        g = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
-
-    if len(g) == 0:
-        h5.close()
-        return 1
-    ##########
+    g = getCurrentIds(positions,iteration,iterationSize)
     
     positions = positions[g] # Gets positions for specific gids
     
@@ -242,7 +260,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
     
-    g, positions = getCurrentIds(ids, segment_position_folder,numFilesPerFolder)
+    g, positions = getIdsAndPositions(ids, segment_position_folder,numFilesPerFolder)
 
 
     data = rep.get(t_start=rep.t_start, t_end=rep.t_start + rep.t_step,gids=g) # Loads compartment report for selected GIDs

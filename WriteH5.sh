@@ -20,5 +20,5 @@ spack env activate h5mpi
 
 cp neuropixels_full/coeffsNeuropixels-384.h5 neuropixels_full/coeffsneuropixels.h5
 
-srun -n 300 python writeH5_MPI_MEA_full.py 'Neuropixels-384' 'LFP' 'BlueConfig' 'positions0' 'neuropixels_full/coeffsneuropixels.h5' 50
+srun -n 300 python writeH5_MPI_MEA_full.py 'Neuropixels-384' 'LFP' 'BlueConfig' 'positions0' 'neuropixels_full/coeffsneuropixels.h5' 
 

@@ -23,7 +23,7 @@ def test_ElectrodeFileStructure(write_ElectrodeFileStructure, electrodes, gids):
     Tests that electrode names and positions are written correctly
     '''
 
-    outputfile, h5 = write_ElectrodeFileStructure
+    outputfile, h5 = write_ElectrodeFileStructure # write_ElectrodeFileStructure is a fixture that initializes ElectrodeFileStructure from writeH5_prelim.py with the appropriate parameters
 
     newFile = h5py.File(outputfile,'r')
 
@@ -42,6 +42,6 @@ def test_write_neuron(writeNeuron):
     Tests that weights are initialized correctly for a given neuron
     '''
 
-    newFile = h5py.File(writeNeuron,'r')
+    newFile = h5py.File(writeNeuron[0],'r') # writeNeuron is a fixture that calls write_neuron from writeH5_prelim.py with the appropriate arguments, and returns the path to the h5 file and the h5 file object
 
     np.testing.assert_equal( newFile['electrodes/electrode_grid/1'][:],np.ones((19,2)) )

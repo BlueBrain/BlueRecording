@@ -12,10 +12,9 @@ class ElectrodeFileStructure(object):
     This class writes datasets to the h5 file
     '''
 
-    def __init__(self, fn, h5, lst_ids, electrodes, population_name, **kwargs):
+    def __init__(self, h5, lst_ids, electrodes, population_name, **kwargs):
 
         '''
-        fn: filename
         h5: h5 file returned by h5py.File(filename,'w')
         lst_ids: node ids
         electrodes: Dictionary with metadata about electrodes
@@ -23,7 +22,6 @@ class ElectrodeFileStructure(object):
         **kwargs: currently expected to take the circuit path
         '''
 
-        self._fn = fn
 
         dset = h5.create_dataset(population_name+"/node_ids", data=sorted(lst_ids))
 
@@ -92,18 +90,18 @@ def makeElectrodeDict(electrode_csv,type):
 
         name = electrode_df.index.values[i]
 
-        position = np.array([electrode_df['x'][i],electrode_df['y'][i],electrode_df['z'][i]])
+        position = np.array([electrode_df['x'].iloc[i],electrode_df['y'].iloc[i],electrode_df['z'].iloc[i]])
 
         if 'layer' in electrode_df.columns:
 
-            layer = electrode_df['layer'][i]
+            layer = electrode_df['layer'].iloc[i]
 
         else:
 
             layer = "NA"
 
         if 'region' in electrode_df.columns:
-            region = electrode_df['region'][i]
+            region = electrode_df['region'].iloc[i]
         else:
             region = 'NA'
 

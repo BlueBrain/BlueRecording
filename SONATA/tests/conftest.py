@@ -40,6 +40,23 @@ def data():
     return data
 
 @pytest.fixture(scope="module")
+def data_backwards():
+
+    '''
+    Defines a data frame mimicking a voltage report, with columns containing gids and section ids
+    '''
+    
+    columns = [[2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,0,1,1,1,1,1,2,2,2,2,2,3,3,3,10,10,10,10,10]]
+    
+    columnIdx = list(zip(*columns))
+    
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
+
+    data = pd.DataFrame(data=np.zeros([1,len(columns[0])]),columns=columnMultiIndex)
+    
+    return data
+
+@pytest.fixture(scope="module")
 def secCounts(data):
 
     '''
@@ -61,7 +78,7 @@ def electrodes():
 @pytest.fixture(scope="module")
 def gids():
     
-    return [1]
+    return [1,2]
 
 @pytest.fixture(scope="module")
 def population_name():

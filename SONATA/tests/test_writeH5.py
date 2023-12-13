@@ -35,7 +35,7 @@ def data_twoSections():
     
     columnIdx = list(zip(*columns))
     
-    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['gid',bp.Section.ID])
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
 
     data = pd.DataFrame(data=np.zeros([1,len(columns[0])]),columns=columnMultiIndex)
     
@@ -53,7 +53,7 @@ def positions():
     
     columnIdx = list(zip(*columns))
     
-    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['gid',bp.Section.ID])
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
     
     positions = np.array([[0.,0.,0.],[0.,0.,0.],[0.,0.,1.]])
 
@@ -87,7 +87,7 @@ def test_getSegmentMidpts(positions,gids):
     
     columnIdx = list(zip(*columns))
     
-    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=[None,bp.Section.ID])
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
     
     expectedPos = np.array([[0.,0.,0.],[0.,0.,.5]])
     
@@ -99,21 +99,36 @@ def test_getSegmentMidpts(positions,gids):
     
     pd.testing.assert_frame_equal(outputPos,expectedPositions)
     
-def test_add_coeffs(writeNeuron,gids):
     
+def test_add_coeffs(writeNeuron,gids,population_name,data):
+        
     h5File = writeNeuron[0]
     
     h5 = h5py.File(h5File,'r+')
     
-    gid = gids[0]
+    test_data = pd.DataFrame(data=np.arange(25)[np.newaxis,:],columns=data.columns)
     
-    test_data = np.arange(19)[:,np.newaxis]
+    add_data(h5,gids,test_data,population_name)
     
-    add_data(h5,gid,test_data)
+    expectedCoeffs = np.array([np.arange(25),np.ones(25)]).T
+        
+    np.testing.assert_equal( h5['electrodes/'+population_name+'/scaling_factors'][:], expectedCoeffs )
     
-    expectedCoeffs = np.array([np.arange(19),np.ones(19)]).T
+    h5.close()
     
-    np.testing.assert_equal( h5['electrodes/electrode_grid/1'][:], expectedCoeffs )
+def test_add_coeffs_backwards(writeNeuron,gids,population_name,data_backwards):
+        
+    h5File = writeNeuron[0]
+    
+    h5 = h5py.File(h5File,'r+')
+    
+    test_data = pd.DataFrame(data=np.arange(25)[np.newaxis,:],columns=data_backwards.columns)
+    
+    add_data(h5,gids,test_data,population_name)
+    
+    expectedCoeffs = np.array([np.hstack((np.arange(6,25),np.arange(6))),np.ones(25)]).T
+        
+    np.testing.assert_equal( h5['electrodes/'+population_name+'/scaling_factors'][:], expectedCoeffs )
     
     h5.close()
     
@@ -140,7 +155,7 @@ def test_get_coeffs_eeg(positions,write_potentialField,gids):
     
     columnIdx = list(zip(*columns))
     
-    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=[None,bp.Section.ID])
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
     
     expectedPotential = pd.DataFrame(data=np.array([0,0.5e-6])[np.newaxis,:],columns=columnMultiIndex)
     

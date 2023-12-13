@@ -10,17 +10,17 @@ import json
 from scipy.interpolate import RegularGridInterpolator
 import time 
 
+
 def add_data(h5, ids, coeffs ,population_name):
 
     
     dset = 'electrodes/'+population_name+'/scaling_factors'
-
-    node_ids = h5[population_name+'/node_ids'][:]
     
+    node_ids = h5[population_name+'/node_ids'][:]
+        
     isInInput = np.isin(node_ids,ids)
     nodesInInput = node_ids[isInInput] # This contains the same values as the variable ids, but in the order as in node_ids
     idIndex = np.where(isInInput)[0]
-   
 
     offset0 = h5[population_name+'/offsets'][idIndex] # Finds offset in  'electrodes/'+population_name+'/scaling_factors' for this particular node id
 
@@ -29,11 +29,11 @@ def add_data(h5, ids, coeffs ,population_name):
     if np.any(idIndex ==  len(h5[population_name+'/offsets'][:])-1):
         
         lastNodeIdx =  np.where(idIndex == len(h5[population_name+'/offsets'][:])-1)[0]
-        offset1[lastNodeIdx] = len(h5[population_name+'/offsets'][:]) # If this is the last node in the list, we write the coefficients up to the end of the coefficient array
+        offset1[lastNodeIdx] = len(h5[dset][:]) # If this is the last node in the list, we write the coefficients up to the end of the coefficient array
 
     notLastNodeIdx = np.where(idIndex != len(h5[population_name+'/offsets'][:])-1)[0]
     offset1[notLastNodeIdx] =  h5[population_name+'/offsets'][idIndex[notLastNodeIdx]+1] # Otherwise, we write up to the offset for the next node
-
+    
     for i, id in enumerate(nodesInInput):
 
          h5[dset][offset0[i]:offset1[i],:-1] = coeffs.loc[:,id].values.T
@@ -161,7 +161,7 @@ def get_coeffs_eeg(positions, path_to_fields):
 
     return outdf
 
-def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank, nranks):
+def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank):
 
     '''
     Loads positions file based on rank
@@ -231,39 +231,33 @@ def getReport(path_to_simconfig):
 
     return r, population_name
 
-def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
-
-    '''
-    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
-    segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
-    '''
-    t = time.time()
-    r, population_name = getReport(path_to_simconfig)
-
-
-    allNodeIds = r.get_node_ids()
-
-    numNodeIds = len(allNodeIds)
-
-    numPositionFiles = np.ceil(numNodeIds/1000) # Each position file has 1000 ids
-
-    rank = MPI.COMM_WORLD.Get_rank()
-    nranks = MPI.COMM_WORLD.Get_size()
-
-
+def get_indices(rank, nranks,numPositionFiles):
     
-    positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank, nranks)
-    
-
     iterationsPerFile = int(nranks/numPositionFiles) # How many ranks is any position file divided among
-    iterationSize = int(1000/iterationsPerFile) # Number of node_ids processed on this rank
+
+    iterationSize = int(1000/iterationsPerFile)  # Number of node_ids processed on this rank
 
     iteration = int(rank/numPositionFiles)
+    
+    return iteration, iterationSize
 
+def get_position_file(filesPerFolder, numPositionFiles, rank):
+    
+    index = int(rank % numPositionFiles)
+    folder = int(index/filesPerFolder)
+    
+    return str(folder)+'/positions'+str(index)+'.pkl'
 
-    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
+def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, rank):
+    
+    position_file = get_position_file(filesPerFolder, numPositionFiles, rank)
 
+    allPositions = pd.read_pickle(segment_position_folder+'/'+position_file)
 
+    return allPositions
+
+def getCurrentIds(positions,iteration,iterationSize):
+    
     #### For the current rank, selects node ids for which to calculate the coefficients
     try:
         node_ids= np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:(iteration+1)*iterationSize]
@@ -275,6 +269,47 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
         return 1
 
     #####
+    
+    return node_ids
+
+def getIdsAndPositions(ids, segment_position_folder, numFilesPerFolder):
+    
+    '''
+    For the current rank, selects gids for which to calculate the coefficients
+    '''
+    
+    rank = MPI.COMM_WORLD.Get_rank()
+    nranks = MPI.COMM_WORLD.Get_size()
+    
+    numPositionFiles = np.ceil(len(ids)/1000) # Each position file has 1000 gids
+
+    positions = load_positions(segment_position_folder,numFilesPerFolder, numPositionFiles, rank)
+
+    iteration, iterationSize = get_indices(rank, nranks,numPositionFiles)
+    
+    g = getCurrentIds(positions,iteration,iterationSize)
+    
+    positions = positions[g] # Gets positions for specific gids
+    
+    return g, positions
+    
+
+def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
+
+    '''
+    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
+    segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
+    '''
+    t = time.time()
+    r, population_name = getReport(path_to_simconfig)
+
+
+    allNodeIds = r.get_node_ids()
+    
+    node_ids, positions = getIdsAndPositions(allNodeIds, segment_positions_folder,numFilesPerFolder)
+
+
+    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
 
     node_ids_sonata = lb.Selection(values=node_ids)
 
@@ -284,7 +319,6 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     columns = data.columns
 
-    positions = positions[node_ids] # Gets positions for specific node ids
 
     coeffList = []
 

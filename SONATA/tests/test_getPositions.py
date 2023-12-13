@@ -7,6 +7,12 @@ from morphio import Morphology
 import h5py
 from getPositions import *
 
+def test_MutableMorph(morphology):
+    
+    morph = MutableMorph(morphology)
+    
+    assert morph.indices == [[0,1,2,3],[4,5],[6,7,8]]
+
 
 def test_get_axon_points(morphology, somaPos):
     

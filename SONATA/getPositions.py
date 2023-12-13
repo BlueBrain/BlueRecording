@@ -30,7 +30,7 @@ class MutableMorph():
             if '__' not in attr:
                 setattr(self,attr,getattr(morphioMorph,attr))
 
-        #### self.indices is a list of lists, where self.indices[i] is a list containing the indices of the 3d points for the ith section
+        #### self.indices is a list of lists, where self.indices[i] is a list containing the indices of the 3d points for the ith section. The soma is not included because it is not part of morphioImmutableObject.sections
         self.indices = []
         index = 0
         for section in self.sections:

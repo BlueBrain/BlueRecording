@@ -37,8 +37,15 @@ def test_ElectrodeFileStructure(write_ElectrodeFileStructure, electrodes, gids,p
     np.testing.assert_equal(newFile[population_name+'/node_ids'][:],gids)
     
     np.testing.assert_equal(newFile[population_name+'/node_ids'].attrs['circuit'], 'test')
+    
+def test_offset(secCounts):
+    
+    offsets = get_offsets(secCounts)
+    expected_offsets = np.array([0,19])
+    
+    np.testing.assert_equal(offsets, expected_offsets)
 
-def test_write_neuron(writeNeuron):
+def test_write_neuron(writeNeuron,population_name):
     
     '''
     Tests that weights are initialized correctly for a given neuron
@@ -46,4 +53,8 @@ def test_write_neuron(writeNeuron):
 
     newFile = h5py.File(writeNeuron[0],'r') # writeNeuron is a fixture that calls write_neuron from writeH5_prelim.py with the appropriate arguments, and returns the path to the h5 file and the h5 file object
 
-    np.testing.assert_equal( newFile['electrodes/electrode_grid/1'][:],np.ones((19,2)) )
+    np.testing.assert_equal( newFile['electrodes/'+population_name+'/scaling_factors'][:],np.ones((25,2)) )
+    
+    np.testing.assert_equal( newFile[population_name+'/offsets'][:],np.array([0,19]) )
+    
+    

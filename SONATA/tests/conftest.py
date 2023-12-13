@@ -33,7 +33,7 @@ def data():
     
     columnIdx = list(zip(*columns))
     
-    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['gid',bp.Section.ID])
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
 
     data = pd.DataFrame(data=np.zeros([1,len(columns[0])]),columns=columnMultiIndex)
     
@@ -85,15 +85,13 @@ def write_ElectrodeFileStructure(path_to_weights_file, electrodes, gids, populat
     return path_to_weights_file, h5
 
 @pytest.fixture(scope="module")
-def writeNeuron(write_ElectrodeFileStructure, secCounts, electrodes):
+def writeNeuron(write_ElectrodeFileStructure, secCounts, electrodes, population_name):
     
     path, h5 = write_ElectrodeFileStructure
         
     h5file = h5py.File(path,'r+')
         
-    secIds = pd.DataFrame(data=secCounts.values[:,1],index=secCounts.values[:,0]) # Data frame containing section ids, with gids as index
-
-    write_neuron(h5, h5file, electrodes,secIds.loc[gid])
+    write_all_neuron(secCounts, population_name, h5, h5file, electrodes)
     
     h5file.close()
     

@@ -7,6 +7,7 @@ from mpi4py import MPI
 from scipy.spatial import distance
 from scipy.spatial.transform import Rotation
 from voxcell.nexus.voxelbrain import Atlas
+from scipy.interpolate import RegularGridInterpolator
 
 def add_data(h5, gid, coeffs):
 
@@ -127,14 +128,13 @@ def get_coeffs_eeg(positions, path_to_fields):
     ySelect = positions.values[1]
     zSelect = positions.values[2]
 
-
     selections = np.array([xSelect, ySelect, zSelect]).T
-
-
+    
     InterpFcn = RegularGridInterpolator((x, y, z), pot[:, :, :, 0], method='linear')
 
+    
     out2rat = InterpFcn(selections) # Interpolate potential field at location of neural segments
-
+    out2rat = out2rat[np.newaxis,:]
 
     outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns) # Scale potential field by applied current
 

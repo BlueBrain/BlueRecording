@@ -205,9 +205,9 @@ def load_positions(segment_position_folder, filesPerFolder, numPositionFiles, ra
 
 def get_indices(rank, nranks,numPositionFiles):
     
-    iterationsPerFile = int(nranks/numPositionFiles)
+    iterationsPerFile = int(nranks/numPositionFiles) # How many ranks is any position file divided among
 
-    iterationSize = int(1000/iterationsPerFile)
+    iterationSize = int(1000/iterationsPerFile)  # Number of node_ids processed on this rank
 
     iteration = int(rank/numPositionFiles)
     

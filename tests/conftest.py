@@ -17,6 +17,11 @@ def path_to_morphology_file(tmpdir_factory):
     fn = tmpdir_factory.mktemp('data').join('morph.h5')
     return fn
 
+@pytest.fixture(scope='session')
+def path_to_potentialfield_file(tmpdir_factory):
+    fn = tmpdir_factory.mktemp('data').join('potential.h5')
+    return fn
+
 @pytest.fixture(scope="module")
 def data():
 
@@ -140,3 +145,34 @@ def morphology_farAxon(path_to_morphology_file):
     file.close()
 
     return Morphology(path_to_morphology_file)
+
+@pytest.fixture(scope="module")
+def write_potentialField(path_to_potentialfield_file):
+
+
+    file = h5py.File(path_to_potentialfield_file,'w')
+
+    xaxis = np.linspace(-10,10)
+    yaxis = np.linspace(-10,10)
+    zaxis = np.linspace(-10,10)
+    
+    meshes = file.create_group('Meshes')
+    firstdatafield = meshes.create_group('FirstDataField')
+    axis_x = firstdatafield.create_dataset('axis_x',data=xaxis)
+    axis_x = firstdatafield.create_dataset('axis_y',data=yaxis)
+    axis_x = firstdatafield.create_dataset('axis_z',data=zaxis)
+    
+    fieldgroups = file.create_group('FieldGroups')
+    randomname = fieldgroups.create_group('randomname')
+    allfields = randomname.create_group('AllFields')
+    obj = allfields.create_group('Object')
+    snapshot = obj.create_group('Snapshots')
+    field0 = snapshot.create_group('0')
+    
+    xd, yd, zd = np.meshgrid(xaxis,yaxis,zaxis)
+    comp0 = field0.create_dtaaset('comp0',data =xd)
+    
+
+    file.close()
+
+    return path_to_potentialfield_file

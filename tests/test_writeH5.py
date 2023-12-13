@@ -131,7 +131,7 @@ def test_get_coeffs_lfp(positions,data_twoSections,electrodePosition,sigma):
     
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
     
-def test_get_coeffs_eeg():
+def test_get_coeffs_eeg(write_potentialField):
     
     assert 0 == 1
     

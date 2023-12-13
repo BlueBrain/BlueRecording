@@ -131,7 +131,18 @@ def test_get_coeffs_lfp(positions,data_twoSections,electrodePosition,sigma):
     
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
     
-def test_get_coeffs_eeg(write_potentialField):
+def test_get_coeffs_eeg(positions,write_potentialField):
     
-    assert 0 == 1
+    testPositions = getSegmentMidpts(positions)
+    potentials = get_coeffs_eeg(testPositions,write_potentialField)
+    
+    columns = [[1,1],[0,1]]
+    
+    columnIdx = list(zip(*columns))
+    
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=[None,bp.Section.ID])
+    
+    expectedPotential = pd.DataFrame(data=np.array([0,0.5]),columns=columnMultiIndex)
+    
+    pd.testing.assert_frame_equal(potentials,expectedPotential)
     

@@ -152,9 +152,9 @@ def write_potentialField(path_to_potentialfield_file):
 
     file = h5py.File(path_to_potentialfield_file,'w')
 
-    xaxis = np.linspace(-10,10)
-    yaxis = np.linspace(-10,10)
-    zaxis = np.linspace(-10,10)
+    xaxis = np.linspace(-10,10)*1e-6
+    yaxis = np.linspace(-10,10)*1e-6
+    zaxis = np.linspace(-10,10)*1e-6
     
     meshes = file.create_group('Meshes')
     firstdatafield = meshes.create_group('FirstDataField')

@@ -52,7 +52,12 @@ def interp_points(coords, ncomps):
     npoints = coords.shape[0]
 
     for dim in range(coords.shape[1]):
-        f = interp1d(np.linspace(0, 1, npoints), coords[:, dim], kind='linear')
+        
+        distances = np.cumsum(np.linalg.norm(np.diff(coords,axis=0),axis=1))
+        distances /= distances[-1]
+        distances = np.insert(distances,0,0)
+
+        f = interp1d(distances, coords[:, dim], kind='linear')
         ic = f(np.linspace(0, 1, ncomps + 1)).reshape(ncomps + 1, 1)
         xyz = np.hstack((xyz, ic))
 
@@ -118,6 +123,10 @@ def get_axon_points(m,center):
     idxs.reverse() # We put the section indices in order from soma to end of the axon
 
     lastpt = somaPos
+    
+    points = somaPos.reshape(-1,3)
+    runningLen = [0]
+
 
     for x in idxs: # We iterate through the selected axonal sections
 
@@ -128,20 +137,15 @@ def get_axon_points(m,center):
         for pt in pts: # Iterate through 3d points in the section
 
             if (lastpt == somaPos).all(): # We calculate the distance of the current point from the soma
-                currentLen += np.linalg.norm(np.diagonal(pt - lastpt))
+                currentLen += np.linalg.norm(pt - lastpt)
             else:
                 currentLen += np.linalg.norm(pt - lastpt)
 
-            if (pt == lastpt).all(): # If the point is identical to the previous one, we add a small offset
-                pt += 1e-3
-                currentLen += 1e-5
 
             runningLen.append(currentLen)
 
-            if np.any(points == np.Inf): # If this is the first point, we initialize the list of 3d positions
-                points = pt
-            else: # Otherwise, we append to the list
-                points = np.vstack((points, pt))
+
+            points = np.vstack((points, pt))
 
             lastpt = pt
 
@@ -165,12 +169,13 @@ def get_axon_points(m,center):
 
         runningLen.append(currentLen)
 
-    return np.array(points), np.array(runningLen)
+    return np.unique(np.array(points),axis=0), np.unique(np.array(runningLen)) # We delete duplicate points that may occur if the morphology is in a format where section start and end points are repeated
 
 
 def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPos):
 
     segPos = []
+
 
     if secName == 1: # First AIS section
 
@@ -180,35 +185,25 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
         startPoint = 0
         endPoint = 30
 
-        idx = np.where(runningLens <= endPoint)[0] # Finds indices of axon 3d points where cumulative length < 30 um
+        idx = np.where(runningLens <= endPoint) # Finds indices of axon 3d points where cumulative length < 30 um
 
-        if len(idx) > 0:
+        axonRelevant = axonPoints[idx]
 
-            axonRelevant = axonPoints[idx]
 
-            lensRelevant = runningLens[idx] / secLen # Gets fraction of the total section length for each 3d point
+        lensRelevant = runningLens[idx] / secLen # Gets fraction of the total section length for each 3d point
 
-            axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonRelevant))
-            lensRelevant = np.insert(lensRelevant,0,0)
 
-        else:
-            axonInterp = np.vstack((somaPos.reshape((-1,3)),axonPoints[0]))
-            
-            lensRelevant = np.array([0,runningLens[0] / secLen])
+        if len(axonRelevant) < 2: # If there are not enough points, we use the soma position (which would be included in the axon point list) and the first real point in the axon
+            idx = 0
 
-            lensInterp = lensRelevant # Gets fraction of the total section length for each 3d point
+            axonRelevant = axonPoints[:2]
 
-            fx = interp1d(lensInterp, axonInterp[:,0], kind='linear', fill_value='extrapolate')
-            fy = interp1d(lensInterp, axonInterp[:,1], kind='linear', fill_value='extrapolate')
-            fz = interp1d(lensInterp, axonInterp[:,2], kind='linear', fill_value='extrapolate')
-
-            axonRelevant = np.array([fx(30/secLen),fy(30/secLen),fz(30/secLen)])
-            axonRelevant = np.vstack((somaPos.reshape((-1,3)),axonRelevant))
+            lensRelevant = runningLens[:2] / secLen
 
 
     elif secName == 2: # Second AIS section
 
-        secLen = 30 # Length is 30 um, by construction
+        secLen = 30 # Length is 30 unm, by construction
         segLen = secLen / numCompartments
 
         startPoint = 30 # Cumulative length of first AIS section
@@ -216,36 +211,26 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         idx = np.intersect1d(np.where(runningLens <= endPoint), np.where(runningLens >= startPoint)) # Finds indices 3d points falling in this length bin
 
-        if len(idx) >= 2:
+        axonRelevant = axonPoints[idx]
 
-            axonRelevant = axonPoints[idx]
+        lensRelevant = (runningLens[idx] - startPoint) / secLen
 
-            lensRelevant = (runningLens[idx] - startPoint) / secLen
-
-        else: # If there aren't enough points, we estimate
+        if len(axonRelevant) < 2: # If there aren't enough points, we estimate
 
             idxSmall = np.argmin(np.abs(runningLens - startPoint)) # Index closest to 30 um
 
             idxBig = np.argmin(np.abs(runningLens - endPoint)) # Index closest to 60 um
 
+            if idxSmall == idxBig: # If these two points are the same, we use different points
+                if idxBig < len(runningLens)-1:
+                    idxBig += 1
+                else:
+                    idxSmall -= 1 # If the two points are identical, then idxSmall can never be zero, since otherwise this would imply a one-point axon
             
-            if idxSmall == idxBig:
-                 axonInterp = np.vstack((somaPos.reshape((-1,3)), axonPoints[idxBig]))
-                 lensInterp = np.array([(0 - startPoint) / secLen,(runningLens[idxBig] - startPoint) / secLen])
-            else:
-                idx = [idxSmall, idxBig]
+            idx = [idxSmall, idxBig]
 
-                axonInterp = axonPoints[idx]
-                lensInterp = (runningLens[idx] - startPoint) / secLen
-
-            fx = interp1d(lensInterp, axonInterp[:,0], kind='linear', fill_value='extrapolate')
-            fy = interp1d(lensInterp, axonInterp[:,1], kind='linear', fill_value='extrapolate')
-            fz = interp1d(lensInterp, axonInterp[:,2], kind='linear', fill_value='extrapolate')
-
-
-            lensRelevant = np.array([0,1])
-            axonRelevant = np.array([fx(lensRelevant),fy(lensRelevant),fz(lensRelevant)]).T
-
+            axonRelevant = axonPoints[idx]
+            lensRelevant = (runningLens[idx] - startPoint) / secLen
 
 
     else: # Myelinated section
@@ -265,12 +250,11 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
 
         lensRelevant = (runningLens[idx] - startPoint) / secLen
 
-    
     for i in range(numCompartments+1): # Interpolates segment positions
-
+    
         frac = (i * segLen) / secLen
 
-      
+
         fx = interp1d(lensRelevant, axonRelevant[:, 0], kind='linear', fill_value='extrapolate')
         fy = interp1d(lensRelevant, axonRelevant[:, 1], kind='linear', fill_value='extrapolate')
         fz = interp1d(lensRelevant, axonRelevant[:, 2], kind='linear', fill_value='extrapolate')
@@ -372,8 +356,8 @@ def getNewIndex(colIdx):
         if i == len(colIdx)-1: # For the last compartment, we need to add an index to account for the end point
             newIdx.append(col)
         elif col[-1]!=0: # If the compartment is not a soma
-         if colIdx[i+1]!=col: # and if the segment is not in the middle of the section
-            newIdx.append(col)
+            if colIdx[i+1]!=col: # and if the segment is not in the middle of the section
+                newIdx.append(col)
 
     newCols = pd.MultiIndex.from_tuples(newIdx, names=colIdx.names)
 

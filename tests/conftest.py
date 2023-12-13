@@ -155,22 +155,24 @@ def write_potentialField(path_to_potentialfield_file):
     xaxis = np.linspace(-10,10)*1e-6
     yaxis = np.linspace(-10,10)*1e-6
     zaxis = np.linspace(-10,10)*1e-6
-    
+    realImag = np.array([0,1])
+
     meshes = file.create_group('Meshes')
     firstdatafield = meshes.create_group('FirstDataField')
     axis_x = firstdatafield.create_dataset('axis_x',data=xaxis)
-    axis_x = firstdatafield.create_dataset('axis_y',data=yaxis)
-    axis_x = firstdatafield.create_dataset('axis_z',data=zaxis)
+    axis_y = firstdatafield.create_dataset('axis_y',data=yaxis)
+    axis_z = firstdatafield.create_dataset('axis_z',data=zaxis)
     
     fieldgroups = file.create_group('FieldGroups')
     randomname = fieldgroups.create_group('randomname')
     allfields = randomname.create_group('AllFields')
-    obj = allfields.create_group('Object')
+    potential = allfields.create_group('EM Potential(x,y,z,f0)')
+    obj = potential.create_group('_Object')
     snapshot = obj.create_group('Snapshots')
     field0 = snapshot.create_group('0')
     
-    xd, yd, zd = np.meshgrid(xaxis,yaxis,zaxis)
-    comp0 = field0.create_dtaaset('comp0',data =xd)
+    xd, yd, zd,rd = np.meshgrid(xaxis,yaxis,zaxis,realImag,indexing='ij')
+    comp0 = field0.create_dataset('comp0',data =zd)
     
 
     file.close()

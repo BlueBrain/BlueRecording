@@ -16,8 +16,7 @@
 
 
 module purge
-
-module load unstable py-bluepy py-mpi4py #hdf5 py-h5py
+spack env activate getPositionsEnv 
 
 CHUNK_SIZE=50
 

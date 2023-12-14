@@ -16,9 +16,7 @@
 
 module purge
 
-spack env activate h5mpi
-
-cp neuropixels_full/coeffsNeuropixels-384.h5 neuropixels_full/coeffsneuropixels.h5
+spack env activate writeCoefficientsEnv
 
 srun -n 300 python writeH5.py 'LFP' 'BlueConfig' 'positions0' 'neuropixels_full/coeffsneuropixels.h5' 50
 

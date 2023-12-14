@@ -17,5 +17,5 @@ module purge
 
 mkdir neuropixels
 
-source ~/probevenv/bin/activate
+source ~/envForReqGeneration_NonSonata/bin/activate
 srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'LFP' './BlueConfig' 'positionsO1_new' 'electrodes/electrode.h5'

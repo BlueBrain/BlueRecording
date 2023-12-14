@@ -6,6 +6,8 @@ from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
 from getPositions import *
+from scipy.spatial.transform import Rotation as R
+
 
 def test_MutableMorph(morphology):
     
@@ -24,6 +26,18 @@ def test_get_axon_points(morphology, somaPos):
     expectedPoints = np.array([[0,0,0],[0,0,1],[0,0,2],[0,0,3],[0,0,1073]])
     np.testing.assert_almost_equal(lengths,expectedLengths,decimal=2)
     np.testing.assert_almost_equal(points,expectedPoints,decimal=2)
+    
+def test_apply_transform(morphology_trivial):
+    
+    center = np.array([1,1,1])
+    
+    r = R.from_quat([0, 0, np.sin(np.pi/4), np.cos(np.pi/4)])
+    
+    expectedPoints = np.array([[1.,1.,1.],[1.,2.,1.]])
+    
+    m = apply_transform(MutableMorph(morphology_trivial), center, r)
+    
+    np.testing.assert_almost_equal(m.points, expectedPoints)
     
 def test_get_axon_points_extrapolate(morphology_short, somaPos):
     

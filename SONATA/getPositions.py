@@ -297,8 +297,8 @@ def getSimulationInfo(path_to_simconfig, newidx):
 
     return ids, data, population
 
-def getMorphology(population, i):
-
+def get_morph_path(population, i, path_to_simconfig):
+    
     morphName = population.get(i, 'morphology') # Gets name of the morphology file for node_id i
 
     with open(path_to_simconfig) as f:
@@ -314,12 +314,25 @@ def getMorphology(population, i):
         finalmorphpath = basedir
         for m in morphpath.split('/')[1:]:
             finalmorphpath = finalmorphpath + '/'+m
+            
+    return finalmorphpath+'/ascii/'+morphName+'.asc'
+    
 
+def getMorphology(population, i, path_to_simconfig):
 
-    mImmutable = Morphology(finalmorphpath+'/ascii/'+morphName+'.asc') # Immutable MorphIO morphology object
+    
+    finalmorphpath = get_morph_path(population, i, path_to_simconfig)
+
+    mImmutable = Morphology(finalmorphpath) # Immutable MorphIO morphology object
 
     m = MutableMorph(mImmutable) # Mutable version, so that we can change the positions to orient the cell correctly within the circuit
+    
+    m, center = positionMorphology(m, population, i)
 
+    return m, center
+
+def get_transform(population, i):
+    
     center = np.array([population.get(group=[i],properties='x'),population.get(group=[i],properties='y'),population.get(group=[i],properties='z')]) # Gets soma position
 
     center = center.flatten()
@@ -336,11 +349,23 @@ def getMorphology(population, i):
     rotQuat /= np.linalg.norm(rotQuat)
     rotation = R.from_quat(rotQuat.flatten())
     ###
+    
+    return center, rotation
 
+def apply_transform(m, center, rotation):
+    
     m.points = R.apply(rotation,m.points) # Rotates cell
 
     m.points += center # Translates cell
+    
+    return m
 
+def positionMorphology(m, population, i):
+    
+    center, rotation = get_transform(population, i)
+
+    m = apply_transform(m, center)
+    
     return m, center
 
 def getNewIndex(colIdx):
@@ -374,7 +399,7 @@ def main(path_to_simconfig, newidx,chunk_size, path_to_positions_folder):
 
     for idx, i in enumerate(ids): # Iterates through node_ids and gets segment positions
 
-        m, center = getMorphology(population,i)
+        m, center = getMorphology(population,i, path_to_simconfig)
         somaPos = center[:,np.newaxis]
 
         axonPoints, runningLens = get_axon_points(m,center) # Gets 3d positions and cumulative length of the axon

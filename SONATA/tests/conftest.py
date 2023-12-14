@@ -120,6 +120,22 @@ def writeNeuron(write_ElectrodeFileStructure, secCounts, electrodes, population_
     return path, h5
 
 @pytest.fixture(scope="module")
+def morphology_trivial(path_to_morphology_file):
+
+    file = h5py.File(path_to_morphology_file,'w')
+
+    structureData = np.array([[0,1,-1],[1,2,0]]) # One soma with 1 3d point, 1 axon sections with 2 points
+
+    structure = file.create_dataset('structure',data=structureData)
+
+    pointsData = np.array([[0,0,0,1],[0,0,0,1],[1,0,0,.3]])
+    points = file.create_dataset('points',data=pointsData)
+
+    file.close()
+
+    return Morphology(path_to_morphology_file)
+
+@pytest.fixture(scope="module")
 def morphology_short(path_to_morphology_file):
 
     file = h5py.File(path_to_morphology_file,'w')

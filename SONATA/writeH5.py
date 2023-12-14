@@ -306,7 +306,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     allNodeIds = r.get_node_ids()
     
-    node_ids, positions = getIdsAndPositions(allNodeIds, segment_positions_folder,numFilesPerFolder)
+    node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,numFilesPerFolder)
 
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
@@ -379,11 +379,11 @@ if __name__=='__main__':
         except:
             path_to_fields = sys.argv[7]
 
-
-    if ' ' in path_to_fields: # If multiple potential field files, splits them into a list
-        path_to_fields = path_to_fields.split(' ')
-    else:
-        path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
+    if path_to_fields is not None:
+        if ' ' in path_to_fields: # If multiple potential field files, splits them into a list
+            path_to_fields = path_to_fields.split(' ')
+        else:
+            path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
 
     writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

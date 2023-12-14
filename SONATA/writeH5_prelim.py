@@ -35,12 +35,12 @@ class ElectrodeFileStructure(object):
 
 
             
-            h5.create_dataset("electrodes/" + key + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
+            h5.create_dataset("electrodes/" + str(key) + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
             index += 1
 
             for item in electrode.items(): # Iterates through metadata fields for each electrode
             
-                h5.create_dataset("electrodes/" + key + '/' + item[0],
+                h5.create_dataset("electrodes/" + str(key) + '/' + item[0],
                               data=item[1])
         ####
 
@@ -166,7 +166,7 @@ def writeH5File(path_to_simconfig,outputfile,electrode_csv,electrodeType):
     h5id.set_mdc_config(cc)
     #####
 
-    h5 = ElectrodeFileStructure(outputfile, h5file, nodeIds, electrodes, population_name, circuit=circuitpath) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(h5file, nodeIds, electrodes, population_name, circuit=circuitpath) # Initializes fields in h5 file
 
 
     write_all_neuron(sectionIdsFrame, population_name, h5, h5file, electrodes)  # For each node_id, initializes coefficient field in h5 file

@@ -26,7 +26,7 @@ class ElectrodeFileStructure(object):
         ### Iterates through electrode dictionary to write metadata
         for k, electrode in electrodes.items(): # Iterates through electrodes
             for item in electrode.items(): # Iterates through metadata fields for each electrode
-                h5.create_dataset("electrodes/" + k + '/' + item[0],
+                h5.create_dataset("electrodes/" + str(k) + '/' + item[0],
                               data=item[1])
 
         self._gids = np.array(lst_gids)
@@ -126,7 +126,7 @@ def writeH5File(path_to_blueconfig,outputfile,electrode_csv,type):
     #####
 
 
-    h5 = ElectrodeFileStructure(h5file, gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(gids, electrodes, circuit=circ.config["cells"]) # Initializes fields in h5 file
 
     secIds = pd.DataFrame(data=sectionIds.values[:,1],index=sectionIds.values[:,0]) # Data frame containing section ids, with gids as index
 

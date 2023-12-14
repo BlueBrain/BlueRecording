@@ -364,7 +364,7 @@ def positionMorphology(m, population, i):
     
     center, rotation = get_transform(population, i)
 
-    m = apply_transform(m, center)
+    m = apply_transform(m, center, rotation)
     
     return m, center
 

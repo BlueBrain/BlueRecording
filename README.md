@@ -1,6 +1,6 @@
 # create_lfp_weights_for_neurodamus
 
-This repository contains scripts to porduce an input file (also refered to as an electrodes file or a weights file) for the calculation of extracellular signals in [neurodamus](https://github.com/BlueBrain/neurodamus). Complete documentation for this calculation can be found [here](https://github.com/BlueBrain/neurodamus/blob/main/docs/online-lfp.rst). 
+This repository contains scripts to porduce an input file (also refered to as an electrodes file or a weights file) for the calculation of extracellular signals in [neurodamus](https://github.com/BlueBrain/neurodamus). Complete documentation for this calculation can be found [here](https://github.com/BlueBrain/neurodamus/blob/main/docs/online-lfp.rst](https://github.com/BlueBrain/neurodamus/tree/main/docs). 
 
 The root folder provides scripts for the production of an electrodes file compatible with BluleConfig based simulations. The SONATA folder provides scripts that produces ane electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file) 
 

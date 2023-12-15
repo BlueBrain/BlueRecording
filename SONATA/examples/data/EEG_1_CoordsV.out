@@ -3,13 +3,3 @@ Autoloading intel-oneapi-mkl/2021.4.0
 Autoloading hpe-mpi/2.25.hmpt
 Autoloading python/3.10.8
 dt from the report differs from the global simulation dt.
-Traceback (most recent call last):
-  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/getPositions.py", line 476, in <module>
-    main(path_to_simconfig, newidx, chunk_size, path_to_positions_folder)
-  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/getPositions.py", line 402, in main
-    m, center = getMorphology(population,i, path_to_simconfig)
-  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/getPositions.py", line 326, in getMorphology
-    mImmutable = Morphology(finalmorphpath) # Immutable MorphIO morphology object
-morphio._morphio.RawDataError: File: .//components/morphologies/ascii/dend-rat_P16_S1_RH3_20140129_axon-C060110A5_-_Scale_x1.000_y0.975_z1.000_-_Clone_0.asc does not exist.
-srun: error: r5i1n14: task 0: Exited with exit code 1
-srun: launch/slurm: _step_signal: Terminating StepId=1947949.0

@@ -1,0 +1,205 @@
+Autoloading python/3.10.8
+Autoloading intel-oneapi-mkl/2021.4.0
+Autoloading hpe-mpi/2.25.hmpt
+Autoloading python/3.10.8
+Autoloading intel-oneapi-mkl/2021.4.0
+Autoloading hpe-mpi/2.25.hmpt
+numprocs=36
+NEURON -- VERSION 9.0a-104-gbd9426d96+ HEAD (bd9426d96+) 2023-11-15
+Duke, Yale, and the BlueBrain Project -- Copyright 1984-2022
+See http://neuron.yale.edu/neuron/credits
+
+Additional mechanisms from files
+ "mod/ALU.mod" "mod/CaDynamics_DC0.mod" "mod/CaDynamics_E2.mod" "mod/Ca_HVA2.mod" "mod/Ca_HVA.mod" "mod/Ca_LVAst.mod" "mod/Ca.mod" "mod/CoreNEURONArtificialCell.mod" "mod/DetAMPANMDA.mod" "mod/DetGABAAB.mod" "mod/gap.mod" "mod/GluSynapse.mod" "mod/HDF5reader.mod" "mod/Ih.mod" "mod/Im.mod" "mod/KdShu2007.mod" "mod/K_Pst.mod" "mod/K_Tst.mod" "mod/lookupTableV2.mod" "mod/Nap_Et2.mod" "mod/NaTa_t.mod" "mod/NaTg.mod" "mod/NaTs2_t.mod" "mod/netstim_inhpoisson.mod" "mod/ProbAMPANMDA_EMS.mod" "mod/ProbGABAAB_EMS.mod" "mod/SK_E2.mod" "mod/SKv3_1.mod" "mod/SonataReportHelper.mod" "mod/SonataReports.mod" "mod/SpikeWriter.mod" "mod/StochKv3.mod" "mod/StochKv.mod" "mod/SynapseReader.mod" "mod/TTXDynamicsSwitch.mod" "mod/VecStim.mod"
+[STEP] Initializing Neurodamus... Logfile: pydamus_2023-12-15_16h51.log
+[INFO]  => Neurodamus Mod & Hoc lib loaded.
+[INFO] Checking for plugins...
+[INFO]  => Engines Available: ['Base', 'NGV', 'METype']
+[INFO]   : Connections Types: ['NeuroGlial', 'GlioVascular', None, 'Synaptic', 'GapJunction', 'NeuroModulation']
+[STEP] Setting up Neurodamus configuration
+[INFO] Initializing Simulation Configuration and Validation
+[INFO] Valid CoreNeuron input data not found in '/dev/shm/sim-hpc/1947982/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input'. Neurodamus will proceed to model building.
+[INFO] Checking simulation requirements
+[INFO] Initializing hoc config objects
+No MorphologyType in BlueConfig, default to legacy 'asc'. MorphologyPath becomes: False/ascii 
+Taking Simulator mode from BlueConfig
+SimulatorMode set to 'CORENEURON'
+As of Oct 2020 Neurodamus uses Random123 as default
+Directory /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input does not exist.  Creating...
+[INFO] User-defined RNG base seed 628462.0
+[WARNING] Some node set rules were replaced from /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/configuration/node_sets.json
+[INFO] Memusage (RSS) per node [MB]: Max=3537.71, Min=3537.71, Mean(Stdev)=3537.71(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=99.00, Min=98.35, Mean(Stdev)=98.38(0.10)
+[INFO] Checking Connection Configurations
+[INFO]  => CHECK No Global vars!
+[INFO]  => CHECK No Block Overrides!
+[INFO]  => CHECK No single Weight=0 blocks!
+[STEP] ================ CALCULATING LOAD BALANCE ================
+[STEP] Computing Load Balance
+[INFO] Activating experimental LB for Sonata circuit 'S1nonbarrel_neurons'
+[WARNING] Load Balance AUTO-SELECTED: RoundRobin. Reason: 
+[INFO] Memusage (RSS) per node [MB]: Max=3625.46, Min=3625.46, Mean(Stdev)=3625.46(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=101.34, Min=100.68, Mean(Stdev)=100.71(0.11)
+[STEP] ==================== BUILDING CIRCUIT ====================
+[STEP] LOADING NODES
+[INFO] Load-balance object not present. Continuing Round-Robin...
+[INFO]  => (default) Circuit has been disabled
+[STEP] Circuit S1nonbarrel_neurons
+[INFO] Reading Nodes (METype) info from '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/configuration/networks/nodes/S1nonbarrel_neurons/nodes.h5'
+[INFO]  -> Distributing 'S1nonbarrel_neurons:Cell' target cells Round-Robin
+[INFO]  => Loaded info about 1 target cells (out of 1)
+[STEP] FINALIZING CIRCUIT CELLS
+[STEP] Circuit (default)
+[STEP] Circuit S1nonbarrel_neurons
+[INFO] Finalizing cells... Gid offset: 0
+[INFO]  > Instantiating cells... (1 in Rank 0)
+|-------20%-------40%-------60%-------80%------100%| [Time taken: 1.12 s]
+[INFO]  > Updating targets
+[INFO]  > Initializing cell network
+[INFO] Memusage (RSS) per node [MB]: Max=3657.31, Min=3657.31, Mean(Stdev)=3657.31(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.62, Min=100.76, Mean(Stdev)=101.59(4.74)
+[STEP] LOADING CIRCUIT CONNECTIVITY
+[STEP] Circuit (default)
+[INFO]  => No connectivity set as internal. See projections
+[STEP] Circuit S1nonbarrel_neurons
+[INFO]  => No connectivity set as internal. See projections
+[STEP] Handling projections...
+[STEP] Configuring connections...
+[INFO] Done, but waiting for all ranks
+[INFO] Memusage (RSS) per node [MB]: Max=3657.41, Min=3657.41, Mean(Stdev)=3657.41(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.62, Min=100.76, Mean(Stdev)=101.59(4.74)
+[STEP] ================ INSTANTIATING SIMULATION ================
+[STEP] Handling Replay
+[INFO] Memusage (RSS) per node [MB]: Max=3657.45, Min=3657.45, Mean(Stdev)=3657.45(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.62, Min=100.76, Mean(Stdev)=101.60(4.74)
+[STEP] Creating connections in the simulator
+[INFO] Memusage (RSS) per node [MB]: Max=3657.47, Min=3657.47, Mean(Stdev)=3657.47(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.62, Min=100.76, Mean(Stdev)=101.60(4.74)
+[STEP] Stimulus Apply.
+[INFO] Instantiating Stimulus Injects:
+[INFO] Memusage (RSS) per node [MB]: Max=3657.50, Min=3657.50, Mean(Stdev)=3657.50(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.62, Min=100.78, Mean(Stdev)=101.60(4.74)
+[STEP] Enabling modifications...
+[STEP] Reports Enabling
+[INFO]  * compartment (Type: compartment, Target: Cell, Dt: 0.100000)
+[INFO] Adding report voltage.h5 for CoreNEURON with 1 gids
+[INFO] Memusage (RSS) per node [MB]: Max=3658.20, Min=3658.20, Mean(Stdev)=3658.20(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.68, Min=100.79, Mean(Stdev)=101.62(4.74)
+[INFO] Preparing to run simulation...
+[INFO] Executing actions after stdinit...
+[STEP] Dataset generation for CoreNEURON
+[INFO] SHM file transfer mode for CoreNEURON enabled
+[INFO] Writing sim config file: /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/sim.conf
+[INFO]  => Dataset written to '/dev/shm/sim-hpc/1947982/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input'
+[STEP] ======================= SIMULATION =======================
+[INFO] Memusage (RSS) per node [MB]: Max=3665.38, Min=3665.38, Mean(Stdev)=3665.38(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=129.89, Min=101.00, Mean(Stdev)=101.82(4.75)
+[INFO] Clearing model
+[INFO] malloc_trim: memory released back to the system.
+[INFO] Memusage (RSS) per node [MB]: Max=3330.48, Min=3330.48, Mean(Stdev)=3330.48(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=102.25, Min=92.23, Mean(Stdev)=92.52(1.64)
+[INFO] Launching simulation with CoreNEURON
+ num_mpi=36
+
+ 
+ Duke, Yale, and the BlueBrain Project -- Copyright 1984-2020
+ Version : 9.0.0 bd9426d96 (2023-11-15 12:07:10 -0500)
+ 
+ Additional mechanisms from files
+ ALU.mod Ca.mod CaDynamics_DC0.mod CaDynamics_E2.mod Ca_HVA.mod Ca_HVA2.mod Ca_LVAst.mod CoreNEURONArtificialCell.mod DetAMPANMDA.mod DetGABAAB.mod GluSynapse.mod HDF5reader.mod Ih.mod Im.mod K_Pst.mod K_Tst.mod KdShu2007.mod NaTa_t.mod NaTg.mod NaTs2_t.mod Nap_Et2.mod ProbAMPANMDA_EMS.mod ProbGABAAB_EMS.mod SK_E2.mod SKv3_1.mod SonataReportHelper.mod SonataReports.mod SpikeWriter.mod StochKv.mod StochKv3.mod SynapseReader.mod TTXDynamicsSwitch.mod VecStim.mod exp2syn.mod expsyn.mod gap.mod hh.mod lookupTableV2.mod netstim.mod netstim_inhpoisson.mod passive.mod pattern.mod stim.mod svclmp.mod
+
+ Memory (MBs) :             After mk_mech : Max 103.1406, Min 93.1875, Avg 93.4897 
+ Memory (MBs) :            After MPI_Init : Max 103.1406, Min 93.1875, Avg 93.4897 
+ Memory (MBs) :          Before nrn_setup : Max 103.2891, Min 93.2812, Avg 93.5819 
+ Setup Done   : 0.00 seconds 
+ Model size   : 998.82 kB
+ Memory (MBs) :          After nrn_setup  : Max 104.5820, Min 93.3047, Avg 93.6406 
+GENERAL PARAMETERS
+--mpi=true
+--mpi-lib=/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_oneapi-2022.2.1-skylake/neuron-9.0.a14-vnipyv/lib/libcorenrnmpi_mpich.so
+--gpu=false
+--dt=0.025
+--tstop=1
+
+GPU
+--nwarp=65536
+--cell-permute=0
+--cuda-interface=false
+
+INPUT PARAMETERS
+--voltage=1000
+--seed=628462
+--datpath=/dev/shm/sim-hpc/1947982/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input
+--filesdat=files.dat
+--pattern=
+--report-conf=/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/report.conf
+--restore=     
+
+PARALLEL COMPUTATION PARAMETERS
+--threading=false
+--skip_mpi_finalize=true
+
+SPIKE EXCHANGE
+--ms_phases=2
+--ms_subintervals=2
+--multisend=false
+--spk_compress=3
+--binqueue=false
+
+CONFIGURATION
+--spikebuf=100000
+--prcellgid=-1
+--forwardskip=0
+--celsius=34
+--mindelay=10
+--report-buffer-size=4
+
+OUTPUT PARAMETERS
+--dt_io=0.1
+--outpath=/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting
+--checkpoint=
+
+ Start time (t) = 0
+
+ Memory (MBs) :  After mk_spikevec_buffer : Max 104.5820, Min 93.3047, Avg 93.6406 
+ Memory (MBs) :     After nrn_finitialize : Max 104.7656, Min 93.3047, Avg 93.6457 
+[REPORTS] [info] :: Initializing PARALLEL implementation...
+[REPORTS] [info] :: Initializing communicators and preparing SONATA datasets
+
+psolve |                                                         | t: 0.00   ETA: 0h00m00spsolve |=========================================================| t: 1.00   ETA: 0h00m00s
+
+Solver Time : 0.0138539
+
+
+ Simulation Statistics
+ Number of cells: 1
+ Number of compartments: 1311
+ Number of presyns: 37
+ Number of input presyns: 0
+ Number of synapses: 0
+ Number of point processes: 36
+ Number of transfer sources: 0
+ Number of transfer targets: 0
+ Number of spikes: 0
+ Number of spikes with non negative gid-s: 0
+[INFO] Creating .SUCCESS file: 'simulation_config.json.SUCCESS'
+[INFO] Memusage (RSS) per node [MB]: Max=3422.90, Min=3422.90, Mean(Stdev)=3422.90(0.00)
+[INFO] Memusage (RSS) per task [MB]: Max=109.75, Min=94.64, Mean(Stdev)=95.08(2.48)
+[INFO] Deleting intermediate data in /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input
+[INFO] Deleting intermediate SHM data in /dev/shm/sim-hpc/1947982/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/reporting/coreneuron_input
+[INFO] Finished
+[INFO] +================================================ TIMEIT STATS =================================================+
+[INFO] |                       Event Label                        | Avg.Time | Min.Time | Max.Time | Hits R0 / Total   |
+[INFO] +---------------------------------------------------------------------------------------------------------------+
+[INFO] | Compute LB                                               |     0.04 |     0.04 |     0.05 |       1 / 36      |
+[INFO] | Cell creation                                            |     1.22 |     1.21 |     1.22 |       1 / 36      |
+[INFO] | Synapse creation                                         |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] | Enable Stimulus                                          |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] | Enable Modifications                                     |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] | Enable Reports                                           |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] | Model Finalized                                          |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] |  ╚ stdinit                                               |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] | corewrite                                                |     0.08 |     0.08 |     0.08 |       1 / 36      |
+[INFO] | finished Run                                             |     0.22 |     0.22 |     0.22 |       1 / 36      |
+[INFO] | Delete corenrn data                                      |     0.04 |     0.02 |     0.07 |       1 / 36      |
+[INFO] +---------------------------------------------------------------------------------------------------------------+

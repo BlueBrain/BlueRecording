@@ -1,0 +1,227 @@
+Traceback (most recent call last):
+  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/EEG/electrodeFile/writeH5.py", line 389, in <module>
+    writeH5File(type,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)
+  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/EEG/electrodeFile/writeH5.py", line 339, in writeH5File
+    coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
+TypeError: 'NoneType' object is not subscriptable
+Traceback (most recent call last):
+  File "h5py/_objects.pyx", line 201, in h5py._objects.ObjectID.__dealloc__
+RuntimeError: Can't decrement id ref count (can't close file, there are objects still open)
+Exception ignored in: 'h5py._objects.ObjectID.__dealloc__'
+Traceback (most recent call last):
+  File "h5py/_objects.pyx", line 201, in h5py._objects.ObjectID.__dealloc__
+RuntimeError: Can't decrement id ref count (can't close file, there are objects still open)
+MPT ERROR: Rank 0(g:0) received signal SIGSEGV(11).
+	Process ID: 87736, Host: r5i2n14, Program: /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l5/bin/python3.10
+	MPT Version: HPE HMPT 2.25  10/22/21 03:18:39
+
+MPT: --------stack traceback-------
+MPT: (no debugging symbols found)...done.
+MPT: Attaching to program: /proc/87736/exe, process 87736
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: [New LWP 87751]
+MPT: [New LWP 87750]
+MPT: [New LWP 87749]
+MPT: [New LWP 87748]
+MPT: [New LWP 87747]
+MPT: [New LWP 87746]
+MPT: [New LWP 87745]
+MPT: [New LWP 87744]
+MPT: [Thread debugging using libthread_db enabled]
+MPT: Using host libthread_db library "/lib64/libthread_db.so.1".
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: (no debugging symbols found)...done.
+MPT: 0x00002aaaab2ca1d9 in waitpid () from /lib64/libpthread.so.0
+MPT: warning: File "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l5/bin/python3.10-gdb.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load:/usr/bin/mono-gdb.py".
+MPT: To enable execution of this file add
+MPT: 	add-auto-load-safe-path /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l5/bin/python3.10-gdb.py
+MPT: line to your configuration file "/gpfs/bbp.cscs.ch/home/tharayil/.gdbinit".
+MPT: To completely disable this security protection add
+MPT: 	set auto-load safe-path /
+MPT: line to your configuration file "/gpfs/bbp.cscs.ch/home/tharayil/.gdbinit".
+MPT: For more information about this security protection see the
+MPT: "Auto-loading safe path" section in the GDB manual.  E.g., run from the shell:
+MPT: 	info "(gdb)Auto-loading safe path"
+MPT: warning: File "/gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_compilers/install_gcc-4.8.5-haswell/gcc-12.2.0-l5fdmq/lib64/libstdc++.so.6.0.30-gdb.py" auto-loading has been declined by your `auto-load safe-path' set to "$debugdir:$datadir/auto-load:/usr/bin/mono-gdb.py".
+MPT: Missing separate debuginfos, use: debuginfo-install glibc-2.17-325.el7_9.x86_64 libibverbs-54mlnx1-1.54103.x86_64 libnl3-3.2.28-4.el7.x86_64 nss-softokn-freebl-3.67.0-3.el7_9.x86_64
+MPT: (gdb) #0  0x00002aaaab2ca1d9 in waitpid () from /lib64/libpthread.so.0
+MPT: #1  0x00002aaab3031566 in mpi_sgi_system (
+MPT: #2  MPI_SGI_stacktraceback (
+MPT:     header=header@entry=0x7fffffff9910 "MPT ERROR: Rank 0(g:0) received signal SIGSEGV(11).\n\tProcess ID: 87736, Host: r5i2n14, Program: /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l"...) at sig.c:340
+MPT: #3  0x00002aaab303175f in first_arriver_handler (signo=signo@entry=11, 
+MPT:     stack_trace_sem=stack_trace_sem@entry=0x2aaac6f20080) at sig.c:489
+MPT: #4  0x00002aaab3031a33 in slave_sig_handler (signo=11, 
+MPT:     siginfo=<optimized out>, extra=<optimized out>) at sig.c:565
+MPT: #5  <signal handler called>
+MPT: #6  MPI_SGI_errhandler_is_bad (errhandler=errhandler@entry=1409286145, 
+MPT:     flag=flag@entry=8) at errhandler.c:244
+MPT: #7  0x00002aaab2fb0335 in PMPI_File_set_errhandler (file=0x27271a0, 
+MPT:     errhandler=errhandler@entry=1409286145) at file_errhandler.c:91
+MPT: #8  0x00002aaab308bf76 in PMPI_File_close (fh=0x27294b0) at close.c:82
+MPT: #9  0x00002aaab2c1db32 in H5FD__mpio_close ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #10 0x00002aaab2c0be32 in H5FD_close ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #11 0x00002aaab2bf72f2 in H5F__dest ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #12 0x00002aaab2bf956b in H5F_try_close.localalias ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #13 0x00002aaab2bf986c in H5F__close ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #14 0x00002aaab2dd6fe6 in H5VL__native_file_close ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #15 0x00002aaab2dc0ab4 in H5VL__file_close.isra.0 ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #16 0x00002aaab2dc8476 in H5VL_file_close ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #17 0x00002aaab2bf5eb6 in H5F__close_cb ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #18 0x00002aaab2c76ff9 in H5I_clear_type ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #19 0x00002aaab2bf7cc1 in H5F_term_package ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #20 0x00002aaab2b33d3b in H5_term_library.part.0 ()
+MPT:    from /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_applications/install_gcc-12.2.0-skylake/hdf5-1.14.0-h22zdq/lib/libhdf5.so.310
+MPT: #21 0x00002aaaabc19ce9 in __run_exit_handlers () from /lib64/libc.so.6
+MPT: #22 0x00002aaaabc19d37 in exit () from /lib64/libc.so.6
+MPT: #23 0x00002aaaabc0255c in __libc_start_main () from /lib64/libc.so.6
+MPT: #24 0x000000000040108e in _start ()
+MPT: (gdb) A debugging session is active.
+MPT: 
+MPT: 	Inferior 1 [process 87736] will be detached.
+MPT: 
+MPT: Quit anyway? (y or n) [answered Y; input not from terminal]
+MPT: Detaching from program: /proc/87736/exe, process 87736
+MPT: [Inferior 1 (process 87736) detached]
+
+MPT: -----stack traceback ends-----
+MPT: On host r5i2n14, Program /gpfs/bbp.cscs.ch/ssd/apps/bsd/2023-02-23/stage_externals/install_gcc-12.2.0-skylake/python-3.10.8-rvn6l5/bin/python3.10, Rank 0, Process 87736: Dumping core on signal SIGSEGV(11) into directory /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/EEG/electrodeFile
+srun: error: r5i2n14: task 0: Segmentation fault (core dumped)
+srun: launch/slurm: _step_signal: Terminating StepId=1948243.0

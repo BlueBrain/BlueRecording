@@ -2,16 +2,16 @@
 
 This repository contains scripts to porduce an input file (also refered to as an electrodes file or a weights file) for the calculation of extracellular signals in [neurodamus](https://github.com/BlueBrain/neurodamus). Complete documentation for this calculation can be found [here](https://github.com/BlueBrain/neurodamus/tree/main/docs). 
 
-The root folder provides scripts for the production of an electrodes file compatible with BluleConfig based simulations. The **SONATA** folder provides scripts that produces ane electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file) 
+The *NON_SONATA* folder provides scripts for the production of an electrodes file compatible with BluleConfig based simulations. The **SONATA** folder provides scripts that produces ane electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file) 
 
 ## User instructions
 
 ### Installation of dependencies
 
-Producing the electrodes files will require running bash scripts as described in the next section. These bash scripts load python virtual environments and spack environments. Requirements files for these environments are provided in the **environments** folder. 
+Producing the electrodes files will require running bash scripts as described in the next section. These bash scripts load python virtual environments and spack environments. Requirements files for these environments are provided in the **environments** folder. Unless otherwise specified, these requirements are the same for the SONATA and NON-SONATA cases.
 
 - The bash script **SONATA/WriteNPCSV.sh** assumes that a virtual environment named *envForReqGenerationCsv* is located in the user's home folder. The requirements file for this environment is **environments/requirements_write_csv.txt**.
-- The bash script **WriteH5Prelim.sh** assumes that a python virtual environment named *envForReqGeneration_NonSonata* is located in the user's home folder. The requirements file for this environment is **environments/requirements_write_prelim_NonSonata.txt**. This environment includes *bluepy*, which is a BBP internal tool. Non-BBP users will therefore not be able to install this environment.
+- The bash script **NON-SONATA/WriteH5Prelim.sh** assumes that a python virtual environment named *envForReqGeneration_NonSonata* is located in the user's home folder. The requirements file for this environment is **environments/requirements_write_prelim_NonSonata.txt**. This environment includes *bluepy*, which is a BBP internal tool. Non-BBP users will therefore not be able to install this environment.
 - The bash script **SONATA/WriteH5Prelim.sh** assumes a python virtual environment named *envForReqGeneration* is located in the user's home folder. The requirements file for this environment is **environments/requirements_write_prelim.txt**
 - The bash script **GetPositions.sh** (in both the SONATA and non-sonata directories) requires a spack environment named *getPositionsEnv*. The requirements file for this spack environment is **environments/spack_getPositions.lock**
 - The bash script **WriteH5.sh** (in both the SONATA and non-sonata directories) requires a spack environment named *writeCoefficientsEnv*. The requirements file for this spack environment is **environments/spack_writeCoefficients.lock**

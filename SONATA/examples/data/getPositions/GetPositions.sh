@@ -12,13 +12,10 @@
 ##SBATCH --error=EEG_1_CoordsV.err
 #SBATCH --exclusive
 #SBATCH --mem=0
-#python test.py
-
 
 module purge
-#source ~/sirio/bin/activate
 
-spack env activate getPositionsEnv  #hdf5 py-h5py
+spack env activate getPositionsEnv
 
 CHUNK_SIZE=50
 
@@ -30,5 +27,5 @@ do
 
 done
 
-srun -n 1 python getPositions.py "simulation_config.json" "positions" $CHUNK_SIZE
+srun -n 1 python getPositions.py "../simulation/simulation_config.json" "positions" $CHUNK_SIZE
 

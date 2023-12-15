@@ -15,7 +15,12 @@
 
 module purge
 
-mkdir neuropixels
-
 source ~/envForReqGeneration_NonSonata/bin/activate
-srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'LFP' './BlueConfig' 'positionsO1_new' 'electrodes/electrode.h5'
+
+ELECTRODE_TYPE='LFP' # Alternatively, EEG
+PATH_TO_SIMCONFIG='arbitraryPath'
+PATH_TO_POSITIONS_FOLDER='alsoArbitrary'
+PATH_TO_ELECTRODE_CSV_FILE='electrodes.csv'
+PATH_TO_ELECTRODE_COEFFICIENT_FILE='electrodeFile.h5'
+
+srun -n 1 python writeH5_prelim.py $PATH_TO_ELECTRODE_CSV_FILE $ELECTRODE_TYPE $PATH_TO_SIMCONFIG $PATH_TO_POSITIONS_FOLDER $PATH_TO_ELECTRODE_COEFFICIENT_FILE

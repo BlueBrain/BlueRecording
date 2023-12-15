@@ -19,4 +19,12 @@ module purge
 
 spack env activate writeCoefficientsEnv 
 
-srun -n 4240 python writeH5.py 'EEG' '/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json' 'positions_hex0_new' 'eeg_sonata_new/coeffs.h5' 50 'electrode_file.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/bbp_workflow/SSCx-O1-Calibrated-Workflow-5-12-22/81adc949-b514-4d78-853a-b369e4420dff/3/C6SurfNew.h5'
+ELECTRODE_TYPE='EEG' # Alternatively, LFP
+PATH_TO_SIMCONFIG='arbitraryPath'
+PATH_TO_POSITIONS_FOLDER='alsoArbitrary'
+PATH_TO_ELECTRODE_CSV_FILE='electrodes.csv'
+PATH_TO_ELECTRODE_COEFFICIENT_FILE='electrodeFile.h5'
+PATH_TO_POTENTIAL_FIELDS='potentialFieldsFromFEM' # Only applicable for EEG, ommited for LFP
+FILES_PER_FOLDER=50 #Number of files in each subfolder in $PATH_TO_POSITIONS_FOLDER
+
+srun -n 4240 python writeH5.py $ELECTRODE_TYPE $PATH_TO_SIMCONFIG $PATH_TO_POSITIONS_FOLDER $PATH_TO_ELECTRODE_COEFFICIENT_FILE $FILES_PER_FOLDER $PATH_TO_ELECTRODE_CSV_FILE $PATH_TO_POTENTIAL_FIELDS

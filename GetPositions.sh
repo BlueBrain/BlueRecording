@@ -20,13 +20,21 @@ spack env activate getPositionsEnv
 
 CHUNK_SIZE=50
 
-for i in {0..31}
+NUMBER_OF_NEURONS=212000
+
+NUMBER_OF_FILES=$(($NUMBER_OF_NEURONS/1000)) #Number of neurons in circuit divided by 1000
+
+PATH_TO_SIMULATION_CONFIG='arbitraryPath'
+
+POSITION_FOLDER_NAME='arbitraryName'
+
+for i in {0..$NUMBER_OF_FILES}
 do
     
-    folder="positions0/$(($i/$CHUNK_SIZE))"
+    folder="$POSITION_FOLDER_NAME/$(($i/$CHUNK_SIZE))"
     mkdir -p $folder 2>/dev/null
     
 done
 
-srun -n 31 python getPositions.py ./BlueConfig $CHUNK_SIZE
+srun -n $NUMBER_OF_FILES python getPositions.py $PATH_TO_SIMULATION_CONFIG $CHUNK_SIZE
 

@@ -18,5 +18,12 @@ module purge
 
 spack env activate writeCoefficientsEnv
 
-srun -n 300 python writeH5.py 'LFP' 'BlueConfig' 'positions0' 'neuropixels_full/coeffsneuropixels.h5' 50
+ELECTRODE_TYPE='LFP' # Alternatively, EEG
+PATH_TO_SIMCONFIG='arbitraryPath'
+PATH_TO_POSITIONS_FOLDER='alsoArbitrary'
+PATH_TO_ELECTRODE_CSV_FILE='electrodes.csv'
+PATH_TO_ELECTRODE_COEFFICIENT_FILE='electrodeFile.h5'
+FILES_PER_FOLDER=50 #Number of files in each subfolder in $PATH_TO_POSITIONS_FOLDER
+
+srun -n 300 python writeH5.py $ELECTRODE_TYPE $PATH_TO_SIMCONFIG $PATH_TO_POSITIONS_FOLDER $PATH_TO_ELECTRODE_COEFFICIENT_FILE $FILES_PER_FOLDER
 

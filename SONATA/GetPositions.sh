@@ -12,26 +12,29 @@
 ##SBATCH --error=EEG_1_CoordsV.err
 #SBATCH --exclusive
 #SBATCH --mem=0
-#python test.py
-
 
 module purge
-#source ~/sirio/bin/activate
 
-spack env activate getPositionsEnv  #hdf5 py-h5py
+spack env activate getPositionsEnv
 
 CHUNK_SIZE=50
 
-for i in {0..212}
+NUMBER_OF_NEURONS=212000
+
+NUMBER_OF_FILES=$(($NUMBER_OF_NEURONS/1000)) #Number of neurons in circuit divided by 1000
+
+PATH_TO_SIMULATION_CONFIG='arbitraryPath'
+
+
+POSITION_FOLDER_NAME='arbitraryName'
+
+for i in {0..$NUMBER_OF_FILES}
 do
 
-    folder="positions_hex0_new/$(($i/$CHUNK_SIZE))"
+    folder="$POSITION_FOLDER_NAME/$(($i/$CHUNK_SIZE))"
     mkdir -p $folder 2>/dev/null
 
 done
 
-srun -n 212 python getPositions.py "/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json" "positions_hex0_new" $CHUNK_SIZE
+srun -n $NUMBER_OF_FILES python getPositions.py $PATH_TO_SIMULATION_CONFIG $POSITION_FOLDER_NAME $CHUNK_SIZE
 
-#python getPositions2.py $SLURM_ARRAY_TASK_ID
-#python combineFiles.py $SLURM_ARRAY_TASK_ID
-#python combineCombos.py

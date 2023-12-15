@@ -19,5 +19,10 @@ mkdir eeg_sonata_new
 
 source ~/envForReqGeneration/bin/activate
 
+ELECTRODE_FILE_NAME='electrode_file.csv'
+ELECTRODE_TYPE='EEG' #Alternatively, LFP
+PATH_TO_SIMCONFIG='arbitraryPath'
+ELECTRODE_FILE='arbitraryFilePath'
 
-srun -n 1 python writeH5_prelim.py 'electrode_file.csv' 'EEG' '/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json' 'eeg_sonata_new/coeffs.h5' 
+
+srun -n 1 python writeH5_prelim.py $ELECTRODE_FILE_NAME $ELECTRODE_TYPE $PATH_TO_SIMCONFIG $ELECTRODE_FILE 

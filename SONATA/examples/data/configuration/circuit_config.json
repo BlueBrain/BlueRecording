@@ -25,14 +25,6 @@
       }
     ],
     "edges": [
-      {   
-        "edges_file": "$NETWORK_EDGES_DIR/S1nonbarrel_neurons__S1nonbarrel_neurons__chemical/edges.h5",
-           "populations": {
-             "S1nonbarrel_neurons__S1nonbarrel_neurons__chemical": {
-               "type": "chemical"
-                }   
-             }   
-       }
      ]
   }
 }

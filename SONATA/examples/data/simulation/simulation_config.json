@@ -23,10 +23,10 @@
   },
 
   "target_simulator": "CORENEURON",
-  "network": "configuration/circuit_config.json",
+  "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/configuration/circuit_config.json",
   "node_set": "Cell",
   "output": {
-    "output_dir": "./reporting",
+    "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/reporting",
     "spikes_file": "spikes.h5"
   },
 

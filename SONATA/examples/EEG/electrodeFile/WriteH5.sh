@@ -19,4 +19,4 @@ module purge
 
 spack env activate writeCoefficientsEnv 
 
-srun -n 1 python writeH5.py 'EEG' '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'eeg.csv' 
+srun -n 1 python writeH5.py 'EEG' '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'eeg.csv' '4Sphere.h5' 

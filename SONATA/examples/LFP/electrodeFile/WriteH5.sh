@@ -19,4 +19,4 @@ module purge
 
 spack env activate writeCoefficientsEnv 
 
-srun -n 1 python writeH5.py 'LFP' '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'lfp.csv' 
+srun -n 1 python ../../../writeH5.py 'LFP' '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'lfp.csv' 

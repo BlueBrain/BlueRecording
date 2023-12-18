@@ -17,4 +17,4 @@ module purge
 
 source ~/envForReqGeneration/bin/activate
 
-srun -n 1 python writeH5_prelim.py 'lfp.csv' 'LFP' '../../data/simulation/simulation_config.json' 'coeffs.h5' 
+srun -n 1 python ../../../writeH5_prelim.py 'lfp.csv' 'LFP' '../../data/simulation/simulation_config.json' 'coeffs.h5' 

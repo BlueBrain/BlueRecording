@@ -27,5 +27,5 @@ do
 
 done
 
-srun -n 1 python getPositions.py "../simulation/simulation_config.json" "positions" $CHUNK_SIZE
+srun -n 1 python ../../../getPositions.py "../simulation/simulation_config.json" "positions" $CHUNK_SIZE
 

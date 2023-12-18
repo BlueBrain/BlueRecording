@@ -64,7 +64,7 @@ def get_offsets(sectionIdsFrame):
     
     unique, counts = np.unique(sectionIdsFrame['id'].values,return_counts=True) # Unique node_ids and number of segments per node id
 
-    out_offsets = np.hstack((np.array([0]),np.cumsum(counts)[:-1])) # Offset from start of list for each node id
+    out_offsets = np.hstack((np.array([0]),np.cumsum(counts))) # Offset from start of list for each node id
     
     return out_offsets
 

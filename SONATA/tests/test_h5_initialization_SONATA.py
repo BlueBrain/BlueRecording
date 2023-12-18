@@ -10,7 +10,7 @@ from writeH5_prelim import *
 
 def test_makeElectrodeDict(electrodes):
 
-    csv = '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/tests/data/electrode.csv'
+    csv = '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/tests/data/electrode.csv'
     expected = electrodes
 
     
@@ -41,7 +41,7 @@ def test_ElectrodeFileStructure(write_ElectrodeFileStructure, electrodes, gids,p
 def test_offset(secCounts):
     
     offsets = get_offsets(secCounts)
-    expected_offsets = np.array([0,19])
+    expected_offsets = np.array([0,19,25])
     
     np.testing.assert_equal(offsets, expected_offsets)
 
@@ -55,6 +55,6 @@ def test_write_neuron(writeNeuron,population_name):
 
     np.testing.assert_equal( newFile['electrodes/'+population_name+'/scaling_factors'][:],np.ones((25,2)) )
     
-    np.testing.assert_equal( newFile[population_name+'/offsets'][:],np.array([0,19]) )
+    np.testing.assert_equal( newFile[population_name+'/offsets'][:],np.array([0,19,25]) )
     
     

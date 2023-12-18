@@ -10,7 +10,7 @@ from writeH5_prelim import *
 
 def test_makeElectrodeDict(electrodes):
 
-    csv = '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/tests/data/electrode.csv'
+    csv = '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/NON_SONATA/tests/data/electrode.csv'
     expected = electrodes
 
     

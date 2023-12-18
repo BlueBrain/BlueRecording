@@ -27,7 +27,6 @@
   "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/configuration/circuit_config.json",
   "node_set": "Cell",
   "output": {
-<<<<<<< HEAD
     "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/LFP/simulation/reporting",
     "spikes_file": "spikes.h5"
   },
@@ -60,24 +59,4 @@
 
   }
 
-=======
-    "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/reporting",
-    "spikes_file": "spikes.h5"
-  },
-
-  "reports": {
-     "compartment": {
-          "cells": "Cell",
-          "sections": "all",
-          "type": "compartment",
-          "variable_name": "v",
-          "unit": "mV",
-          "dt": 0.1,
-          "start_time" : 0,
-          "end_time" : 500,
-          "file_name": "voltage",
-          "enabled" : true
-     }
-   }
->>>>>>> 6b440acfc5fdea419faa68dd8a2a0205a01af229
 }

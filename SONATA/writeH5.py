@@ -293,6 +293,29 @@ def getIdsAndPositions(ids, segment_position_folder, numFilesPerFolder):
     
     return g, positions
     
+def sort_electrode_names(electrodeKeys,population_name):
+    
+    electrodeNames = np.array(list(electrodeKeys))
+    
+    electrodeNames = electrodeNames[np.where(electrodeNames!=population_name)] # The field /electrodes/{population_name} contains the scaling factors, not the metadata
+    
+    electrode_list = []
+    
+    for e in electrodeNames:
+        
+        try:
+            name = int(e)
+            
+        except:
+            name = e
+            
+        electrode_list.append(name)
+        
+    electrode_list = np.sort(electrode_list)
+    
+    return electrode_list
+            
+            
 
 def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma=0.277,path_to_fields=None):
 
@@ -323,27 +346,25 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     coeffList = []
 
     
-    electrodeIdx = 0
-    for i, electrode in enumerate(h5['electrodes'].keys()):
+    
+    electrodeNames = sort_electrode_names(h5['electrodes'].keys(),population_name)
+    
+    for electrodeIdx, electrode in enumerate(electrodeNames):
 
-        if electrode != population_name: # The field /electrodes/{population_name} contains the scaling factors, not the metadata
+        epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
 
-            
-            epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
+        if electrodeType == 'LFP':
+            coeffs = get_coeffs_lfp(positions,columns,epos,sigma)
+        else:
 
-            if electrodeType == 'LFP':
-                coeffs = get_coeffs_lfp(positions,columns,epos,sigma)
-            else:
+            newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
+            coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
 
-                newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
-                coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
 
-            electrodeIdx += 1
-
-            if i == 0:
-                coeffList = coeffs
-            else:
-                coeffList = pd.concat((coeffList,coeffs))
+        if electrodeIdx == 0:
+            coeffList = coeffs
+        else:
+            coeffList = pd.concat((coeffList,coeffs))
 
     add_data(h5,node_ids,coeffList,population_name)
 

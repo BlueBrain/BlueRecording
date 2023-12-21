@@ -351,7 +351,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
-        epos = h5['electrodes'][electrode]['position'] # Gets position for each electrode
+        epos = h5['electrodes'][str(electrode)]['position'] # Gets position for each electrode
 
         if electrodeType == 'LFP':
             coeffs = get_coeffs_lfp(positions,columns,epos,sigma)

@@ -12,4 +12,8 @@
 module load unstable #archive/2023-10
 module load neurodamus-neocortex/1.13-2.16.6-2.8.1 py-neurodamus/2.16.6 #/1.12-2.16.4-2.8.1 py-neurodamus/2.16.4
 
+rm *.log
+rm *.out
+rm *.SUCCESS
+
 srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json 

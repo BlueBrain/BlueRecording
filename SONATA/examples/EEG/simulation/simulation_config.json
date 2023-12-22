@@ -35,12 +35,12 @@
     "Stimulus": {
         "input_type": "conductance",
         "module": "relative_ornstein_uhlenbeck",
-        "delay": 0,
-        "duration": 5000,
+        "delay": 2000,
+        "duration": 2100,
         "reversal": 0,
         "tau": 2.7,
-        "mean_percent": 2.302,
-        "sd_percent": 0.921,
+        "mean_percent": 100,
+        "sd_percent": 1,
         "node_set": "Cell"
     }
   },

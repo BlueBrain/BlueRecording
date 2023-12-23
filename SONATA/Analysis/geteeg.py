@@ -32,7 +32,7 @@ eeg = r.get(group=ids,t_start=2000,t_step=1)
 
 
 eeg.columns = pd.MultiIndex.from_product((np.unique(eeg.columns.get_level_values(0)),['Forelimb','Shoulder','Testing']),names=['gid','electrode'])
-eeg = eeg.sum(axis=1,level='electrode')
+eeg = eeg.groupby(level='electrode').sum(axis=1)
 
 
 eeg.to_pickle('pkls/eeg_'+regions[rIdx]+'_'+types[tIdx]+'.pkl')

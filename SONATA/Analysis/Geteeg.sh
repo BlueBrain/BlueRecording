@@ -14,10 +14,7 @@
 #SBATCH --mem=0
 
 
-#spack load py-bluepy/jrzr2b
-#module load unstable py-bluepy py-mpi4py
-
-module load unstable py-bluepysnap py-bluepy
+spack env activate getPositionsEnv
 
 mkdir pkls
 

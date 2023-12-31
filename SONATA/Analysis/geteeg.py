@@ -28,11 +28,11 @@ typeIds = nodes.ids(group=types[tIdx])
 
 ids = regionIds.intersection(typeIds).get_ids()
 
-eeg = r.get(group=ids,t_start=2000,t_step=1)
+eeg = r.get(group=ids,t_start=2000,t_step=1) # Ignore first 2 seconds to exclude transient
 
 
-eeg.columns = pd.MultiIndex.from_product((np.unique(eeg.columns.get_level_values(0)),['Forelimb','Shoulder','Testing']),names=['gid','electrode'])
-eeg = eeg.groupby(level='electrode').sum(axis=1)
+eeg.columns = pd.MultiIndex.from_product((np.unique(eeg.columns.get_level_values(0)),['Forelimb','Shoulder','Testing']),names=['gid','electrode']) #Adds names for the column indices
+eeg = eeg.T.groupby(level='electrode').sum().T # Sums over all gids
 
 
 eeg.to_pickle('pkls/eeg_'+regions[rIdx]+'_'+types[tIdx]+'.pkl')

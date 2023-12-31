@@ -137,7 +137,7 @@ def get_coeffs_eeg(positions, path_to_fields):
 
 
         try:
-            currentApplied = f['CurrentApplied'][0] # The potential field should have a current, but if not, just assume it is 1
+            currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
         except:
             currentApplied = 1
 

@@ -264,9 +264,7 @@ def getCurrentIds(positions,iteration,iterationSize):
     except:
         node_ids = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
 
-    if len(node_ids) == 0:
-        h5.close()
-        return 1
+    assert len(node_ids)>0
 
     #####
     
@@ -329,7 +327,12 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
     allNodeIds = r.get_node_ids()
     
-    node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,numFilesPerFolder)
+    try:
+        node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,numFilesPerFolder)
+
+    except:
+        print("Overflow in rank "+str(MPI.COMM_WORLD.Get_rank()))
+        return 1
 
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)

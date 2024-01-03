@@ -14,6 +14,7 @@ import time
 def add_data(h5, ids, coeffs ,population_name):
 
     
+    
     dset = 'electrodes/'+population_name+'/scaling_factors'
     
     node_ids = h5[population_name+'/node_ids'][:]
@@ -36,7 +37,8 @@ def add_data(h5, ids, coeffs ,population_name):
     
     for i, id in enumerate(nodesInInput):
 
-         h5[dset][offset0[i]:offset1[i],:-1] = coeffs.loc[:,id].values.T
+
+        h5[dset][offset0[i]:offset1[i],:-1] = coeffs.loc[:,id].values.T
 
 def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
@@ -326,21 +328,24 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
 
 
     allNodeIds = r.get_node_ids()
-    
+    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
+
     try:
         node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,numFilesPerFolder)
 
     except:
-        print("Overflow in rank "+str(MPI.COMM_WORLD.Get_rank()))
+        h5.close()
         return 1
 
 
-    h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
+    
 
     node_ids_sonata = lb.Selection(values=node_ids)
 
     
+    
     data_frame = r.get(node_ids=node_ids_sonata,tstart=0,tstop=0.1) # Loads compartment report for sleected node_ids
+    
     data = pd.DataFrame(data_frame.data, columns=pd.MultiIndex.from_tuples(tuple(map(tuple,data_frame.ids)), names=['id','section']), index=data_frame.times) # Writes compartment report as pandas dataframe
 
     columns = data.columns
@@ -353,6 +358,7 @@ def writeH5File(electrodeType,path_to_simconfig,segment_position_folder,outputfi
     electrodeNames = sort_electrode_names(h5['electrodes'].keys(),population_name)
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
+
 
         epos = h5['electrodes'][str(electrode)]['position'] # Gets position for each electrode
 

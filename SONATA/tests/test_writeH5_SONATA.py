@@ -161,3 +161,21 @@ def test_get_coeffs_eeg(positions,write_potentialField,gids):
     
     pd.testing.assert_frame_equal(potentials,expectedPotential)
     
+def test_get_coeffs_dipoleReciprocity(positions,write_EField,gids):
+    
+    testPositions = getSegmentMidpts(positions,gids)
+    
+    center = np.mean(testPositions,axis=1)
+    
+    potentials = get_coeffs_dipoleReciprocity(testPositions,write_EField,center)
+        
+    columns = [[1,1],[0,1]]
+    
+    columnIdx = list(zip(*columns))
+    
+    columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
+    
+    expectedPotential = pd.DataFrame(data=np.array([0,0.5e-6])[np.newaxis,:]**2,columns=columnMultiIndex)
+        
+    pd.testing.assert_frame_equal(potentials,expectedPotential)
+    

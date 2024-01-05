@@ -217,3 +217,38 @@ def write_potentialField(path_to_potentialfield_file):
     file.close()
 
     return path_to_potentialfield_file
+
+@pytest.fixture(scope="module")
+def write_EField(path_to_potentialfield_file):
+
+
+    file = h5py.File(path_to_potentialfield_file,'w')
+
+    xaxis = np.linspace(-10,10)*1e-6
+    yaxis = np.linspace(-10,10)*1e-6
+    zaxis = np.linspace(-10,10)*1e-6
+    realImag = np.array([0,1])
+
+    meshes = file.create_group('Meshes')
+    firstdatafield = meshes.create_group('FirstDataField')
+    axis_x = firstdatafield.create_dataset('axis_x',data=xaxis)
+    axis_y = firstdatafield.create_dataset('axis_y',data=yaxis)
+    axis_z = firstdatafield.create_dataset('axis_z',data=zaxis)
+    
+    fieldgroups = file.create_group('FieldGroups')
+    randomname = fieldgroups.create_group('randomname')
+    allfields = randomname.create_group('AllFields')
+    potential = allfields.create_group('EM E(x,y,z,f0)')
+    obj = potential.create_group('_Object')
+    snapshot = obj.create_group('Snapshots')
+    field0 = snapshot.create_group('0')
+    
+    xd, yd, zd,rd = np.meshgrid(xaxis,yaxis,zaxis,realImag,indexing='ij')
+    comp0 = field0.create_dataset('comp0',data =zd)
+    comp1 = field0.create_dataset('comp1',data =zd)
+    comp2 = field0.create_dataset('comp2',data =zd)
+    
+
+    file.close()
+
+    return path_to_potentialfield_file

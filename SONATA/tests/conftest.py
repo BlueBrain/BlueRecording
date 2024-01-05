@@ -71,7 +71,7 @@ def secCounts(data):
 @pytest.fixture(scope="module")
 def electrodes():
     
-    electrodes = {'name':{'position':np.array([1,2,3]),'type':'EEG','region':'Outside','layer':'Outside'}}
+    electrodes = {'name':{'position':np.array([1,2,3]),'type':'Reciprocity','region':'Outside','layer':'Outside'}}
     
     return electrodes
 

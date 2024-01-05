@@ -30,6 +30,12 @@ if __name__=='__main__':
 
 
     electrodePositions = np.zeros((numContacts,3))
+    
+    electrodeTypeList = []
+    for p in electrodePositions:
+        electrodeTypeList.append('Reciprocity')
+        
+    electrodeTypeData = pd.DataFrame(data=electrodeTypeList,columns=['type'])
 
     regionList = []
     layerList = []
@@ -45,6 +51,7 @@ if __name__=='__main__':
 
     data = pd.concat((electrodeData,layerData),axis=1)
     data = pd.concat((data,regionData),axis=1)
+    data = pd.concat((data,electrodeTypeData),axis=1)
 
     if len(sys.argv)>3:
         data.index = names

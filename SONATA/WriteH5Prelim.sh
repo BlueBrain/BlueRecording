@@ -20,9 +20,8 @@ mkdir eeg_sonata_new
 source ~/envForReqGeneration/bin/activate
 
 ELECTRODE_FILE_NAME='electrode_file.csv'
-ELECTRODE_TYPE='EEG' #Alternatively, LFP
 PATH_TO_SIMCONFIG='arbitraryPath'
 ELECTRODE_FILE='arbitraryFilePath'
 
 
-srun -n 1 python writeH5_prelim.py $ELECTRODE_FILE_NAME $ELECTRODE_TYPE $PATH_TO_SIMCONFIG $ELECTRODE_FILE 
+srun -n 1 python writeH5_prelim.py $ELECTRODE_FILE_NAME $PATH_TO_SIMCONFIG $ELECTRODE_FILE 

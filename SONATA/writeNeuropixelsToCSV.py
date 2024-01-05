@@ -80,12 +80,19 @@ if __name__=='__main__':
     regionList, layerList = getAtlasInfo(path_to_atlas, electrodePositions)
 
     electrodeData = pd.DataFrame(data=electrodePositions,columns=['x','y','z'])
+    
+    electrodeTypeList = []
+    for p in electrodePositions:
+        electrodeTypeList.append('LineSource')
 
     layerData = pd.DataFrame(data=layerList,columns=['layer'])
 
     regionData = pd.DataFrame(data=regionList,columns=['region'])
+    
+    electrodeTypeData = pd.DataFrame(data=electrodeTypeList,columns=['type'])
 
     data = pd.concat((electrodeData,layerData),axis=1)
     data = pd.concat((data,regionData),axis=1)
+    data = pd.concat((data,electrodeTypeData),axis=1)
 
     data.to_csv(electrode_csv)

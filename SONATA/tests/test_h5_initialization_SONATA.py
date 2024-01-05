@@ -14,7 +14,7 @@ def test_makeElectrodeDict(electrodes):
     expected = electrodes
 
     
-    np.testing.assert_equal(makeElectrodeDict(csv,'EEG')['name'], expected['name'])
+    np.testing.assert_equal(makeElectrodeDict(csv)['name'], expected['name'])
 
 
 def test_ElectrodeFileStructure(write_ElectrodeFileStructure, electrodes, gids,population_name):

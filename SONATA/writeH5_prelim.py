@@ -77,7 +77,7 @@ def write_all_neuron(sectionIdsFrame, population_name, h5, file, electrode_struc
     file.create_dataset(h5.offsets(population_name), data=out_offsets) # The offset for each node in the scaling_factors field
 
 
-def makeElectrodeDict(electrode_csv,type):
+def makeElectrodeDict(electrode_csv):
 
     '''
     Reads electrode metadata from input csv file and writes it to a dictionary
@@ -105,8 +105,13 @@ def makeElectrodeDict(electrode_csv,type):
             region = electrode_df['region'].iloc[i]
         else:
             region = 'NA'
+            
+        if 'type' in electrode_df.columns:
+            electrodeType = electrode_df['type'].iloc[i]
+        else:
+            electrodeType = 'LineSource'
 
-        electrodes[name] = {'position': position,'type': type,
+        electrodes[name] = {'position': position,'type': electrodeType,
         'region':region,'layer':layer}
 
 
@@ -141,7 +146,7 @@ def getSimInfo(path_to_simconfig):
     return circuitpath, population_name, nodeIds, data
 
 
-def writeH5File(path_to_simconfig,outputfile,electrode_csv,electrodeType):
+def writeH5File(path_to_simconfig,outputfile,electrode_csv):
 
     '''
     path_to_simconfig refers to the simulation_config from the 1-timestep simulation used to get the segment positions
@@ -155,7 +160,7 @@ def writeH5File(path_to_simconfig,outputfile,electrode_csv,electrodeType):
     sectionIdsFrame = data.columns.to_frame()
     sectionIdsFrame.index = range(len(sectionIdsFrame))
     
-    electrodes = makeElectrodeDict(electrode_csv,electrodeType) # Dictionary containing metadata about the electrodes
+    electrodes = makeElectrodeDict(electrode_csv) # Dictionary containing metadata about the electrodes
 
     h5file = h5py.File(outputfile,'w') # Creates h5 file for coefficients
 
@@ -179,15 +184,13 @@ if __name__=='__main__':
     '''
     path_to_simconfig refers to the simulation_config from the 1-timestep simulation used to get the segment positions
     electrode_csv is a csv file containing the position, region, and layer of each electrode
-    type is either EEG or LFP
+    type is either LineSource or Reciprocity
     '''
 
     electrode_csv = sys.argv[1]
 
-    type = sys.argv[2]
+    path_to_simconfig = sys.argv[2]
 
-    path_to_simconfig = sys.argv[3]
+    outputfile = sys.argv[3]
 
-    outputfile = sys.argv[4]
-
-    writeH5File(path_to_simconfig,outputfile,electrode_csv,type)
+    writeH5File(path_to_simconfig,outputfile,electrode_csv)

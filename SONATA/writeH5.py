@@ -421,9 +421,11 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
 
-        epos = h5['electrodes'][str(electrode)]['position'] # Gets position for each electrode
+        epos = h5['electrodes'][str(electrode)]['position'][:] # Gets position for each electrode
         
-        electrodeType = h5['electrodes'][str(electrode)]['type'] # Gets position for each electrode
+        print(epos)
+        
+        electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
 
         if electrodeType == 'LineSource':
             
@@ -433,9 +435,11 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
 
             newPositions = getSegmentMidpts(positions,node_ids) # For other methods, we need the segment centers, not the endpoints
             
+            print(newPositions)
+            
             if electrodeType == 'PointSource':
                 
-                coeffs = get_coeffs_pointsource(newPositions, sigma)
+                coeffs = get_coeffs_pointSource(newPositions, epos, sigma)
                 
             else:
             
@@ -499,4 +503,6 @@ if __name__=='__main__':
             path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
 
+    print(path_to_fields)
+    
     writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

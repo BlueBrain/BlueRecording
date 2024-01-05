@@ -146,6 +146,22 @@ def test_get_coeffs_lfp(positions,data_twoSections,electrodePosition,sigma):
     
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
     
+def test_get_coeffs_pointSource(positions,electrodePosition,sigma,gids):
+    
+    newPositions = getSegmentMidpts(positions,gids)
+    coeffs = get_coeffs_pointSource(newPositions,electrodePosition,sigma)
+    
+    somaDistance = np.sqrt(3*10**2)
+    expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)
+    
+    segmentDistance = np.sqrt(10**2+10**2+(10-.5)**2)
+    
+    expectedSegmentCoeff = 1/(4*np.pi*sigma*segmentDistance)
+    
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+    
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+    
 def test_get_coeffs_eeg(positions,write_potentialField,gids):
     
     testPositions = getSegmentMidpts(positions,gids)

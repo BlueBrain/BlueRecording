@@ -98,6 +98,18 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
     return coeffs
 
+def get_coeffs_pointSource(positions,electrodePos,sigma):
+    
+    distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0)
+    
+    coeffs = 1/(4*np.pi*sigma*distances)
+    
+    coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
+
+    coeffs.columns = positions.columns
+
+    return coeffs 
+
 def geth5Dataset(h5f, group_name, dataset_name):
     """
     Find and get dataset from h5 file.
@@ -419,19 +431,25 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
             
         else:
 
-            newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
+            newPositions = getSegmentMidpts(positions,node_ids) # For other methods, we need the segment centers, not the endpoints
             
-            if electrodeType == 'DipoleReciprocity':
+            if electrodeType == 'PointSource':
                 
-                center = np.mean(newPositions,axis=1)
+                coeffs = get_coeffs_pointsource(newPositions, sigma)
                 
-                coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
-            
             else:
             
-                coeffs = get_coeffs_eeg(newPositions,path_to_fields[reciprocityIdx])
-            
-            reciprocityIdx += 1
+                if electrodeType == 'DipoleReciprocity':
+
+                    center = np.mean(newPositions,axis=1)
+
+                    coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
+
+                else:
+
+                    coeffs = get_coeffs_eeg(newPositions,path_to_fields[reciprocityIdx])
+
+                reciprocityIdx += 1
 
 
         if electrodeIdx == 0:

@@ -116,6 +116,59 @@ def geth5Dataset(h5f, group_name, dataset_name):
     with h5py.File(h5f, 'r') as f:
         k = f[group_name].visit(find_dataset)
         return f[group_name + '/' + k][()]
+    
+def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
+
+    '''
+    path_to_fields is the path to the h5 file containing the potential field, outputted from Sim4Life
+    path_to_positions is the path to the output from the position-finding script
+    '''
+
+    # Get new output file potential field
+
+    with h5py.File(path_to_fields, 'r') as f:
+        for i in f['FieldGroups']:
+            tmp = 'FieldGroups/' + i + '/AllFields/EM E(x,y,z,f0)/_Object/Snapshots/0/'
+            
+        Ex = geth5Dataset(path_to_fields, tmp, 'comp0')
+        Ey = geth5Dataset(path_to_fields, tmp, 'comp1')
+        Ez = geth5Dataset(path_to_fields, tmp, 'comp2')
+        
+        for i in f['Meshes']:
+            tmp = 'Meshes/'+i
+            break
+        x = geth5Dataset(path_to_fields, tmp, 'axis_x')
+        y = geth5Dataset(path_to_fields, tmp, 'axis_y')
+        z = geth5Dataset(path_to_fields, tmp, 'axis_z')
+
+
+        try:
+            currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
+        except:
+            currentApplied = 1
+
+
+    positions *= 1e-6 # Converts um to m, to match the potential field file
+
+    center *= 1e-6
+
+
+    InterpFcnX = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
+    InterpFcnY = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
+    InterpFcnZ = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
+
+    XComp = InterpFcnX(center)[np.newaxis]  # Interpolate E field at location of neural center
+    
+    YComp = InterpFcnY(center)[np.newaxis]  # Interpolate E field at location of neural center
+    
+    ZComp = InterpFcnZ(center)[np.newaxis]  # Interpolate E field at location of neural center
+    
+    out2rat = positions.values[0]*XComp + positions.values[1]*YComp + positions.values[2]*ZComp
+
+
+    outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns) # Scale potential field by applied current
+
+    return outdf
 
 def get_coeffs_eeg(positions, path_to_fields):
 
@@ -337,12 +390,8 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
         h5.close()
         return 1
 
-
-    
-
     node_ids_sonata = lb.Selection(values=node_ids)
 
-    
     
     data_frame = r.get(node_ids=node_ids_sonata,tstart=0,tstop=0.1) # Loads compartment report for sleected node_ids
     
@@ -352,10 +401,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
 
 
     coeffList = []
-
-    
     
     electrodeNames = sort_electrode_names(h5['electrodes'].keys(),population_name)
+    
+    reciprocityIdx = 0 # Keeps track of number of non-analytical electrodes
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
@@ -365,11 +414,24 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
         electrodeType = h5['electrodes'][str(electrode)]['type'] # Gets position for each electrode
 
         if electrodeType == 'LineSource':
+            
             coeffs = get_coeffs_lfp(positions,columns,epos,sigma)
+            
         else:
 
             newPositions = getSegmentMidpts(positions,node_ids) # For EEG, we need the segment centers, not the endpoints
-            coeffs = get_coeffs_eeg(newPositions,path_to_fields[electrodeIdx])
+            
+            if electrodeType == 'DipoleReciprocity':
+                
+                center = np.mean(newPositions,axis=1)
+                
+                coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
+            
+            else:
+            
+                coeffs = get_coeffs_eeg(newPositions,path_to_fields[reciprocityIdx])
+            
+            reciprocityIdx += 1
 
 
         if electrodeIdx == 0:

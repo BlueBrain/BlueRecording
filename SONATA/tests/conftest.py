@@ -243,7 +243,7 @@ def write_EField(path_to_potentialfield_file):
     snapshot = obj.create_group('Snapshots')
     field0 = snapshot.create_group('0')
     
-    xd, yd, zd,rd = np.meshgrid(xaxis,yaxis,zaxis,realImag,indexing='ij')
+    xd, yd, zd,rd = np.meshgrid(xaxis[1:],yaxis[1:],zaxis[1:],realImag,indexing='ij')
     comp0 = field0.create_dataset('comp0',data =zd)
     comp1 = field0.create_dataset('comp1',data =zd)
     comp2 = field0.create_dataset('comp2',data =zd)

@@ -172,6 +172,11 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
         y = geth5Dataset(path_to_fields, tmp, 'axis_y')
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
+        ### E field is cell-centered, so we need to take midpoints of mesh
+        x = (x[:-1]+x[1:])/2
+        y = (y[:-1]+y[1:])/2
+        z = (z[:-1]+z[1:])/2
+        ####
 
         try:
             currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1

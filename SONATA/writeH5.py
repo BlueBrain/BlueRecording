@@ -445,6 +445,9 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
         
         electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
 
+        
+        assert electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity'
+        
         if electrodeType == 'LineSource':
             
             coeffs = get_coeffs_lfp(positions,columns,epos,sigma)

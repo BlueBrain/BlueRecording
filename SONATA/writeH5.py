@@ -173,9 +173,9 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
         ### E field is cell-centered, so we need to take midpoints of mesh
-        x = (x[:-1]+x[1:])/2
-        y = (y[:-1]+y[1:])/2
-        z = (z[:-1]+z[1:])/2
+        xCenter = (x[:-1]+x[1:])/2
+        yCenter = (y[:-1]+y[1:])/2
+        zCenter = (z[:-1]+z[1:])/2
         ####
 
         try:
@@ -189,9 +189,9 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
     center *= 1e-6
 
 
-    InterpFcnX = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
-    InterpFcnY = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
-    InterpFcnZ = RegularGridInterpolator((x, y, z), Ex[:, :, :, 0], method='linear')
+    InterpFcnX = RegularGridInterpolator((xCenter, y, z), Ex[:, :, :, 0], method='linear')
+    InterpFcnY = RegularGridInterpolator((x, yCenter, z), Ey[:, :, :, 0], method='linear')
+    InterpFcnZ = RegularGridInterpolator((x, y, zCenter), Ez[:, :, :, 0], method='linear')
 
     XComp = InterpFcnX(center)[np.newaxis]  # Interpolate E field at location of neural center
     

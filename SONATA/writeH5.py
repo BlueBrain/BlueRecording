@@ -152,9 +152,12 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
 
     '''
     path_to_fields is the path to the h5 file containing the potential field, outputted from Sim4Life
-    path_to_positions is the path to the output from the position-finding script
     '''
 
+    center = center.values
+    positionColumns = positions.columns
+    positions = positions.values
+    
     # Get new output file potential field
 
     with h5py.File(path_to_fields, 'r') as f:
@@ -188,6 +191,8 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
 
     center *= 1e-6
 
+    positions -= center[:,np.newaxis]
+
 
     InterpFcnX = RegularGridInterpolator((xCenter, y, z), Ex[:, :, :, 0], method='linear')
     InterpFcnY = RegularGridInterpolator((x, yCenter, z), Ey[:, :, :, 0], method='linear')
@@ -199,10 +204,10 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
     
     ZComp = InterpFcnZ(center)[np.newaxis]  # Interpolate E field at location of neural center
     
-    out2rat = positions.values[0]*XComp + positions.values[1]*YComp + positions.values[2]*ZComp
+    out2rat = positions[0]*XComp + positions[1]*YComp + positions[2]*ZComp
 
 
-    outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positions.columns) # Scale potential field by applied current
+    outdf = pd.DataFrame(data=(out2rat / currentApplied), columns=positionColumns) # Scale potential field by applied current
 
     return outdf
 
@@ -470,7 +475,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
             
                 if electrodeType == 'DipoleReciprocity':
 
-                    center = np.mean(newPositions,axis=1)
+                    center = newPositions.mean(axis=1)
 
                     coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
 

@@ -227,6 +227,11 @@ def write_EField(path_to_potentialfield_file):
     xaxis = np.linspace(-10,10)*1e-6
     yaxis = np.linspace(-10,10)*1e-6
     zaxis = np.linspace(-10,10)*1e-6
+
+    xcenter = (xaxis[1:]+xaxis[:-1])/2
+    ycenter = (yaxis[1:]+yaxis[:-1])/2
+    zcenter = (zaxis[1:]+zaxis[:-1])/2
+
     realImag = np.array([0,1])
 
     meshes = file.create_group('Meshes')
@@ -243,9 +248,12 @@ def write_EField(path_to_potentialfield_file):
     snapshot = obj.create_group('Snapshots')
     field0 = snapshot.create_group('0')
     
-    xd, yd, zd,rd = np.meshgrid(xaxis[1:],yaxis[1:],zaxis[1:],realImag,indexing='ij')
-    comp0 = field0.create_dataset('comp0',data =zd)
-    comp1 = field0.create_dataset('comp1',data =zd)
+    xd, __, __, __ = np.meshgrid(xcenter,yaxis,zaxis,realImag,indexing='ij')
+    __, yd, __, __ = np.meshgrid(xaxis,ycenter,zaxis,realImag,indexing='ij')
+    __, __, zd, __ = np.meshgrid(xaxis,yaxis,zcenter,realImag,indexing='ij')
+    
+    comp0 = field0.create_dataset('comp0',data =xd)
+    comp1 = field0.create_dataset('comp1',data =yd)
     comp2 = field0.create_dataset('comp2',data =zd)
     
 

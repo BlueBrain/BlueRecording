@@ -181,7 +181,7 @@ def test_get_coeffs_dipoleReciprocity(positions,write_EField,gids):
     
     testPositions = getSegmentMidpts(positions,gids)
     
-    center = np.mean(testPositions,axis=1)
+    center = testPositions.mean(axis=1)
     
     potentials = get_coeffs_dipoleReciprocity(testPositions,write_EField,center)
         
@@ -191,7 +191,7 @@ def test_get_coeffs_dipoleReciprocity(positions,write_EField,gids):
     
     columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
     
-    expectedPotential = pd.DataFrame(data=np.array([0,0.5e-6])[np.newaxis,:]**2,columns=columnMultiIndex)
+    expectedPotential = pd.DataFrame(data=np.array([0.5e-6,0])[np.newaxis,:]**2,columns=columnMultiIndex)
         
     pd.testing.assert_frame_equal(potentials,expectedPotential)
     

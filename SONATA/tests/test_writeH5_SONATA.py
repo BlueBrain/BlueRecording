@@ -137,8 +137,8 @@ def test_get_coeffs_lfp(positions,data_twoSections,electrodePosition,sigma):
     columns = data_twoSections.columns
     coeffs = get_coeffs_lfp(positions,columns,electrodePosition,sigma)
     
-    somaDistance = np.sqrt(3*10**2)
-    expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)
+    somaDistance = np.sqrt(3*10**2)*1e-6
+    expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)*1e-9
     
     expectedLineCoeff = get_line_coeffs(np.array([0,0,0]),np.array([0,0,1]),electrodePosition,sigma)
     
@@ -151,12 +151,12 @@ def test_get_coeffs_pointSource(positions,electrodePosition,sigma,gids):
     newPositions = getSegmentMidpts(positions,gids)
     coeffs = get_coeffs_pointSource(newPositions,electrodePosition,sigma)
     
-    somaDistance = np.sqrt(3*10**2)
-    expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)
+    somaDistance = np.sqrt(3*10**2)*1e-6
+    expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)*1e-9
     
-    segmentDistance = np.sqrt(10**2+10**2+(10-.5)**2)
+    segmentDistance = np.sqrt(10**2+10**2+(10-.5)**2)*1e-6
     
-    expectedSegmentCoeff = 1/(4*np.pi*sigma*segmentDistance)
+    expectedSegmentCoeff = 1/(4*np.pi*sigma*segmentDistance)*1e-9
     
     expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
     

@@ -1,0 +1,105 @@
+[STEP] (Jan.05 23:47:52) Initializing Neurodamus... Logfile: pydamus_2024-01-05_23h47.log
+[INFO] (Jan.05 23:47:52)  => Neurodamus Mod & Hoc lib loaded.
+[INFO] (Jan.05 23:47:52) Checking for plugins...
+[INFO] (Jan.05 23:47:52)  => Engines Available: ['Base', 'NGV', 'METype']
+[INFO] (Jan.05 23:47:52)   : Connections Types: ['NeuroGlial', 'GlioVascular', None, 'Synaptic', 'GapJunction', 'NeuroModulation']
+[STEP] (Jan.05 23:47:52) Setting up Neurodamus configuration
+[INFO] (Jan.05 23:47:52) Initializing Simulation Configuration and Validation
+[INFO] (Jan.05 23:47:53) Valid CoreNeuron input data not found in '/dev/shm/sim-hpc/1964047/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/simulation/reporting/coreneuron_input'. Neurodamus will proceed to model building.
+[INFO] (Jan.05 23:47:53) Checking simulation requirements
+[INFO] (Jan.05 23:47:53) Initializing hoc config objects
+[INFO] (Jan.05 23:47:53) User-defined RNG base seed 851.0
+[WARNING] (Jan.05 23:47:53) Some node set rules were replaced from /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/configuration/node_sets.json
+[INFO] (Jan.05 23:47:53) Memusage (RSS) per node [MB]: Max=2937.18, Min=2937.18, Mean(Stdev)=2937.18(0.00)
+[INFO] (Jan.05 23:47:53) Memusage (RSS) per task [MB]: Max=81.91, Min=81.66, Mean(Stdev)=81.70(0.04)
+[INFO] (Jan.05 23:47:53) Checking Connection Configurations
+[INFO] (Jan.05 23:47:53)  => CHECK No Global vars!
+[INFO] (Jan.05 23:47:53)  => CHECK No Block Overrides!
+[INFO] (Jan.05 23:47:53)  => CHECK No single Weight=0 blocks!
+[STEP] (Jan.05 23:47:53) ================ CALCULATING LOAD BALANCE ================
+[STEP] (Jan.05 23:47:53) Computing Load Balance
+[INFO] (Jan.05 23:47:53) Activating experimental LB for Sonata circuit 'S1nonbarrel_neurons'
+[WARNING] (Jan.05 23:47:53) Load Balance AUTO-SELECTED: RoundRobin. Reason: 
+[INFO] (Jan.05 23:47:53) Memusage (RSS) per node [MB]: Max=3022.32, Min=3022.32, Mean(Stdev)=3022.32(0.00)
+[INFO] (Jan.05 23:47:53) Memusage (RSS) per task [MB]: Max=84.18, Min=83.92, Mean(Stdev)=83.95(0.04)
+[STEP] (Jan.05 23:47:53) ==================== BUILDING CIRCUIT ====================
+[STEP] (Jan.05 23:47:53) LOADING NODES
+[INFO] (Jan.05 23:47:53) Load-balance object not present. Continuing Round-Robin...
+[INFO] (Jan.05 23:47:53)  => (default) Circuit has been disabled
+[STEP] (Jan.05 23:47:53) Circuit S1nonbarrel_neurons
+[INFO] (Jan.05 23:47:53) Reading Nodes (METype) info from '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/data/simulation/configuration/networks/nodes/S1nonbarrel_neurons/nodes.h5'
+[INFO] (Jan.05 23:47:53)  -> Distributing 'S1nonbarrel_neurons:Cell' target cells Round-Robin
+[INFO] (Jan.05 23:47:53)  => Loaded info about 1 target cells (out of 1)
+[INFO] (Jan.05 23:47:53) Reading LFP configuration info from '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/electrodeFile/coeffs.h5'
+[STEP] (Jan.05 23:47:53) FINALIZING CIRCUIT CELLS
+[STEP] (Jan.05 23:47:53) Circuit (default)
+[STEP] (Jan.05 23:47:53) Circuit S1nonbarrel_neurons
+[INFO] (Jan.05 23:47:53) Finalizing cells... Gid offset: 0
+[INFO] (Jan.05 23:47:53)  > Instantiating cells... (1 in Rank 0)
+[INFO] (Jan.05 23:47:54)  > Updating targets
+[INFO] (Jan.05 23:47:54)  > Initializing cell network
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3261.57, Min=3261.57, Mean(Stdev)=3261.57(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.57, Min=89.92, Mean(Stdev)=90.60(3.88)
+[STEP] (Jan.05 23:47:54) LOADING CIRCUIT CONNECTIVITY
+[STEP] (Jan.05 23:47:54) Circuit (default)
+[INFO] (Jan.05 23:47:54)  => No connectivity set as internal. See projections
+[STEP] (Jan.05 23:47:54) Circuit S1nonbarrel_neurons
+[INFO] (Jan.05 23:47:54)  => No connectivity set as internal. See projections
+[STEP] (Jan.05 23:47:54) Handling projections...
+[STEP] (Jan.05 23:47:54) Configuring connections...
+[INFO] (Jan.05 23:47:54) Done, but waiting for all ranks
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3261.57, Min=3261.57, Mean(Stdev)=3261.57(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.57, Min=89.92, Mean(Stdev)=90.60(3.88)
+[STEP] (Jan.05 23:47:54) ================ INSTANTIATING SIMULATION ================
+[STEP] (Jan.05 23:47:54) Handling Replay
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3261.57, Min=3261.57, Mean(Stdev)=3261.57(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.57, Min=89.92, Mean(Stdev)=90.60(3.88)
+[STEP] (Jan.05 23:47:54) Creating connections in the simulator
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3261.57, Min=3261.57, Mean(Stdev)=3261.57(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.57, Min=89.92, Mean(Stdev)=90.60(3.88)
+[STEP] (Jan.05 23:47:54) Stimulus Apply.
+[INFO] (Jan.05 23:47:54) Instantiating Stimulus Injects:
+[INFO] (Jan.05 23:47:54)  * [STIM] injectStimulus: Stimulus (RelativeOrnsteinUhlenbeck) -> Cell
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3261.77, Min=3261.77, Mean(Stdev)=3261.77(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.77, Min=89.92, Mean(Stdev)=90.61(3.92)
+[STEP] (Jan.05 23:47:54) Enabling modifications...
+[STEP] (Jan.05 23:47:54) Reports Enabling
+[INFO] (Jan.05 23:47:54)  * extracellular_report (Type: lfp, Target: Cell, Dt: 0.100000)
+[INFO] (Jan.05 23:47:54) Adding report extracellular_report.h5 for CoreNEURON with 1 gids
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3263.84, Min=3263.84, Mean(Stdev)=3263.84(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=113.90, Min=89.94, Mean(Stdev)=90.67(3.93)
+[INFO] (Jan.05 23:47:54) Preparing to run simulation...
+[INFO] (Jan.05 23:47:54) Executing actions after stdinit...
+[STEP] (Jan.05 23:47:54) Dataset generation for CoreNEURON
+[INFO] (Jan.05 23:47:54) SHM file transfer mode for CoreNEURON enabled
+[INFO] (Jan.05 23:47:54) Writing sim config file: /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/simulation/reporting/sim.conf
+[INFO] (Jan.05 23:47:54)  => Dataset written to '/dev/shm/sim-hpc/1964047/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/simulation/reporting/coreneuron_input'
+[STEP] (Jan.05 23:47:54) ======================= SIMULATION =======================
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=3271.15, Min=3271.15, Mean(Stdev)=3271.15(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=114.34, Min=90.18, Mean(Stdev)=90.87(3.97)
+[INFO] (Jan.05 23:47:54) Clearing model
+[INFO] (Jan.05 23:47:54) malloc_trim: memory released back to the system.
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per node [MB]: Max=2780.57, Min=2780.57, Mean(Stdev)=2780.57(0.00)
+[INFO] (Jan.05 23:47:54) Memusage (RSS) per task [MB]: Max=87.57, Min=76.92, Mean(Stdev)=77.24(1.75)
+[INFO] (Jan.05 23:47:54) Launching simulation with CoreNEURON
+[INFO] (Jan.05 23:49:00) Creating .SUCCESS file: 'simulation_config.json.SUCCESS'
+[INFO] (Jan.05 23:49:00) Memusage (RSS) per node [MB]: Max=2879.59, Min=2879.59, Mean(Stdev)=2879.59(0.00)
+[INFO] (Jan.05 23:49:00) Memusage (RSS) per task [MB]: Max=97.36, Min=79.42, Mean(Stdev)=79.99(2.94)
+[INFO] (Jan.05 23:49:00) Deleting intermediate data in /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/simulation/reporting/coreneuron_input
+[INFO] (Jan.05 23:49:00) Deleting intermediate SHM data in /dev/shm/sim-hpc/1964047/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/SONATA/examples/reference-solutions/simulation/reporting/coreneuron_input
+[INFO] (Jan.05 23:49:00) Finished
+[INFO] (Jan.05 23:49:00) +================================================ TIMEIT STATS =================================================+
+[INFO] (Jan.05 23:49:00) |                       Event Label                        | Avg.Time | Min.Time | Max.Time | Hits R0 / Total   |
+[INFO] (Jan.05 23:49:00) +---------------------------------------------------------------------------------------------------------------+
+[INFO] (Jan.05 23:49:00) | Compute LB                                               |     0.01 |     0.00 |     0.01 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Cell creation                                            |     1.65 |     1.65 |     1.65 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Synapse creation                                         |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Enable Stimulus                                          |     0.00 |     0.00 |     0.01 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Enable Modifications                                     |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Enable Reports                                           |     0.00 |     0.00 |     0.00 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Model Finalized                                          |     0.01 |     0.01 |     0.01 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) |  ╚ stdinit                                               |     0.01 |     0.01 |     0.01 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | corewrite                                                |     0.10 |     0.10 |     0.10 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | finished Run                                             |    65.15 |    65.15 |    65.15 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) | Delete corenrn data                                      |     0.04 |     0.02 |     0.05 |       1 / 36      |
+[INFO] (Jan.05 23:49:00) +---------------------------------------------------------------------------------------------------------------+

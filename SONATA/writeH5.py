@@ -47,16 +47,29 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
     sigma is the extracellular conductivity
     '''
 
-    segLength = np.linalg.norm(startPos-endPos)
+    segLength = np.linalg.norm(startPos-endPos) * 1e-6 # Converts from um to m
 
     x1 = electrodePos[0]-endPos[0]
     y1 = electrodePos[1]-endPos[1]
     z1 = electrodePos[2]-endPos[2]
 
+    
+    ### Convert from um to m
+    x1 *= 1e-6
+    y1 *= 1e-6
+    z1 *= 1e-6
+    ###
+
     xdiff = endPos[0]-startPos[0]
     ydiff = endPos[1]-startPos[1]
     zdiff = endPos[2]-startPos[2]
 
+    ### Convert from um to m
+    xdiff *= 1e-6
+    ydiff *= 1e-6
+    zdiff *= 1e-6
+    ### 
+    
     h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
 
     r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - h**2
@@ -64,6 +77,8 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
     l = h + segLength
 
     segCoeff = 1/(4*np.pi*sigma*segLength)*np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+
+    segCoeff *= 1e-9 # Convert from nA to A
 
     return segCoeff
 
@@ -77,8 +92,12 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 
             distance = np.linalg.norm(somaPos-electrodePos)
 
+            distance *= 1e-6 # Converts from um to m
+
             somaCoeff = 1/(4*np.pi*sigma*distance) # We treat the soma as a point, so the contribution at the electrode follows the formula for the potential from a point source
 
+            somaCoeff *= 1e-9 # Converts from nA to A
+            
             if i == 0:
                 coeffs = somaCoeff
             else:
@@ -101,9 +120,13 @@ def get_coeffs_lfp(positions,columns,electrodePos,sigma):
 def get_coeffs_pointSource(positions,electrodePos,sigma):
     
     distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0)
-    
+   
+    distances *= 1e-6 # Converts from um to m
+
     coeffs = 1/(4*np.pi*sigma*distances)
     
+    coeffs *= 1e-9 # Converts from nA to A
+
     coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
 
     coeffs.columns = positions.columns
@@ -423,7 +446,6 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
 
         epos = h5['electrodes'][str(electrode)]['position'][:] # Gets position for each electrode
         
-        print(epos)
         
         electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
 
@@ -435,7 +457,6 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
 
             newPositions = getSegmentMidpts(positions,node_ids) # For other methods, we need the segment centers, not the endpoints
             
-            print(newPositions)
             
             if electrodeType == 'PointSource':
                 
@@ -503,6 +524,4 @@ if __name__=='__main__':
             path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
 
-    print(path_to_fields)
-    
     writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)

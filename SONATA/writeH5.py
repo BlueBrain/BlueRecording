@@ -47,28 +47,24 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
     sigma is the extracellular conductivity
     '''
 
-    segLength = np.linalg.norm(startPos-endPos) * 1e-6 # Converts from um to m
+    ### Convert from um to m
+    startPos = startPos * 1e-6
+    endPos = endPos * 1e-6
+    electrodePos = electrodePos * 1e-6
+    ###
+
+    segLength = np.linalg.norm(startPos-endPos) 
 
     x1 = electrodePos[0]-endPos[0]
     y1 = electrodePos[1]-endPos[1]
     z1 = electrodePos[2]-endPos[2]
 
     
-    ### Convert from um to m
-    x1 *= 1e-6
-    y1 *= 1e-6
-    z1 *= 1e-6
-    ###
 
     xdiff = endPos[0]-startPos[0]
     ydiff = endPos[1]-startPos[1]
     zdiff = endPos[2]-startPos[2]
 
-    ### Convert from um to m
-    xdiff *= 1e-6
-    ydiff *= 1e-6
-    zdiff *= 1e-6
-    ### 
     
     h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
 

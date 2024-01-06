@@ -181,10 +181,7 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
         zCenter = (z[:-1]+z[1:])/2
         ####
 
-        try:
-            currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
-        except:
-            currentApplied = 1
+        currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
 
 
     positions *= 1e-6 # Converts um to m, to match the potential field file
@@ -232,10 +229,7 @@ def get_coeffs_eeg(positions, path_to_fields):
         z = geth5Dataset(path_to_fields, tmp, 'axis_z')
 
 
-        try:
-            currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
-        except:
-            currentApplied = 1
+        currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
 
 
     positions *= 1e-6 # Converts um to m, to match the potential field file

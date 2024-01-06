@@ -191,6 +191,8 @@ def write_potentialField(path_to_potentialfield_file):
 
     file = h5py.File(path_to_potentialfield_file,'w')
 
+    file.create_dataset('CurrentApplied',data=1)
+
     xaxis = np.linspace(-10,10)*1e-6
     yaxis = np.linspace(-10,10)*1e-6
     zaxis = np.linspace(-10,10)*1e-6
@@ -224,6 +226,8 @@ def write_EField(path_to_potentialfield_file):
 
     file = h5py.File(path_to_potentialfield_file,'w')
 
+    file.create_dataset('CurrentApplied',data=1)
+    
     xaxis = np.linspace(-10,10)*1e-6
     yaxis = np.linspace(-10,10)*1e-6
     zaxis = np.linspace(-10,10)*1e-6

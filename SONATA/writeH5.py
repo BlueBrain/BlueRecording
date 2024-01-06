@@ -521,3 +521,4 @@ if __name__=='__main__':
 
 
     writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPerFolder,sigma,path_to_fields)
+

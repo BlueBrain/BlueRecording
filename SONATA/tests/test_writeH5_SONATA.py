@@ -191,7 +191,7 @@ def test_get_coeffs_dipoleReciprocity(positions,write_EField,gids):
     
     columnMultiIndex = pd.MultiIndex.from_tuples(columnIdx,names=['id','section'])
     
-    expectedPotential = pd.DataFrame(data=np.array([0.5e-6,0])[np.newaxis,:]**2,columns=columnMultiIndex)
+    expectedPotential = pd.DataFrame(data=-1*np.array([0.5e-6,0])[np.newaxis,:]**2,columns=columnMultiIndex)
         
     pd.testing.assert_frame_equal(potentials,expectedPotential)
     

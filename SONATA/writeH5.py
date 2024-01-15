@@ -185,11 +185,11 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
         currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
 
 
-    positions *= 1e-6 # Converts um to m, to match the potential field file
+    positions = positions * 1e-6 # Converts um to m, to match the potential field file
 
-    center *= 1e-6
+    center = center * 1e-6
 
-    positions -= center.values[:,np.newaxis]
+    positionsNew = positions - center.values[:,np.newaxis]
     
     
     InterpFcnX = RegularGridInterpolator((xCenter, y, z), Ex[:, :, :, 0], method='linear')
@@ -202,14 +202,16 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
     
     ZComp = InterpFcnZ(center)[np.newaxis]  # Interpolate E field at location of neural center
     
+    print(XComp)
+    print(YComp)
+    print(ZComp)
     
-    
-    out2rat = positions[0]*XComp + positions[1]*YComp + positions[2]*ZComp
+    out2rat = positionsNew[0]*XComp + positionsNew[1]*YComp + positionsNew[2]*ZComp
     
 
     outdf = pd.DataFrame(data=(-out2rat / currentApplied), columns=positionColumns) # Scale potential field by applied current
 
-    return outdf
+    return outdf 
 
 def get_coeffs_eeg(positions, path_to_fields):
 
@@ -472,8 +474,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
             
                 if electrodeType == 'DipoleReciprocity':
 
-                    center = newPositions.mean(axis=1)
+                    #center = newPositions.mean(axis=1)
 
+                    center = newPositions.iloc[:,0]#.values
+                    
                     coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
 
                 else:

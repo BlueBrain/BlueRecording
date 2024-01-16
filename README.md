@@ -32,6 +32,9 @@ The steps listed here are identical for both the SONATA-based and BlueConfig-bas
 4. Run the file writeH5_MPI_prelim.py, using the bash script WriteH5Prelim.sh. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
 5. Run the file writeH5_MPI.py, using the bash script WriteH5.sh. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This step requires the use of a version of h5py built with MPI support. This two-step procedure is used because the calculation of the LFP coefficients is not feasible without parallelization, but MPI cannot be used when H5 files are created.
 
+## Examples
+See [here](https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/tree/9d9287eca57ec500f7704b532c37417fa615aa55/SONATA/examples)
+
 ## Contribution Guidelines
 
 ## Citation

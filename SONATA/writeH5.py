@@ -78,7 +78,7 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
     return segCoeff
 
-def get_coeffs_lfp(positions,columns,electrodePos,sigma):
+def get_coeffs_lineSource(positions,columns,electrodePos,sigma):
 
     for i in range(len(positions.columns)-1):
 
@@ -213,7 +213,7 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
 
     return outdf 
 
-def get_coeffs_eeg(positions, path_to_fields):
+def get_coeffs_reciprocity(positions, path_to_fields):
 
     '''
     path_to_fields is the path to the h5 file containing the potential field, outputted from Sim4Life
@@ -459,7 +459,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
         
         if electrodeType == 'LineSource':
             
-            coeffs = get_coeffs_lfp(positions,columns,epos,sigma)
+            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma)
             
         else:
 
@@ -482,7 +482,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
 
                 else:
 
-                    coeffs = get_coeffs_eeg(newPositions,path_to_fields[reciprocityIdx])
+                    coeffs = get_coeffs_reciprocity(newPositions,path_to_fields[reciprocityIdx])
 
                 reciprocityIdx += 1
 

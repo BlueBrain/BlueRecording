@@ -132,10 +132,10 @@ def test_add_coeffs_backwards(writeNeuron,gids,population_name,data_backwards):
     
     h5.close()
     
-def test_get_coeffs_lfp(positions,data_twoSections,electrodePosition,sigma):
+def test_get_coeffs_lineSource(positions,data_twoSections,electrodePosition,sigma):
     
     columns = data_twoSections.columns
-    coeffs = get_coeffs_lfp(positions,columns,electrodePosition,sigma)
+    coeffs = get_coeffs_lineSource(positions,columns,electrodePosition,sigma)
     
     somaDistance = np.sqrt(3*10**2)*1e-6
     expectedSomaCoeff = 1/(4*np.pi*sigma*somaDistance)*1e-9
@@ -162,10 +162,10 @@ def test_get_coeffs_pointSource(positions,electrodePosition,sigma,gids):
     
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
     
-def test_get_coeffs_eeg(positions,write_potentialField,gids):
+def test_get_coeffs_reciprocity(positions,write_potentialField,gids):
     
     testPositions = getSegmentMidpts(positions,gids)
-    potentials = get_coeffs_eeg(testPositions,write_potentialField)
+    potentials = get_coeffs_reciprocity(testPositions,write_potentialField)
     
     columns = [[1,1],[0,1]]
     

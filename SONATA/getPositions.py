@@ -389,7 +389,7 @@ def getNewIndex(colIdx):
     return newCols
 
 
-def main(path_to_simconfig, newidx,chunk_size, path_to_positions_folder):
+def main(path_to_simconfig, newidx,chunk_size, path_to_positions_folder,replace_axons=True):
 
     ids, data, population = getSimulationInfo(path_to_simconfig, newidx)
 
@@ -401,8 +401,10 @@ def main(path_to_simconfig, newidx,chunk_size, path_to_positions_folder):
 
         m, center = getMorphology(population,i, path_to_simconfig)
         somaPos = center[:,np.newaxis]
+        
+        if replace_axons: # If the axons are replaced by a stub axon, we need to get the positions thereof
 
-        axonPoints, runningLens = get_axon_points(m,center) # Gets 3d positions and cumulative length of the axon
+            axonPoints, runningLens = get_axon_points(m,center) # Gets 3d positions and cumulative length of the axon
 
         sections = np.unique(cols[np.where(cols[:,0]==i),1:].flatten()) # List of sections for the given neuron
 
@@ -435,7 +437,7 @@ def main(path_to_simconfig, newidx,chunk_size, path_to_positions_folder):
             except:
                 numCompartments = 1
 
-            if secName < 3: # Section 1 and Section 2 are always axonal sections
+            if secName < 3 and replace_axons: # Section 1 and Section 2 are always axonal sections, if the axon is being replaced
 
                 segPos = interp_points_axon(axonPoints,runningLens,secName,numCompartments,somaPos)
 
@@ -472,5 +474,10 @@ if __name__=='__main__':
 
     newidx = MPI.COMM_WORLD.Get_rank()
     chunk_size = int(sys.argv[3]) # Number of pickle files to write to each subfolder
+    
+    if len(sys.argv)>4:
+        replace_axons = sys.argv[4]
+    else:
+        replace_axons = True
 
-    main(path_to_simconfig, newidx, chunk_size, path_to_positions_folder)
+    main(path_to_simconfig, newidx, chunk_size, path_to_positions_folder,replace_axons)

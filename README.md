@@ -4,9 +4,7 @@ This repository contains scripts to porduce an input file (also refered to as an
 
 The *NON_SONATA* folder provides scripts for the production of an electrodes file compatible with BluleConfig based simulations. The **SONATA** folder provides scripts that produces ane electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file) 
 
-## User instructions
-
-### Installation of dependencies
+## Installation of dependencies
 
 Producing the electrodes files will require running bash scripts as described in the next section. These bash scripts load python virtual environments and spack environments. Requirements files for these environments are provided in the **environments** folder. Unless otherwise specified, these requirements are the same for the SONATA and NON-SONATA cases.
 
@@ -16,7 +14,7 @@ Producing the electrodes files will require running bash scripts as described in
 - The bash script **GetPositions.sh** (in both the SONATA and non-sonata directories) requires a spack environment named *getPositionsEnv*. The requirements file for this spack environment is **environments/spack_getPositions.lock**
 - The bash script **WriteH5.sh** (in both the SONATA and non-sonata directories) requires a spack environment named *writeCoefficientsEnv*. The requirements file for this spack environment is **environments/spack_writeCoefficients.lock**
 
-### Steps to produce electrode files
+## Steps to produce electrode files
 
 The steps listed here are identical for both the SONATA-based and BlueConfig-based versions.
 
@@ -34,3 +32,13 @@ The steps listed here are identical for both the SONATA-based and BlueConfig-bas
 4. Run the file writeH5_MPI_prelim.py, using the bash script WriteH5Prelim.sh. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
 5. Run the file writeH5_MPI.py, using the bash script WriteH5.sh. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This step requires the use of a version of h5py built with MPI support. This two-step procedure is used because the calculation of the LFP coefficients is not feasible without parallelization, but MPI cannot be used when H5 files are created.
 
+## Contribution Guidelines
+
+## Citation
+If you use this software, we kindly ask you to cite the following publication:
+BlueRecording: A Pipeline for efficient calculation of extracellular recordings in large-scale neural circuit models
+
+## Acknowledgment
+The development of this software was supported by funding to the Blue Brain Project, a research center of the École polytechnique fédérale de Lausanne (EPFL), from the Swiss government's ETH Board of the Swiss Federal Institutes of Technology.
+ 
+Copyright (c) 2023 Blue Brain Project/EPFL

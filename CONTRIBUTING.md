@@ -1,6 +1,8 @@
 # Contribution Guide
 
-We would love for you to contribute to the vascpy project and help make it better than it is today.
+This contrbution guide is a draft. It does not confer any permission to modify the software
+
+We would love for you to contribute to the BlueRecording project and help make it better than it is today.
 As a contributor, here are the guidelines we would like you to follow:
 
  - [Question or Problem?](#got-a-question)

@@ -105,7 +105,7 @@ the main (upstream) repository:
     git pull --ff upstream master
     ```
 
-[github]: https://github.com/BlueBrain/vascpy
+[github]: https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/
 
 # Development Environment
 

@@ -36,6 +36,7 @@ The steps listed here are identical for both the SONATA-based and BlueConfig-bas
 See [here](https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/tree/9d9287eca57ec500f7704b532c37417fa615aa55/SONATA/examples)
 
 ## Contribution Guidelines
+[Here](./CONTRIBUTING.md)
 
 ## Citation
 If you use this software, we kindly ask you to cite the following publication:

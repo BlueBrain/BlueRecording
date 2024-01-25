@@ -1,10 +1,11 @@
 {
   "run": {
     "dt": 0.025,
-    "tstop": 5000,
+    "tstop": 100,
     "random_seed": 851,
     "run_mode":"WholeCell",
-    "electrodes_file": "../electrodeFile/coeffs.h5"
+    "integration_method":2,
+    "electrodes_file": "../electrodeFile/coeffs_test.h5"
   },
 
   "conditions": {
@@ -32,22 +33,23 @@
   },
 
   "inputs": {
-    "Stimulus": {
+     "Stimulus2": {
         "input_type": "conductance",
-        "module": "relative_ornstein_uhlenbeck",
-        "delay": 2000,
+        "module": "ornstein_uhlenbeck",
+        "mean":0.05,
+        "sigma":0.05,
+        "delay": 50,
         "duration": 2100,
         "reversal": 0,
         "tau": 2.7,
-        "mean_percent": 100,
-        "sd_percent": 1,
         "node_set": "Cell"
-    }
+    }   
+
   },
 
   "reports": {
 
-      "extracellular_report": {
+      "extracellular_report_test": {
         "type": "lfp",
         "cells": "Cell",
         "sections": "all",
@@ -55,7 +57,28 @@
         "dt": 0.1,
         "start_time": 0.0,
         "end_time": 5000.0
-    }
+    },
+
+  "current": {
+   "type": "summation",
+    "cells": "Cell",
+    "sections": "all",
+    "variable_name": "i_membrane",
+    "unit":"nA",
+    "dt": 0.025,
+    "start_time": 0.0,
+    "end_time": 5000.0
+   },
+ 
+ "clamp":{
+    "type": "summation",
+    "cells": "Cell",
+    "sections": "all",
+    "variable_name": "IClamp, SEClamp",
+    "dt": 0.025,
+    "start_time": 0.0,
+    "end_time": 5000.0
+   }  
 
   }
 

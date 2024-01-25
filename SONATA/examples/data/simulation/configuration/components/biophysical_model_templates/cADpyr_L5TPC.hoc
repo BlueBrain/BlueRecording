@@ -229,16 +229,16 @@ proc biophys() {
     g_pas = 4.7051946481499811e-05
     e_pas = -79.603749561469684
   }
-  
+
   forsec CellRef.apical {
-    cm = 2
-    ena = 50
-    ek = -90
-    gamma_CaDynamics_DC0 = 0.04517010601950254
-    vshiftm_NaTg = 6
-    vshifth_NaTg = 6
-    gSKv3_1bar_SKv3_1 = 0.0018178286052065377
-    gCa_HVAbar_Ca_HVA2 = 3.4636229677800608e-06
+   cm = 2
+   ena = 50
+   ek = -90
+   gamma_CaDynamics_DC0 = 0.04517010601950254
+   vshiftm_NaTg = 6
+   vshifth_NaTg = 6
+   gSKv3_1bar_SKv3_1 = 0.0018178286052065377
+   gCa_HVAbar_Ca_HVA2 = 3.4636229677800608e-06
     gCa_LVAstbar_Ca_LVAst = 0.00098549473641638421
   }
   
@@ -293,6 +293,7 @@ proc biophys() {
   distribute_distance(CellRef.apical, "gNaTgbar_NaTg", "exp(%.17g*-0.00453252486077)*0.081013620392016858")
   distribute_distance(CellRef.basal, "gIhbar_Ih", "(-0.8696 + 2.087*exp((%.17g)*0.0031))*2.6113487420290699e-05")
   distribute_distance(CellRef.somatic, "gIhbar_Ih", "(-0.8696 + 2.087*exp((%.17g)*0.0031))*2.6113487420290699e-05")
+
 }
 
 func sec_count(/* SectionList */) { local nSec

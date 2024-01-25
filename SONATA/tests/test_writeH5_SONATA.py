@@ -5,8 +5,8 @@ import numpy as np
 from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
-from writeH5 import *
-from writeH5_prelim import ElectrodeFileStructure
+from bluerecording.writeH5 import *
+from bluerecording.writeH5_prelim import ElectrodeFileStructure
 
 @pytest.fixture
 def filesPerFolder():

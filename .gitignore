@@ -1,2 +1,7 @@
 **/core*
-**/Infinite.h5
+**/Infinite*.h5
+**/*.png
+**/*.pyc
+**/*.log
+**/*.out
+**/examples/*

@@ -9,6 +9,7 @@ from scipy.spatial.transform import Rotation
 import json
 from scipy.interpolate import RegularGridInterpolator
 import time 
+from .utils import getSimulationInfo
 
 
 def add_data(h5, ids, coeffs ,population_name):
@@ -395,7 +396,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,numFilesPer
     segment_position_folder refers to the path to the pickle file containing the potential at each segment. This is the output of the interpolation script
     '''
 
-    r, population_name = getReport(path_to_simconfig)
+    r, _, population_name, _, _, _ = getSimulationInfo(path_to_simconfig)
 
 
     allNodeIds = r.get_node_ids()

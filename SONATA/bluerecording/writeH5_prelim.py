@@ -119,7 +119,7 @@ def makeElectrodeDict(electrode_csv):
     return electrodes
 
 
-def writeH5File(path_to_simconfig,outputfile,electrode_csv):
+def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
 
     '''
     path_to_simconfig refers to the simulation_config from the 1-timestep simulation used to get the segment positions
@@ -127,7 +127,7 @@ def writeH5File(path_to_simconfig,outputfile,electrode_csv):
     type is either EEG or LFP
     '''
 
-    circuitpath, population_name, nodeIds, data = getSimulationInfo(path_to_simconfig)
+    _, circuitpath, population_name, nodeIds, data = getSimulationInfo(path_to_simconfig)
 
 
     sectionIdsFrame = data.columns.to_frame()
@@ -166,4 +166,4 @@ if __name__=='__main__':
 
     outputfile = sys.argv[3]
 
-    writeH5File(path_to_simconfig,outputfile,electrode_csv)
+    initializeH5File(path_to_simconfig,outputfile,electrode_csv)

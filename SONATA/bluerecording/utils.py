@@ -1,6 +1,19 @@
 import bluepysnap as bp
 import json
 
+def getReport(path_to_simconfig):
+    
+    rSim = bp.Simulation(path_to_simconfig)
+    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
+
+    circuit = rSim.circuit
+
+    population_name = r.population_names[0]
+
+    report = r[population_name]
+    
+    return report, population_name
+
 def getSimulationInfo(path_to_simconfig, newidx=None):
 
     '''
@@ -15,14 +28,8 @@ def getSimulationInfo(path_to_simconfig, newidx=None):
 
         circuitpath = json.load(f)['network']
 
-    rSim = bp.Simulation(path_to_simconfig)
-    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
-
-    circuit = rSim.circuit
-
-    population_name = r.population_names[0]
-
-    report = r[population_name]
+    report, population_name = getReport(path_to_simconfig)
+    
     nodeIds = report.node_ids
     
     if newidx is not None:

@@ -5,7 +5,7 @@ import numpy as np
 from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
-from getPositions import *
+from bluerecording.getPositions import *
 from scipy.spatial.transform import Rotation as R
 
 

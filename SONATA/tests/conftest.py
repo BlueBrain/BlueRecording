@@ -5,7 +5,7 @@ import numpy as np
 from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
-from writeH5_prelim import *
+from bluerecording.writeH5_prelim import *
 
 @pytest.fixture(scope='session')
 def path_to_weights_file(tmpdir_factory):

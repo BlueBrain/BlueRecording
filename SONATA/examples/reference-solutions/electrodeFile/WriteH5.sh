@@ -19,4 +19,4 @@ module purge
 
 spack env activate writeCoefficientsEnv 
 
-srun -n 1 python ../../../writeH5.py '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'electrodes.csv' 'Infinite.h5 Infinite.h5' 
+srun -n 1 python ../../../writeH5.py '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' 50 'electrodes.csv' 'Infinite_Far.h5 Infinite_Close_HighRes.h5 Infinite_Different.h5 Infinite_Far.h5 Infinite_Close_HighRes.h5 Infinite_Different.h5' 

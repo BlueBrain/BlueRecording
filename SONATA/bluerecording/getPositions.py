@@ -363,25 +363,22 @@ def getNewIndex(colIdx):
 
     return newCols
 
-def makeFolders(num_nodes,chunk_size,path_to_positions_folder):
-    
-        numFiles = MPI.COMM_WORLD.Get_size() # One position file written per process
-        
-        numFolders = np.ceil(numFiles/chunk_size)
-                    
-        for f in range(numFolders):
-            
-            os.mkdir(os.join(path_to_positions_folder, str(f)))
-
 
 def getPositions(path_to_simconfig, chunk_size, path_to_positions_folder,replace_axons=True):
     
     newidx = MPI.COMM_WORLD.Get_rank()
 
-    _, population, ids, data = getSimulationInfo(path_to_simconfig, newidx)
+    _, _, population, ids, data = getSimulationInfo(path_to_simconfig)
     
-    makeFolders(len(ids), chunk_size, path_to_positions_folder)
+    assert len(ids)/1000 < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
+       
+    try:
+        ids = nodeIds[1000*newidx:1000*(newidx+1)]
+    except:
+        ids = nodeIds[1000*newidx:]
 
+    if len(ids) == 0:
+        return 1
 
     colIdx = data.columns # node_id and Section IDs for each cell
     cols = np.array(list(data.columns))

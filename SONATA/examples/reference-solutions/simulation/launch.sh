@@ -9,11 +9,8 @@
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
-module load archive/2023-11
-module load neurodamus-neocortex/1.13-2.16.6-2.8.1 py-neurodamus/2.16.6 #/1.12-2.16.4-2.8.1 py-neurodamus/2.16.4
+module load unstable neurodamus-neocortex
 
-rm *.log
-#rm *.out
-rm *.SUCCESS
+export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
 
-srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json 
+srun -n1 special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json

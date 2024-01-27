@@ -1,11 +1,11 @@
 {
   "run": {
     "dt": 0.025,
-    "tstop": 100,
+    "tstop": 3000,
     "random_seed": 851,
     "run_mode":"WholeCell",
     "integration_method":2,
-    "electrodes_file": "../electrodeFile/coeffs_test.h5"
+    "electrodes_file": "../electrodeFile/coeffs.h5"
   },
 
   "conditions": {
@@ -33,23 +33,23 @@
   },
 
   "inputs": {
-     "Stimulus2": {
+    "Stimulus": {
         "input_type": "conductance",
-        "module": "ornstein_uhlenbeck",
-        "mean":0.05,
-        "sigma":0.05,
-        "delay": 50,
+        "module": "relative_ornstein_uhlenbeck",
+        "delay": 2000,
         "duration": 2100,
         "reversal": 0,
         "tau": 2.7,
+        "mean_percent": 100,
+        "sd_percent": 1,
         "node_set": "Cell"
-    }   
+    }
 
   },
 
   "reports": {
 
-      "extracellular_report_test": {
+      "extracellular_report": {
         "type": "lfp",
         "cells": "Cell",
         "sections": "all",

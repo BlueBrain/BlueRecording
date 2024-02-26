@@ -7,6 +7,7 @@ setup(
     url='https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus',
     author='Blue Brain Project, EPFL',
     license='NONE!',
-    packages=['bluerecording']
+    packages=['bluerecording'],
+    install_requires=['bluepysnap','mpi4py']
    )
 

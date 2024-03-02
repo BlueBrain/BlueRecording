@@ -28,12 +28,12 @@ def getSimulationInfo(path_to_simconfig):
     nodeIds = report.node_ids
 
 
-    data = report.get(group=ids,t_start=0,t_stop=r.dt)
+    data = report.get(group=nodeIds,t_start=0,t_stop=r.dt)
     
     data.columns = data.columns.rename('id',level=0)
     data.columns = data.columns.rename('section',level=1)
 
     population = rSim.circuit.nodes[population_name]
 
-    return report, circuitpath, population_name, nodeIds, data
+    return report, circuitpath, population, population_name, nodeIds, data
 

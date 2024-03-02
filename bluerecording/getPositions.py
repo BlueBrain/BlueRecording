@@ -368,9 +368,9 @@ def getPositions(path_to_simconfig, chunk_size, path_to_positions_folder,replace
     
     newidx = MPI.COMM_WORLD.Get_rank()
 
-    _, _, population, ids, data = getSimulationInfo(path_to_simconfig)
+    _, _, population,_, nodeIds, data = getSimulationInfo(path_to_simconfig)
     
-    assert len(ids)/1000 < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
+    assert len(nodeIds)/1000 < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
        
     try:
         ids = nodeIds[1000*newidx:1000*(newidx+1)]
@@ -452,17 +452,4 @@ def getPositions(path_to_simconfig, chunk_size, path_to_positions_folder,replace
 
     positionsOut.to_pickle(path_to_positions_folder+'/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
 
-if __name__=='__main__':
 
-    path_to_simconfig = sys.argv[1] #simulation_condif with one-timestep simulation outputting a compartment report
-
-    path_to_positions_folder = sys.argv[2]
-
-    chunk_size = int(sys.argv[3]) # Number of pickle files to write to each subfolder
-    
-    if len(sys.argv)>4:
-        replace_axons = sys.argv[4]
-    else:
-        replace_axons = True
-
-    main(path_to_simconfig, chunk_size, path_to_positions_folder,replace_axons)

@@ -1,7 +1,12 @@
 **/core*
-**/Infinite*.h5
+**/*.h5
 **/*.png
 **/*.pyc
 **/*.log
 **/*.out
-**/examples/*
+x86_64/
+mod/
+.ipynb_checkpoints/
+**/*.swp
+**/*.swn
+**/*.swo

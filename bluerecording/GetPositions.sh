@@ -17,11 +17,13 @@ module purge
 
 spack env activate getPositionsEnv
 
-CHUNK_SIZE=50
+FILES_PER_FOLDER=50
 
 NUMBER_OF_NEURONS=212000
 
-NUMBER_OF_FILES=$(($NUMBER_OF_NEURONS/1000)) #Number of neurons in circuit divided by 1000
+NEURONS_PER_FILE=1000
+
+NUMBER_OF_FILES=$(($NUMBER_OF_NEURONS/$NEURONS_PER_FILE)) #Number of neurons in circuit divided by 1000
 
 PATH_TO_SIMULATION_CONFIG='arbitraryPath'
 
@@ -31,10 +33,10 @@ POSITION_FOLDER_NAME='arbitraryName'
 for i in {0..$NUMBER_OF_FILES}
 do
 
-    folder="$POSITION_FOLDER_NAME/$(($i/$CHUNK_SIZE))"
+    folder="$POSITION_FOLDER_NAME/$(($i/$FILES_PER_FOLDER))"
     mkdir -p $folder 2>/dev/null
 
 done
 
-srun -n $NUMBER_OF_FILES python getPositions.py $PATH_TO_SIMULATION_CONFIG $POSITION_FOLDER_NAME $CHUNK_SIZE
+srun -n $NUMBER_OF_FILES python getPositions.py $PATH_TO_SIMULATION_CONFIG $POSITION_FOLDER_NAME $NEURONS_PER_FILE $CHUNK_SIZE
 

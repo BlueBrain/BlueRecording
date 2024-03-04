@@ -9,7 +9,7 @@ if __name__=='__main__':
     
     neurons_per_file = int(sys.argv[3])
 
-    chunk_size = int(sys.argv[4]) # Number of pickle files to write to each subfolder
+    files_per_folder = int(sys.argv[4]) # Number of pickle files to write to each subfolder
     
     if len(sys.argv)>5:
         replace_axons = sys.argv[5]

@@ -19,11 +19,7 @@ module purge
 module load unstable py-bluepysnap
 spack env activate newCoeffsEnv
 
-basedir=$PWD
-filename='Infinite_Close_HighRes_SmallSphere.h5 '
-filename1='Infinite_Close_HighRes_SmallSphere.h5'
-
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50
 
-srun -n 1 python ../../../run_write_weights.py '../../../data/simulation/simulation_config.json' '../../../data/getPositions/positions' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' $basedir/$filename1$basedir$filename 
+srun -n 1 python ../../../../run_write_weights.py '../../../data/simulation/simulation_config.json' '../../../data/getPositions/positions' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' '/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/electrodeFile/Infinite_Close_HighRes_SmallSphere.h5 /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/electrodeFile/Infinite_Close_HighRes_SmallSphere.h5'

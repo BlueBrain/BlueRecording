@@ -392,7 +392,7 @@ def sort_electrode_names(electrodeKeys,population_name):
             
             
 
-def writeH5File(path_to_simconfig,segment_position_folder,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
+def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
 
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -407,12 +407,12 @@ def writeH5File(path_to_simconfig,segment_position_folder,neurons_per_file,files
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
 
-    try:
-        node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,neurons_per_fle, files_per_folder)
+    #try:
+    node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,neurons_per_file, files_per_folder)
 
-    except:
-        h5.close()
-        return 1
+    #except:
+    #    h5.close()
+    #    return 1
 
     
     data = r.get(group=node_ids,t_start=0,t_stop=0.1) # Loads compartment report for sleected node_ids

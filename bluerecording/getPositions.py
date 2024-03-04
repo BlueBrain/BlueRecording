@@ -364,18 +364,25 @@ def getNewIndex(colIdx):
     return newCols
 
 
-def getPositions(path_to_simconfig, chunk_size, path_to_positions_folder,replace_axons=True):
+def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_positions_folder,replace_axons=True):
+    
+    '''
+    path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
+    path_to_positions_folder refers to the path to the top-level folder containing pickle files with the position of each segment.
+    neurons_per_file is the number of neurons in each of the segment positions pickle files.
+    files_per_folder is the number of positions pickle files in each subfolder in segment_position_folder. This parameter is used in order to avoid stressing the file system with too many files in a given folder
+    '''
     
     newidx = MPI.COMM_WORLD.Get_rank()
 
     _, _, population,_, nodeIds, data = getSimulationInfo(path_to_simconfig)
     
-    assert len(nodeIds)/1000 < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
+    assert len(nodeIds)/neurons_per_file < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
        
     try:
-        ids = nodeIds[1000*newidx:1000*(newidx+1)]
+        ids = nodeIds[neurons_per_file*newidx:neurons_per_file*(newidx+1)]
     except:
-        ids = nodeIds[1000*newidx:]
+        ids = nodeIds[neurons_per_file*newidx:]
 
     if len(ids) == 0:
         return 1
@@ -450,6 +457,6 @@ def getPositions(path_to_simconfig, chunk_size, path_to_positions_folder,replace
 
     positionsOut = pd.DataFrame(xyz,columns=newCols)
 
-    positionsOut.to_pickle(path_to_positions_folder+'/' + str(int(newidx / chunk_size)) + '/positions'+str(newidx)+'.pkl')
+    positionsOut.to_pickle(path_to_positions_folder+'/' + str(int(newidx / files_per_folder)) + '/positions'+str(newidx)+'.pkl')
 
 

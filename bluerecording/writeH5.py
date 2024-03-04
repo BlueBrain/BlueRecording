@@ -392,7 +392,7 @@ def sort_electrode_names(electrodeKeys,population_name):
             
             
 
-def writeH5File(path_to_simconfig,segment_position_folder,0%10,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
+def writeH5File(path_to_simconfig,segment_position_folder,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
 
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions

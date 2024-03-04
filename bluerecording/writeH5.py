@@ -201,10 +201,7 @@ def get_coeffs_dipoleReciprocity(positions, path_to_fields,center):
     YComp = InterpFcnY(center)[np.newaxis]  # Interpolate E field at location of neural center
     
     ZComp = InterpFcnZ(center)[np.newaxis]  # Interpolate E field at location of neural center
-    
-    print(XComp)
-    print(YComp)
-    print(ZComp)
+
     
     out2rat = positionsNew[0]*XComp + positionsNew[1]*YComp + positionsNew[2]*ZComp
     

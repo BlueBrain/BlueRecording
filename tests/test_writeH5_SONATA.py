@@ -61,22 +61,23 @@ def positions():
     
     return pos
 
-def test_get_position_file(filesPerFolder, numPositionFiles):
+def test_get_position_file_name(filesPerFolder, numPositionFiles):
     
     rank = 0
     
-    assert get_position_file(filesPerFolder,numPositionFiles,rank)=='0/positions0.pkl'
+    assert get_position_file_name(filesPerFolder,numPositionFiles,rank)=='0/positions0.pkl'
     
     rank = 453
     
-    assert get_position_file(filesPerFolder,numPositionFiles,rank)=='1/positions53.pkl'
+    assert get_position_file_name(filesPerFolder,numPositionFiles,rank)=='1/positions53.pkl'
 
 def test_get_indices(numPositionFiles):
     
     rank = 1
     nranks = 400
+    neuronsPerFile = 1000
     
-    iteration, iterationSize = get_indices(rank, nranks, numPositionFiles)
+    iteration, iterationSize = get_indices(rank, nranks, neuronsPerFile, numPositionFiles)
     
     assert iterationSize == 250
     assert iteration == 0

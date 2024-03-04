@@ -39,4 +39,6 @@ if __name__=='__main__':
             path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
 
+    print(path_to_fields)
+    
     writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,numFilesPerFolder,sigma,path_to_fields)

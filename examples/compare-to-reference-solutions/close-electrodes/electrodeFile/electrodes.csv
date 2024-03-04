@@ -1,7 +1,7 @@
 ,x,y,z,layer,region,type
-0,5000.0,-2000.0,-4000.0,Outside,Outside,Reciprocity
-1,5000.0,-2000.0,-4000.0,Outside,Outside,DipoleReciprocity
-2,5000.0,-2000.0,-4000.0,Outside,Outside,PointSource
+0,4500.0,-1200.0,-3400.0,Outside,Outside,Reciprocity
+1,4500.0,-1200.0,-3400.0,Outside,Outside,DipoleReciprocity
+2,4500.0,-1200.0,-3400.0,Outside,Outside,PointSource
 3,-35000,-1000,6500,Outside, Outside,PointSource
-4,5000.0,-2000.0,-4000.0,Outside,Outside,LineSource
+4,4500.0,-1200.0,-3400.0,Outside,Outside,LineSource
 5,-35000,-1000,6500,Outside,Outside,LineSource

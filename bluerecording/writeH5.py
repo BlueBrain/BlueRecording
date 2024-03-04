@@ -305,11 +305,13 @@ def get_indices(rank, nranks,neurons_per_file,numPositionFiles):
     
     iterationsPerFile = int(nranks/numPositionFiles) # How many ranks is any position file divided among
 
-    assert iterationsPerFile > 0 # One rank cannot process more than one position file. Either increase the number of ranks or increase the number of neurons per file if necessary
+    if iterationsPerFile <= 0:
+        raise AssertionError("One rank cannot process more than one position file. Either increase the number of ranks or increase the number of neurons per file if necessary")
     
     iterationSize = int(neurons_per_file/iterationsPerFile)  # Number of node_ids processed on this rank
     
-    assert iterationSize > 0 # Each rank must process at least one neuron. Either decrease the number of ranks or decrease the number of neurons per file if necessary
+    if iterationSize <= 0:
+        raise AssertionError("Each rank must process at least one neuron. Either decrease the number of ranks or decrease the number of neurons per file if necessary")
 
     iteration = int(rank/numPositionFiles)
     
@@ -338,7 +340,8 @@ def getCurrentIds(positions,iteration,iterationSize):
     except:
         node_ids = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
 
-    assert len(node_ids)>0
+    if len(node_ids)<0:
+        raise AssertionError("Number of node ids must be greater than 0")
 
     #####
     
@@ -433,7 +436,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
 
         
-        assert electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity'
+        if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity':
+            pass
+        else:
+            raise AssertionError("Electrode type not recognized")
         
         if electrodeType == 'LineSource':
             

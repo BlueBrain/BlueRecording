@@ -51,7 +51,9 @@ class ElectrodeFileStructure(object):
         return h5py.File(self._fn, "r+")
 
     def lengths(self, gid):
-        assert gid in self._ids
+        if gid not in self._ids:
+            raise AssertionError("gid not present")
+
         return "lengths/" + str(int(gid))
 
     def offsets(self,population_name):

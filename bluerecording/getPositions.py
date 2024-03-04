@@ -377,7 +377,8 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
     _, _, population,_, nodeIds, data = getSimulationInfo(path_to_simconfig)
     
-    assert len(nodeIds)/neurons_per_file < MPI.COMM_WORLD.Get_size() # Make sure that enough processes have been allocated to write position files
+    if len(nodeIds)/neurons_per_file > MPI.COMM_WORLD.Get_size():
+        raise AssertionError("Make sure that enough processes have been allocated to write position files")
        
     try:
         ids = nodeIds[neurons_per_file*newidx:neurons_per_file*(newidx+1)]

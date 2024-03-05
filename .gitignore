@@ -1,5 +1,7 @@
 **/core*
-**/*.h5
+**/Infinite*.h5
+**/coeffs.h5
+reporting/
 **/*.png
 **/*.pyc
 **/*.log

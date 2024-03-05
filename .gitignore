@@ -1,0 +1,14 @@
+**/core*
+**/Infinite*.h5
+x86_64/
+.ipynb_checkpoints/
+mod/
+**/*.swp
+**/*.swo
+**/*.swn
+__pycache__/
+**/*.pyc
+**/*.out
+**/*.log
+**/*.dat
+**/*.err

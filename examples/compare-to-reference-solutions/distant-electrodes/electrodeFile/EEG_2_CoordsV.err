@@ -1,1 +1,22 @@
+Auks API request failed : krb5 cred : unable to read credential cache
 dt from the report differs from the global simulation dt.
+Traceback (most recent call last):
+  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/distant-electrodes/electrodeFile/../../../../run_write_weights.py", line 44, in <module>
+    writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,numFilesPerFolder,sigma,path_to_fields)
+  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/bluerecording/writeH5.py", line 469, in writeH5File
+    coeffs = get_coeffs_reciprocity(newPositions,path_to_fields[reciprocityIdx])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/bluerecording/writeH5.py", line 234, in get_coeffs_reciprocity
+    currentApplied = f['CurrentApplied'][()] # The potential field should have a current, but if not, just assume it is 1
+                     ~^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "/gpfs/bbp.cscs.ch/project/proj85/spack_install/environments/newCoeffsEnv/.spack-env/view/lib/python3.11/site-packages/h5py/_hl/group.py", line 357, in __getitem__
+    oid = h5o.open(self.id, self._e(name), lapl=self._lapl)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "h5py/_objects.pyx", line 54, in h5py._objects.with_phil.wrapper
+  File "h5py/_objects.pyx", line 55, in h5py._objects.with_phil.wrapper
+  File "h5py/h5o.pyx", line 190, in h5py.h5o.open
+KeyError: "Unable to synchronously open object (object 'CurrentApplied' doesn't exist)"
+srun: error: r2i2n6: task 0: Exited with exit code 1
+srun: launch/slurm: _step_signal: Terminating StepId=2073498.0

@@ -1,16 +1,18 @@
 # BlueRecording
 
-This repository contains scripts to produce an input file (also refered to as an electrodes file or a weights file) for the calculation of extracellular signals in [neurodamus](https://github.com/BlueBrain/neurodamus). Complete documentation for this calculation can be found [here](https://github.com/BlueBrain/neurodamus/tree/main/docs). 
+BlueRecording is used to produce an input file (also refered to as an electrodes file or a weights file) for the calculation of extracellular signals in [neurodamus](https://github.com/BlueBrain/neurodamus). Complete documentation for this calculation can be found [here](https://github.com/BlueBrain/neurodamus/tree/main/docs). 
 
-This branch provides scripts that produces an electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file). For scripts to produce an electrode file compatible with the old BlueConfig format, see the non-sonata branch of this repo. 
+This branch provides code that produces an electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file). For scripts to produce an electrode file compatible with the old BlueConfig format, see the *non-sonata* branch of this repo. 
+
+## System requirements
+
+Our documentation and examples assume that you are running BlueRecording on a Linux system with slurm and the spack package manager. BlueRecording has not been tested on any other system. 
 
 ## Installation of dependencies
 
-BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5py with MPI support. BlueRecording and all its dependencies can be installed by running `snap install --add py-bluerecording`
+BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5py and HDF5 built with MPI support. The provided examples depend on [Neurodamus](https://github.com/BlueBrain/neurodamus). BlueRecording and all its dependencies can be installed by running `spack install --add py-bluerecording`
 
 ## Steps to produce electrode files
-
-The steps listed here are identical for both the SONATA-based and BlueConfig-based versions.
 
 1. Produce a compartment report from a target including the cells that will be used for the LFP calculation. Instructions for this step are found [here](https://github.com/BlueBrain/neurodamus/blob/main/docs/online-lfp.rst)
 2. Create a csv file containing information about the electrodes. Each row of the file contains information about one electrode contact. The scripts writeEEGToCSV.py and writeNeuropixelsToCSV.py are provided to create this file for a two-contact EEG system and a Neuropixels probe, respectively. The latter can be launched with WriteNPCSV.sh. The format of the csv file is defined as follows:
@@ -22,9 +24,9 @@ The steps listed here are identical for both the SONATA-based and BlueConfig-bas
        + If the electrode is in a region without laminar oraginzation, the value in the column is the string *NA*
    - The sixth column is the brain region in which the electrode is located. It is a string.
        + If the electrode is outside the brain, the value in the column is the strong *Outside* 
-3. Run the function getPositions(), using the bash script GetPositions.sh. This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
-4. Run the function initializeH5File(), using the bash script WriteH5Prelim.sh. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
-5. Run the file writeH5File(), using the bash script WriteH5.sh. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
+3. Run the function getPositions(). This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
+4. Run the function initializeH5File(). This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
+5. Run the file writeH5File(). This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
 
 ## Examples
 See [here](https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/tree/9d9287eca57ec500f7704b532c37417fa615aa55/SONATA/examples)

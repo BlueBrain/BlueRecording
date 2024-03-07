@@ -1,9 +1,10 @@
 {
   "run": {
     "dt": 0.025,
-    "tstop": 5000,
+    "tstop": 3000,
     "random_seed": 851,
     "run_mode":"WholeCell",
+    "integration_method":2,
     "electrodes_file": "../electrodeFile/coeffs.h5"
   },
 

@@ -1,4 +1,5 @@
 **/core*
+figures/
 **/coeffs.h5
 reporting/
 **/*.png
@@ -8,6 +9,7 @@ reporting/
 x86_64/
 mod/
 .ipynb_checkpoints/
+**/*.dat
 **/*.swp
 **/*.swn
 **/*.swo

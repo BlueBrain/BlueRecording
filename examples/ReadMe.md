@@ -1,6 +1,6 @@
-# Validation of EEG and LFP calculation
+# Examples
 
-Here, we provide an example of an EEG and an LFP signal produced by a single layer 5 thick-tufted pyramidal cell.
+Here, we provide examples of extracellular signals produced by a single layer 5 thick-tufted pyramidal cell. 
 
 ## Instructions
 
@@ -13,31 +13,20 @@ As the same neuron is used in both examples, segment positions only need to be c
 
 ### Extracellular signal calculation
 
-#### LFP
+In the folder **compare-to-reference-solutions** we provide two examples of online calculations of extracellular signals. In each of the examples, the neuron is placed within a large homogeneous medium; the only difference between the two examples is the location of the recording electrode (the reference electrode is in the same position). The signal is calculated using the generalized and dipole-based reciprocity approaches, and using the point-source and line-source approximations.
 
-##### Electrode File
+In the following sections, the instructions are the same for both of the example folders
 
-In the folder **LFP/electrodeFile**, the electrode csv file is created using the Jupyter notebook **createLfpCsc.ipynb**. The electrode weights h5 file then is created by running the scripts **WriteH5Prelim.sh** and **WriteH5.sh**. 
+#### Electrode File
 
-##### Online signal calculation
+In subfolder **compare-to-reference-solutions/*/electrodeFile**, where the * refers to each of the two example folders, the the electrode weights h5 file is created by running the scripts **WriteH5Prelim.sh** and **WriteH5.sh**. 
 
-In the folder **LFP/simulation**, the simulation is launched by running the script **launch.sh**. 
+#### Online signal calculation
+In subfolder **compare-to-reference-solutions/*/electrodeFile**, where the * refers to each of the two example folders, the simulation is launched by running the script **launch.sh**. 
 
-##### Analysis
-The figures in this subsection are generated notebook **LFP/simulation/MakeFigues.ipynb**
+#### Analysis
+The figures in this subsection are generated notebook **compare-to-reference-solutions/MakeFigues.ipynb**
 
-#### EEG
-
-##### Electrode File
-
-In the folder **LFP/electrodeFile**, the electrode csv file is already provided, having been created manually. The electrode weights h5 file then is created by running the scripts **WriteH5Prelim.sh** and **WriteH5.sh**. 
-
-##### Online signal calculation
-
-In the folder **EEG/simulation**, the simulation is launched by running the script **launch.sh**. 
-
-##### Analysis
-The figures in this subsection are generated notebook **EEG/simulation/MakeFigues.ipynb**
 
 ### Important note
 The user should note that in the circuit and simulation configuration files, the absolute paths listed should be modified to match the user's system.

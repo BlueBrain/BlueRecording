@@ -2,6 +2,10 @@
 
 Here, we provide examples of extracellular signals produced by a single layer 5 thick-tufted pyramidal cell. 
 
+## System requirements
+
+We assume that you are running these examples on a Linux system with slurm. If this is not the case, you will have to modify the provided bash scripts accordingly. 
+
 ## Instructions
 
 ### Dependencies

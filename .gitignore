@@ -1,5 +1,4 @@
 **/core*
-**/Infinite*.h5
 **/coeffs.h5
 reporting/
 **/*.png
@@ -12,3 +11,5 @@ mod/
 **/*.swp
 **/*.swn
 **/*.swo
+**/*.err
+

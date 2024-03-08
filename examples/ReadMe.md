@@ -4,7 +4,7 @@ Here, we provide examples of extracellular signals produced by a single layer 5 
 
 ## System requirements
 
-We assume that you are running these examples on a Linux system with slurm. If this is not the case, you will have to modify the provided bash scripts accordingly. 
+We assume that you are running these examples on a Linux system with slurm. If this is not the case, you will have to modify the provided bash scripts accordingly. You must also have Git LFS set up on your system in order to download the finite element results that are used as inputs to the electode weights calculations.
 
 ## Instructions
 

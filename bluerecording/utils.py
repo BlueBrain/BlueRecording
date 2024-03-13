@@ -1,6 +1,9 @@
 import bluepysnap as bp
 import json
 import numpy as np
+from voxcell.nexus.voxelbrain import Atlas
+from sklearn.decomposition import PCA
+
 
 def getSimulationInfo(path_to_simconfig):
 
@@ -37,3 +40,61 @@ def getSimulationInfo(path_to_simconfig):
 
     return report, circuitpath, population, population_name, nodeIds, data
 
+def getAtlasInfo(path_to_atlas,electrodePositions):
+
+    '''
+    For an array of electrode positions, returns brain region and layer in which each electrode is located. 
+    '''
+
+    atlas = Atlas.open(path_to_atlas)
+    brain_regions = atlas.load_data('brain_regions')
+
+    region_map = atlas.load_region_map()
+
+    regionList = []
+    layerList = []
+
+
+    for position in electrodePositions:
+
+        try:
+
+            for id_ in brain_regions.lookup([position]):
+
+                region = region_map.get(id_, 'acronym')
+                regionList.append(region.split(';')[0])
+                layerList.append(region.split(';')[1])
+
+        except:
+
+            regionList.append('Outside')
+            layerList.append('Outside')
+
+    return regionList, layerList
+
+def alignmentInfo(path_to_simconfig,target):
+
+    '''
+    Gets loction and angle information in order to align a probe with long axis of of the specified target (typically a cortical column)
+    '''
+
+    rSim = bp.Simulation(path_to_simconfig)
+    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
+
+    population_name = r.population_names[0]
+
+    population = rSim.circuit.nodes[population_name]
+
+    somaPos = population.get(properties=['x','y','z'],group=target) # Gets soma position
+
+    center = np.mean(somaPos,axis=0).values
+
+    pca = PCA(n_components=3)
+    pca.fit(somaPos)
+    main_axis = pca.components_[0]
+
+    elevation = np.arctan2(np.sqrt(main_axis[0]**2+main_axis[1]**2),main_axis[2])
+    azimuth = np.arctan2(main_axis[1],main_axis[0])
+
+    return center, azimuth, elevation
+    

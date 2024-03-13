@@ -30,5 +30,5 @@ do
 
 done
 
-srun -n 1 python ../../../run_get_positions.py "../simulation/simulation_config.json" "positions" $NEURONS_PER_FILE $FILES_PER_FOLDER
+srun -n 1 python ../../../../run_get_positions.py "../simulation/simulation_config.json" "positions" $NEURONS_PER_FILE $FILES_PER_FOLDER
 

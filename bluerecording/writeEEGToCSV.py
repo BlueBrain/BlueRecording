@@ -1,9 +1,5 @@
-import MEAutility as MEA
-from sklearn.decomposition import PCA
 import numpy as np
 import pandas as pd
-from voxcell.nexus.voxelbrain import Atlas
-import bluepysnap as bp
 import sys
 
 

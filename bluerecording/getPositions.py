@@ -7,7 +7,6 @@ import bluepysnap as bp
 import pandas as pd
 import sys
 from scipy.interpolate import interp1d
-import time
 from mpi4py import MPI
 import warnings
 import json

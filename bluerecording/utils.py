@@ -40,11 +40,18 @@ def getSimulationInfo(path_to_simconfig):
 
     return report, circuitpath, population, population_name, nodeIds, data
 
-def getAtlasInfo(path_to_atlas,electrodePositions):
+def getAtlasInfo(path_to_simconfig,electrodePositions):
 
     '''
     For an array of electrode positions, returns brain region and layer in which each electrode is located. 
     '''
+    
+    with open(path_to_simconfig) as f:
+        circuitpath = json.load(f)['network']
+
+    with open(circuitpath) as f:
+        path_to_atlas = json.load(f)['components']['provenance']['atlas_dir']
+
 
     atlas = Atlas.open(path_to_atlas)
     brain_regions = atlas.load_data('brain_regions')

@@ -18,4 +18,4 @@ module purge
 
 source  ~/envForReqGenerationCsv/bin/activate
 
-srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' '/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/newVPM/testing/full/testVPM/newConfig/174b9760-77b7-47de-8008-ce817f046920/0/simulation_config.json' '/gpfs/bbp.cscs.ch/project/proj83/data/atlas/S1/MEAN/P14-MEAN' 'electrode_csv.csv'
+srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' 'simulation_config.json' 'electrode_csv.csv'

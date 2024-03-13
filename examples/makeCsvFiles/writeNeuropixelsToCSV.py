@@ -18,8 +18,7 @@ if __name__=='__main__':
 
     probe_name = sys.argv[1]
     path_to_simconfig = sys.argv[2]
-    path_to_atlas = sys.argv[3]
-    electrode_csv = sys.argv[4]
+    electrode_csv = sys.argv[3]
 
     probe = MEA.return_mea(probe_name)
 
@@ -29,7 +28,7 @@ if __name__=='__main__':
 
     electrodePositions = probe.positions
 
-    regionList, layerList = getAtlasInfo(path_to_atlas, electrodePositions)
+    regionList, layerList = getAtlasInfo(path_to_simconfig, electrodePositions)
 
     electrodeData = pd.DataFrame(data=electrodePositions,columns=['x','y','z'])
     

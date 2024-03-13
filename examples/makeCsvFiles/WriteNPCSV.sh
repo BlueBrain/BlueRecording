@@ -18,4 +18,4 @@ module purge
 
 source  ~/envForReqGenerationCsv/bin/activate
 
-srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' 'simulation_config.json' 'electrode_csv.csv'
+srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' '../SSCx/sscxSimulation/simulation_config.json' 'electrode_csv.csv'

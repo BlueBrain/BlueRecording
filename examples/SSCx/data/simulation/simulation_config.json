@@ -24,10 +24,10 @@
   },
 
   "target_simulator": "CORENEURON",
-  "network": "/gpfs/bbp.cscs.ch/project/proj68/scratch/tharayil/sonata_circuits/fullSSCx/circuit_config.json",
+  "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/SSCx/data/simulation/configuration/circuit_config.json",
   "node_set": "Mosaic",
   "output": {
-    "output_dir": "/gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/1b8509b6-94ac-4117-99c5-7f78ee4cf01a/0/reporting",
+    "output_dir": "./reporting",
     "spikes_file": "spikes.h5"
   },
 

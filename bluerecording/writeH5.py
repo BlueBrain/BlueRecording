@@ -67,10 +67,12 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
     
     h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
-
-    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - h**2
-    r2 = np.abs(r2)
+    
     l = h + segLength
+
+    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - l**2
+    r2 = np.abs(r2)
+    
 
     segCoeff = 1/(4*np.pi*sigma*segLength)*np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
 

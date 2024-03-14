@@ -147,6 +147,23 @@ def test_get_coeffs_lineSource(positions,data_twoSections,electrodePosition,sigm
     
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
     
+def test_lineSource():
+    
+    segment_positions = [np.array([0,0,0]),np.array([1,0,0])]
+    electrodePosition = np.array([2,0,1]) 
+    sigma = 1
+    
+    deltaS = 1 * 1e-6
+    h = 1 * 1e-6
+    r = 1 * 1e-6
+    l = 2 * 1e-6
+    
+    expectedOutput = 1/(4*np.pi*sigma*deltaS)*np.log( np.abs( (np.sqrt(h**2+r**2) - h)/(np.sqrt(l**2+r**2)-l) ) )
+    
+    lineCoeff = get_line_coeffs(segment_positions[0],segment_positions[1],electrodePosition,sigma)
+    
+    np.testing.assert_equal(lineCoeff, expectedOutput*1e-9)
+    
 def test_get_coeffs_pointSource(positions,electrodePosition,sigma,gids):
     
     newPositions = getSegmentMidpts(positions,gids)

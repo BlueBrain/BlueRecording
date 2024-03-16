@@ -80,7 +80,47 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
     return segCoeff
 
-def get_coeffs_lineSource(positions,columns,electrodePos,sigma):
+def get_line_coeffs_old(startPos,endPos,electrodePos,sigma):
+
+    '''
+    startPos and endPos are the starting and ending positions of the segment
+    sigma is the extracellular conductivity
+    '''
+
+    ### Convert from um to m
+    startPos = startPos * 1e-6
+    endPos = endPos * 1e-6
+    electrodePos = electrodePos * 1e-6
+    ###
+
+    segLength = np.linalg.norm(startPos-endPos) 
+
+    x1 = electrodePos[0]-endPos[0]
+    y1 = electrodePos[1]-endPos[1]
+    z1 = electrodePos[2]-endPos[2]
+
+    
+
+    xdiff = endPos[0]-startPos[0]
+    ydiff = endPos[1]-startPos[1]
+    zdiff = endPos[2]-startPos[2]
+
+    
+    h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
+    
+    l = h + segLength
+
+    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - h**2
+    r2 = np.abs(r2)
+    
+
+    segCoeff = 1/(4*np.pi*sigma*segLength)*np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+
+    segCoeff *= 1e-9 # Convert from nA to A
+
+    return segCoeff
+
+def get_coeffs_lineSource(positions,columns,electrodePos,sigma,old=False):
 
     for i in range(len(positions.columns)-1):
 
@@ -104,7 +144,12 @@ def get_coeffs_lineSource(positions,columns,electrodePos,sigma):
 
         elif positions.columns[i][-1]==positions.columns[i+1][-1]: # Ensures we are not at the far end of a section
 
-            segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
+            if old: # If the old, incorrect implementation (as in LFPy is requested)
+                segCoeff = get_line_coeffs_old(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
+
+            else:
+
+                segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
 
             coeffs = np.hstack((coeffs,segCoeff))
 
@@ -445,7 +490,11 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         
         if electrodeType == 'LineSource':
             
-            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma)
+            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma,old=False)
+
+        elif electrodeType == 'LineSourceOld': # Request LFPy style incorrect implementation of line source approximation
+
+            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma,old=True)
             
         else:
 

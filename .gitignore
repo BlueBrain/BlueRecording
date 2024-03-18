@@ -14,4 +14,5 @@ mod/
 **/*.swn
 **/*.swo
 **/*.err
-
+build/
+bluerecording.egg-info

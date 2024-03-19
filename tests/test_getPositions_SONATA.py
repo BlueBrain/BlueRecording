@@ -6,6 +6,7 @@ from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
 from bluerecording.getPositions import *
+from bluerecording.utils import *
 from scipy.spatial.transform import Rotation as R
 
 
@@ -14,7 +15,16 @@ def test_MutableMorph(morphology):
     morph = MutableMorph(morphology)
     
     assert morph.indices == [[0,1,2,3],[4,5],[6,7,8]]
+    
+def test_get_morph_path(path_to_simconfig_with_output,expected_path_to_morph):
+    
+    neuron_id = 0
+    
+    _,_, population, _, _, _ = getSimulationInfo(path_to_simconfig_with_output)
+    
+    morph_path = get_morph_path(population, neuron_id, path_to_simconfig_with_output)
 
+    assert morph_path==expected_path_to_morph
 
 def test_get_axon_points(morphology, somaPos):
     

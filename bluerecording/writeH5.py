@@ -40,7 +40,7 @@ def add_data(h5, ids, coeffs ,population_name):
 
         h5[dset][offset0[i]:offset1[i],:-1] = coeffs.loc[:,id].values.T
 
-def get_line_coeffs(startPos,endPos,electrodePos,sigma):
+def get_line_coeffs(startPos,endPos,electrodePos,sigma,old=False):
 
     '''
     startPos and endPos are the starting and ending positions of the segment
@@ -69,8 +69,14 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
     h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
     
     l = h + segLength
+    
+    if old:
+        subtractionTerm = h**2
+    else:
+        subtractionTerm = l**2
 
-    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - l**2
+    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - subtractionTerm
+    
     r2 = np.abs(r2)
     
 
@@ -80,45 +86,6 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma):
 
     return segCoeff
 
-def get_line_coeffs_old(startPos,endPos,electrodePos,sigma):
-
-    '''
-    startPos and endPos are the starting and ending positions of the segment
-    sigma is the extracellular conductivity
-    '''
-
-    ### Convert from um to m
-    startPos = startPos * 1e-6
-    endPos = endPos * 1e-6
-    electrodePos = electrodePos * 1e-6
-    ###
-
-    segLength = np.linalg.norm(startPos-endPos) 
-
-    x1 = electrodePos[0]-endPos[0]
-    y1 = electrodePos[1]-endPos[1]
-    z1 = electrodePos[2]-endPos[2]
-
-    
-
-    xdiff = endPos[0]-startPos[0]
-    ydiff = endPos[1]-startPos[1]
-    zdiff = endPos[2]-startPos[2]
-
-    
-    h = 1/segLength * (x1*xdiff + y1*ydiff + z1*zdiff)
-    
-    l = h + segLength
-
-    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - h**2
-    r2 = np.abs(r2)
-    
-
-    segCoeff = 1/(4*np.pi*sigma*segLength)*np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
-
-    segCoeff *= 1e-9 # Convert from nA to A
-
-    return segCoeff
 
 def get_coeffs_lineSource(positions,columns,electrodePos,sigma,old=False):
 
@@ -144,12 +111,7 @@ def get_coeffs_lineSource(positions,columns,electrodePos,sigma,old=False):
 
         elif positions.columns[i][-1]==positions.columns[i+1][-1]: # Ensures we are not at the far end of a section
 
-            if old: # If the old, incorrect implementation (as in LFPy is requested)
-                segCoeff = get_line_coeffs_old(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
-
-            else:
-
-                segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma)
+            segCoeff = get_line_coeffs(positions.iloc[:,i],positions.iloc[:,i+1],electrodePos,sigma,old)
 
             coeffs = np.hstack((coeffs,segCoeff))
 
@@ -437,7 +399,13 @@ def sort_electrode_names(electrodeKeys,population_name):
     
     return electrode_list
             
-            
+def ElectrodeType(electrodeType):
+    
+    if electrodeType == 'LineSource' or electrodeType=='LineSourceOld' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity':
+        return 0
+    else:
+        raise AssertionError("Electrode type not recognized")
+    
 
 def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
 
@@ -483,10 +451,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
 
         
-        if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity':
-            pass
-        else:
-            raise AssertionError("Electrode type not recognized")
+        ElectrodeType(electrodeType)
         
         if electrodeType == 'LineSource':
             

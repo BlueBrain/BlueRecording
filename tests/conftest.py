@@ -6,6 +6,7 @@ from morphio import PointLevel, SectionType
 from morphio import Morphology
 import h5py
 from bluerecording.writeH5_prelim import *
+from pathlib import Path
 
 @pytest.fixture(scope='session')
 def path_to_weights_file(tmpdir_factory):
@@ -21,6 +22,47 @@ def path_to_morphology_file(tmpdir_factory):
 def path_to_potentialfield_file(tmpdir_factory):
     fn = tmpdir_factory.mktemp('data').join('potential.h5')
     return fn
+
+@pytest.fixture(scope='session')
+def path_to_simconfig_with_atlas():
+    
+    PARENT_DIR = Path(__file__).parent
+    
+    simconfig_path = 'data/simulation_config.json'
+    
+    return str(PARENT_DIR / simconfig_path)
+
+@pytest.fixture(scope='session')
+def path_to_example_folder():
+    
+    PARENT_DIR = Path(__file__).parent.parent
+    
+    example_path = 'examples/compare-to-reference-solutions/data/simulation/'
+    
+    return PARENT_DIR / example_path
+
+@pytest.fixture(scope='session')
+def path_to_simconfig_with_output(path_to_example_folder):
+        
+    simconfig_path = 'simulation_config.json'
+    
+    return str(path_to_example_folder / simconfig_path)
+
+@pytest.fixture(scope='session')
+def expected_path_to_morph(path_to_example_folder):
+        
+    morph_path = 'configuration/components/morphologies/ascii'
+    
+    morph_file = 'dend-rat_P16_S1_RH3_20140129_axon-C060110A5_-_Scale_x1.000_y0.975_z1.000_-_Clone_0.asc'
+    
+    return str(path_to_example_folder / morph_path / morph_file)
+
+@pytest.fixture(scope='session')
+def expected_circuit_path(path_to_example_folder):
+    
+    circuit_path = "configuration/circuit_config.json"
+    
+    return str(path_to_example_folder / circuit_path)
 
 @pytest.fixture(scope="module")
 def data():

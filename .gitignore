@@ -16,3 +16,4 @@ mod/
 **/*.err
 build/
 bluerecording.egg-info
+htmlcov/

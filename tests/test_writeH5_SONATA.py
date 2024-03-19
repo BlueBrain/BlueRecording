@@ -213,3 +213,25 @@ def test_get_coeffs_dipoleReciprocity(positions,write_EField,gids):
         
     pd.testing.assert_frame_equal(potentials,expectedPotential)
     
+def test_sort_electrode_names():
+    
+    electrodes = [0,1,10,'S1nonbarrel_neurons',3]
+    population = 'S1nonbarrel_neurons'
+    
+    electrodeList = sort_electrode_names(electrodes,population)
+    
+    assert np.array_equal(electrodeList,[0,1,3,10])
+
+def test_electrodeType():
+    
+    electrodeTypes = ['PointSource','LineSource','LineSourceOld','Reciprocity','DipoleReciprocity']
+    
+    for electrodeType in electrodeTypes:
+        assert ElectrodeType(electrodeType) == 0
+    
+    badType = 'sadasd'
+    
+    with pytest.raises(AssertionError):
+        ElectrodeType(badType)
+    
+    

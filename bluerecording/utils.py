@@ -84,13 +84,8 @@ def alignmentInfo(path_to_simconfig,target):
     '''
     Gets loction and angle information in order to align a probe with long axis of of the specified target (typically a cortical column)
     '''
-
-    rSim = bp.Simulation(path_to_simconfig)
-    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
-
-    population_name = r.population_names[0]
-
-    population = rSim.circuit.nodes[population_name]
+    
+    _, _, population, _, _, _ = getSimulationInfo(path_to_simconfig)
 
     somaPos = population.get(properties=['x','y','z'],group=target) # Gets soma position
 

@@ -13,8 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-
-spack env activate getPositionsEnv
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 mkdir pkls
 

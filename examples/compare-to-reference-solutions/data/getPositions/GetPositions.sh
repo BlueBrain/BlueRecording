@@ -13,10 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-module purge
-
-module load unstable py-bluepysnap
-spack env activate newCoeffsEnv
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 NEURONS_PER_FILE=1000
 
@@ -30,5 +28,5 @@ do
 
 done
 
-srun -n 1 python ../../../../run_get_positions.py "../simulation/simulation_config.json" "positions" $NEURONS_PER_FILE $FILES_PER_FOLDER
+srun -n 1 python ../../../scripts/run_get_positions.py "../simulation/simulation_config.json" "positions" $NEURONS_PER_FILE $FILES_PER_FOLDER
 

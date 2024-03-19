@@ -14,10 +14,8 @@
 #SBATCH --mem=0
 
 
-module purge
-#source ~/sirio/bin/activate
-
-module load unstable py-bluepysnap py-mpi4py #hdf5 py-h5py
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 CHUNK_SIZE=50
 
@@ -29,5 +27,5 @@ do
 
 done
 
-srun -n 4235 python getPositions.py "../simulation_config.json" "positions_all_new" $CHUNK_SIZE
+srun -n 4235 python ../../../scripts/run_get_positions.py "../simulation_config.json" "positions_all_new" $CHUNK_SIZE
 

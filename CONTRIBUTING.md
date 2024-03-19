@@ -111,18 +111,27 @@ the main (upstream) repository:
 
 # Development Environment
 
-Please make sure to install the project requirements,
-see the [dependencies](./README.md#dependencies) section in top README.
+For development, we recommend using a combimation of a spack environment and a `virtulenvironment`
 
 ## Setup
 
-It is recommended to use `virtualenv` to develop in a sandbox environment:
+Start by intalling bluerecoridng in a `virtualenv`:
 
 ```
-virtualenv venv
-. venv/bin/activate
-pip install -r tests/requirement_tests.txt
+python -m venv bluerecording-dev
+source bluerecording-dev/bin/activate
+pip install -e .
 ```
+
+Then create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
+
+```
+spack env create bluerecording-dev 
+spack env activate -p bluerecording-dev 
+spack install --add py-h5py+mpi 
+spack install --add py-mpi4py
+```
+
 
 ## Build
 

@@ -24,7 +24,9 @@ BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5
        + If the electrode is in a region without laminar oraginzation, the value in the column is the string *NA*
    - The sixth column is the brain region in which the electrode is located. It is a string.
        + If the electrode is outside the brain, the value in the column is the strong *Outside* 
-The folder *examples/makeCsvFiles* contains an example python script that will generate a csv file for a Neuropixels probe.
+
+- The folder *examples/makeCsvFiles* contains an example python script that will generate a csv file for a Neuropixels probe.
+
 3. Run the function getPositions(). This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
 4. Run the function initializeH5File(). This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
 5. Run the file writeH5File(). This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.

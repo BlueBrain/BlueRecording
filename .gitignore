@@ -6,7 +6,6 @@ reporting/
 **/*.pyc
 **/*.log
 **/*.out
-x86_64/
 mod/
 .ipynb_checkpoints/
 **/*.dat

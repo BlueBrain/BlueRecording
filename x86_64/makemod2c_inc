@@ -1,0 +1,312 @@
+./ALU.cpp: ../mod/ALU.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ALU.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./ALU.o: ./ALU.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./CaDynamics_DC0.cpp: ../mod/CaDynamics_DC0.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "CaDynamics_DC0.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./CaDynamics_DC0.o: ./CaDynamics_DC0.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./CaDynamics_E2.cpp: ../mod/CaDynamics_E2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "CaDynamics_E2.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./CaDynamics_E2.o: ./CaDynamics_E2.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca_HVA2.cpp: ../mod/Ca_HVA2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca_HVA2.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Ca_HVA2.o: ./Ca_HVA2.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca_HVA.cpp: ../mod/Ca_HVA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca_HVA.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Ca_HVA.o: ./Ca_HVA.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca_LVAst.cpp: ../mod/Ca_LVAst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca_LVAst.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Ca_LVAst.o: ./Ca_LVAst.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ca.cpp: ../mod/Ca.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ca.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Ca.o: ./Ca.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./conductanceSource.cpp: ../mod/conductanceSource.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "conductanceSource.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./conductanceSource.o: ./conductanceSource.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./CoreNEURONArtificialCell.cpp: ../mod/CoreNEURONArtificialCell.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "CoreNEURONArtificialCell.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./CoreNEURONArtificialCell.o: ./CoreNEURONArtificialCell.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./DetAMPANMDA.cpp: ../mod/DetAMPANMDA.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "DetAMPANMDA.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./DetAMPANMDA.o: ./DetAMPANMDA.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./DetGABAAB.cpp: ../mod/DetGABAAB.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "DetGABAAB.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./DetGABAAB.o: ./DetGABAAB.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./gap.cpp: ../mod/gap.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "gap.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./gap.o: ./gap.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./GluSynapse.cpp: ../mod/GluSynapse.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "GluSynapse.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./GluSynapse.o: ./GluSynapse.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./HDF5reader.cpp: ../mod/HDF5reader.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "HDF5reader.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./HDF5reader.o: ./HDF5reader.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Ih.cpp: ../mod/Ih.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Ih.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Ih.o: ./Ih.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Im.cpp: ../mod/Im.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Im.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Im.o: ./Im.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./KdShu2007.cpp: ../mod/KdShu2007.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "KdShu2007.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./KdShu2007.o: ./KdShu2007.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./K_Pst.cpp: ../mod/K_Pst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "K_Pst.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./K_Pst.o: ./K_Pst.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./K_Tst.cpp: ../mod/K_Tst.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "K_Tst.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./K_Tst.o: ./K_Tst.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Kv7.cpp: ../mod/Kv7.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Kv7.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Kv7.o: ./Kv7.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./Nap_Et2.cpp: ../mod/Nap_Et2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "Nap_Et2.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./Nap_Et2.o: ./Nap_Et2.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTa_t.cpp: ../mod/NaTa_t.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTa_t.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTa_t.o: ./NaTa_t.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTg_axon.cpp: ../mod/NaTg_axon.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTg_axon.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTg_axon.o: ./NaTg_axon.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTg.cpp: ../mod/NaTg.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTg.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTg.o: ./NaTg.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTg_persistent_axon.cpp: ../mod/NaTg_persistent_axon.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTg_persistent_axon.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTg_persistent_axon.o: ./NaTg_persistent_axon.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTg_persistent_somadend.cpp: ../mod/NaTg_persistent_somadend.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTg_persistent_somadend.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTg_persistent_somadend.o: ./NaTg_persistent_somadend.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTg_somadend.cpp: ../mod/NaTg_somadend.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTg_somadend.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTg_somadend.o: ./NaTg_somadend.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./NaTs2_t.cpp: ../mod/NaTs2_t.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "NaTs2_t.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./NaTs2_t.o: ./NaTs2_t.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./netstim_inhpoisson.cpp: ../mod/netstim_inhpoisson.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "netstim_inhpoisson.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./netstim_inhpoisson.o: ./netstim_inhpoisson.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ProbAMPANMDA_EMS.cpp: ../mod/ProbAMPANMDA_EMS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ProbAMPANMDA_EMS.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./ProbAMPANMDA_EMS.o: ./ProbAMPANMDA_EMS.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./ProbGABAAB_EMS.cpp: ../mod/ProbGABAAB_EMS.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "ProbGABAAB_EMS.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./ProbGABAAB_EMS.o: ./ProbGABAAB_EMS.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SK_E2.cpp: ../mod/SK_E2.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SK_E2.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./SK_E2.o: ./SK_E2.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SKv3_1.cpp: ../mod/SKv3_1.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SKv3_1.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./SKv3_1.o: ./SKv3_1.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SonataReportHelper.cpp: ../mod/SonataReportHelper.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SonataReportHelper.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./SonataReportHelper.o: ./SonataReportHelper.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./SonataReports.cpp: ../mod/SonataReports.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "SonataReports.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./SonataReports.o: ./SonataReports.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./StochKv3.cpp: ../mod/StochKv3.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "StochKv3.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./StochKv3.o: ./StochKv3.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./StochKv.cpp: ../mod/StochKv.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "StochKv.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./StochKv.o: ./StochKv.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./TTXDynamicsSwitch.cpp: ../mod/TTXDynamicsSwitch.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "TTXDynamicsSwitch.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./TTXDynamicsSwitch.o: ./TTXDynamicsSwitch.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+
+./VecStim.cpp: ../mod/VecStim.mod
+	@printf " -> $(C_GREEN)NMODL$(C_RESET) $<\\n"
+	(cd "../mod";  MODLUNIT=$(NRNUNITS) $(NOCMODL) "VecStim.mod" -o "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/create_lfp_weights_for_neurodamus/examples/compare-to-reference-solutions/close-electrodes/simulation/x86_64" )
+
+./VecStim.o: ./VecStim.cpp
+	@printf " -> $(C_GREEN)Compiling$(C_RESET) $<\\n"
+	$(CXXCOMPILE) -I"../mod" $(INCLUDES) -fPIC -c $< -o $@
+

@@ -9,8 +9,11 @@
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
-module load unstable neurodamus-neocortex
 
-export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
-srun -n1 ./x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json
+export NEURODAMUS_PYTHON=../../../../neurodamus
+
+
+srun dplace ../../../../x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

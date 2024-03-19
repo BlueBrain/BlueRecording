@@ -8,6 +8,17 @@ setup(
     author='Blue Brain Project, EPFL',
     license='NONE!',
     packages=['bluerecording'],
-    install_requires=['bluepysnap','mpi4py']
+    install_requires=[
+    'bluepysnap',
+    'scikit-learn',
+    'voxcell',
+    'morphio<3.3.7',
+    'notebook',
+    'matplotlib',
+    'MEAutility',
+    'neuron',
+    'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
+    'pytest-cov'
+    ]
    )
 

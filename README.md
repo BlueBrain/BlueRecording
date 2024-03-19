@@ -4,13 +4,38 @@ BlueRecording is used to produce an input file (also refered to as an electrodes
 
 This branch provides code that produces an electrodes file compatible with the [SONATA format](https://github.com/BlueBrain/sonata-extension/blob/master/source/sonata_tech.rst#format-of-the-electrodes_file). For scripts to produce an electrode file compatible with the old BlueConfig format, see the *non-sonata* branch of this repo. 
 
+# User instructions
+
 ## System requirements
 
 Our documentation and examples assume that you are running BlueRecording on a Linux system with slurm and the spack package manager. BlueRecording has not been tested on any other system. 
 
+## Dependencies
+
+Bluerecording requires mpi4py, h5py, and hdf5 built with MPI support. These should be installed with spack, as per the instructions in the following section.
+
+Bluerecording also depends on neurodamus in order to run neural simulations. Neurodamus is provided in this repo and does not need to be installed (the bash scripts which run the simulations take care of that for you). Bluerecording also depends on several other python packages, which are automatically installed with setuptools when Bluerecording is installed
+
 ## Installation
 
-BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5py and HDF5 built with MPI support. The provided examples depend on [Neurodamus](https://github.com/BlueBrain/neurodamus). BlueRecording and all its dependencies can be installed by running `spack install --add py-bluerecording`
+We recommend using a combimation of a spack environment and a `virtulenvironment`
+
+Start by intalling bluerecoridng in a `virtualenv`:
+
+```
+python -m venv bluerecording-dev
+source bluerecording-dev/bin/activate
+pip install -e .
+```
+
+Then create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
+
+```
+spack env create bluerecording-dev 
+spack env activate -p bluerecording-dev 
+spack install --add py-h5py+mpi 
+spack install --add py-mpi4py
+```
 
 ## Steps to produce electrode files
 
@@ -31,20 +56,20 @@ BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5
 4. Run the function initializeH5File(). This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
 5. Run the file writeH5File(). This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
 
-## Examples
+# Examples
 See [here](https://bbpgitlab.epfl.ch/conn/personal/tharayil/bluerecording/-/tree/main/examples?ref_type=heads)
 
-## Contribution Guidelines
+# Contribution Guidelines
 [Here](./CONTRIBUTING.md)
 
-## Important notes about unit tests
+# Important notes about unit tests
 Please note that some of the unit tests rely on the following configuration files *tests/data/simulation_config.json*, *tests/data/configuration/circuit_config.json*, *examples/compare-to-reference-solutions/data/simulation/simulation_config.json*, and *examples/compare-to-reference-solutions/data/simulation/configuration/circuit_config.json*. These configuration files contain absolute paths to files, which must be updated to match your system.  
 
-## Citation
+# Citation
 If you use this software, we kindly ask you to cite the following publication:
 BlueRecording: A Pipeline for efficient calculation of extracellular recordings in large-scale neural circuit models
 
-## Acknowledgment
+# Acknowledgment
 The development of this software was supported by funding to the Blue Brain Project, a research center of the École polytechnique fédérale de Lausanne (EPFL), from the Swiss government's ETH Board of the Swiss Federal Institutes of Technology.
  
 Copyright (c) 2023 Blue Brain Project/EPFL

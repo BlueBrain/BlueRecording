@@ -25,7 +25,7 @@ BlueRecording depends on [BluePySnap](https://github.com/BlueBrain/snap/) and h5
    - The sixth column is the brain region in which the electrode is located. It is a string.
        + If the electrode is outside the brain, the value in the column is the strong *Outside* 
 
-- The folder *examples/makeCsvFiles* contains an example python script that will generate a csv file for a Neuropixels probe.
+    The folder *examples/makeCsvFiles* contains an example python script that will generate a csv file for a Neuropixels probe.
 
 3. Run the function getPositions(). This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
 4. Run the function initializeH5File(). This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.

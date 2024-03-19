@@ -14,11 +14,8 @@
 #SBATCH --mem=0
 
 
-module purge
-
-module load unstable py-bluepysnap
-
-spack env activate newCoeffsEnv
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 
-srun -n 6000 python writeH5.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' 50 'ecog_eeg_2.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5'
+srun -n 6000 python ../../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' 50 'ecog_eeg_2.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5'

@@ -14,6 +14,8 @@
 #SBATCH --mem=0
 
 
-module load unstable py-bluepysnap
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
+
 srun -n 420 python getSpikes.py
 

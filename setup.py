@@ -14,6 +14,7 @@ setup(
     'voxcell',
     'morphio<3.3.7',
     'notebook',
+    'ipython',
     'matplotlib',
     'MEAutility',
     'neuron',

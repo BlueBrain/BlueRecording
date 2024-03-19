@@ -13,11 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-module purge
-
-mkdir eeg_sonata_new
-
-source ~/envForReqGeneration/bin/activate
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 
-srun -n 1 python writeH5_prelim.py 'ecog_eeg.csv' '../getPositions/imulation_config.json' 'coeffsEcog_EEG.h5' 
+srun -n 1 python ../../../scripts/run_initialize_h5.py 'ecog_eeg.csv' '../getPositions/imulation_config.json' 'coeffsEcog_EEG.h5' 

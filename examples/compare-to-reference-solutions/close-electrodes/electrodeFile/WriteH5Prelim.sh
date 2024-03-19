@@ -13,8 +13,7 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-module purge
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
-source ~/envForReqGeneration/bin/activate
-
-srun -n 1 python ../../../../run_initialize_h5.py 'electrodes.csv' '../../data/simulation/simulation_config.json' 'coeffs.h5' 
+srun -n 1 python ../../../scripts/run_initialize_h5.py 'electrodes.csv' '../../data/simulation/simulation_config.json' 'coeffs.h5' 

@@ -40,6 +40,28 @@ def add_data(h5, ids, coeffs ,population_name):
 
         h5[dset][offset0[i]:offset1[i],:-1] = coeffs.loc[:,id].values.T
 
+def line_source_cases(h,r2,l,old=False):
+
+    if old:
+        lineSourceTerm = np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+
+    else:
+
+        if h < 0 and l < 0:
+
+            lineSourceTerm = np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+
+        elif h < 0 and l < 0:
+
+            lineSourceTerm = np.log(np.abs( ( ((h**2+r2)**.5-h)* (l + (l**2+r2)**.5 ) ) / r2 ) )
+
+        elif h > 0 and l > 0:
+
+            lineSourceTerm = np.log(np.abs( ( (l + (l**2+r2)**.5 ) ) / ( (r2+h**2)**.5 + h) ) )
+            
+
+    return lineSourceTerm
+
 def get_line_coeffs(startPos,endPos,electrodePos,sigma,old=False):
 
     '''
@@ -78,9 +100,11 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma,old=False):
     r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - subtractionTerm
     
     r2 = np.abs(r2)
-    
 
-    segCoeff = 1/(4*np.pi*sigma*segLength)*np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+    
+    lineSourceTerm = line_source_cases(h,r2,l)
+
+    segCoeff = 1/(4*np.pi*sigma*segLength)*lineSourceTerm
 
     segCoeff *= 1e-9 # Convert from nA to A
 

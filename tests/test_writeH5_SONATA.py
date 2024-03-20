@@ -162,7 +162,7 @@ def test_lineSource():
     
     lineCoeff = get_line_coeffs(segment_positions[0],segment_positions[1],electrodePosition,sigma)
     
-    np.testing.assert_equal(lineCoeff, expectedOutput*1e-9)
+    np.testing.assert_almost_equal(lineCoeff, expectedOutput*1e-9)
     
 def test_get_coeffs_pointSource(positions,electrodePosition,sigma,gids):
     

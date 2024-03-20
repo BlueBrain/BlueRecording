@@ -49,15 +49,15 @@ def line_source_cases(h,r2,l,old=False):
 
         if h < 0 and l < 0:
 
-            lineSourceTerm = np.log(np.abs(((h**2+r2)**.5-h)/((l**2+r2)**.5-l)))
+            lineSourceTerm = np.log(((h**2+r2)**.5-h)/((l**2+r2)**.5-l))
 
-        elif h < 0 and l < 0:
+        elif h < 0 and l > 0:
 
-            lineSourceTerm = np.log(np.abs( ( ((h**2+r2)**.5-h)* (l + (l**2+r2)**.5 ) ) / r2 ) )
+            lineSourceTerm = np.log( ( ((h**2+r2)**.5-h)* (l + (l**2+r2)**.5 ) ) / r2  )
 
         elif h > 0 and l > 0:
 
-            lineSourceTerm = np.log(np.abs( ( (l + (l**2+r2)**.5 ) ) / ( (r2+h**2)**.5 + h) ) )
+            lineSourceTerm = np.log( ( (l + (l**2+r2)**.5 ) ) / ( (r2+h**2)**.5 + h)  )
             
 
     return lineSourceTerm

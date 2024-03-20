@@ -12,6 +12,8 @@ setup(
     'bluepysnap',
     'scikit-learn',
     'voxcell',
+    'scipy',
+    'numpy',
     'morphio<3.3.7',
     'notebook',
     'ipython',

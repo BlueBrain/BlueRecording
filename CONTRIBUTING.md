@@ -109,6 +109,7 @@ the main (upstream) repository:
 
 [github]: https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/
 
+
 # Development Environment
 
 For development, we recommend using a combimation of a spack environment and a `virtulenvironment`

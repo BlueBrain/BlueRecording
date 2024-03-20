@@ -14,8 +14,7 @@
 #SBATCH --mem=0
 
 
-module purge
-
-source  ~/envForReqGenerationCsv/bin/activate
+source ~/bluerecording-dev/bin/activate
+spack env activate bluerecording-dev
 
 srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' '../SSCx/sscxSimulation/simulation_config.json' 'electrode_csv.csv'

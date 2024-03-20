@@ -1,0 +1,34 @@
+{
+    "version": 2,
+    "networks": {
+        "nodes": [
+            {
+                "nodes_file": "nodes_A.h5",
+                "populations": {
+                    "NodeA": {
+                        "type": "biophysical",
+                        "morphologies_dir": "CircuitA/morphologies/swc",
+                        "biophysical_neuron_models_dir": "CircuitA/hoc",
+                        "alternate_morphologies": {
+                            "neurolucida-asc": "CircuitA/morphologies/asc"
+                        }
+                    }
+                }
+            },
+            {
+                "nodes_file": "nodes_B.h5",
+                "populations": {
+                    "NodeB": {
+                        "type": "biophysical",
+                        "morphologies_dir": "CircuitB/morphologies/swc",
+                        "biophysical_neuron_models_dir": "CircuitB/hoc",
+                        "alternate_morphologies": {
+                            "neurolucida-asc": "CircuitB/morphologies/asc"
+                        }
+                    }
+                }
+            }
+        ],
+        "edges": []
+    }
+}

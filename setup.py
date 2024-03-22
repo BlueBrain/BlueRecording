@@ -10,10 +10,12 @@ setup(
     packages=['bluerecording'],
     install_requires=[
     'bluepysnap',
+    'libsonata',
     'scikit-learn',
     'voxcell',
     'scipy',
     'numpy',
+    'pandas',
     'morphio<3.3.7',
     'notebook',
     'ipython',
@@ -21,7 +23,8 @@ setup(
     'MEAutility',
     'neuron',
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
-    'pytest-cov'
+    'pytest-cov',
+    'neurodamus @git+https://github.com/BlueBrain/neurodamus.git@new_conductance_source#egg=neurodmaus'
     ]
    )
 

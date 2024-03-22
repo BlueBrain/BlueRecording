@@ -9,9 +9,10 @@
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
+#spack env activate bluerecording-dev
+#source ~/bluerecording-env/bin/activate
 
-source ~/bluerecording-dev/bin/activate
-spack env activate bluerecording-dev
+module load unstable py-neurodamus neurodamus-neocortex
 
 export NEURODAMUS_PYTHON=../../../../neurodamus
 

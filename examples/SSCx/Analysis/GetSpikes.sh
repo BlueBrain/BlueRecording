@@ -13,9 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-
-source ~/bluerecording-dev/bin/activate
 spack env activate bluerecording-dev
+source ~/bluerecording-env/bin/activate
 
 srun -n 420 python getSpikes.py
 

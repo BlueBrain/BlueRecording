@@ -13,9 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-
-source ~/bluerecording-dev/bin/activate
 spack env activate bluerecording-dev
+source ~/bluerecording-env/bin/activate
 
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50

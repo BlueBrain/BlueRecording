@@ -13,8 +13,7 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-
-source ~/bluerecording-dev/bin/activate
 spack env activate bluerecording-dev
+source ~/bluerecording-env/bin/activate
 
 srun -n 1 python writeNeuropixelsToCSV.py 'Neuropixels-384' '../SSCx/sscxSimulation/simulation_config.json' 'electrode_csv.csv'

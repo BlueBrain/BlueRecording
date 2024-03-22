@@ -20,21 +20,21 @@ Bluerecording also depends on neurodamus in order to run neural simulations. Neu
 
 We recommend using a combimation of a spack environment and a `virtulenvironment`
 
-Start by intalling bluerecoridng in a `virtualenv`:
-
-```
-python -m venv bluerecording-dev
-source bluerecording-dev/bin/activate
-pip install -e .
-```
-
-Then create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
+First create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
 
 ```
 spack env create bluerecording-dev 
 spack env activate -p bluerecording-dev 
 spack install --add py-h5py+mpi 
 spack install --add py-mpi4py
+```
+
+Then install bluerecording in a `virtualenv`:
+
+```
+python -m venv bluerecording-dev
+source bluerecording-dev/bin/activate
+pip install -e .
 ```
 
 ## Steps to produce electrode files

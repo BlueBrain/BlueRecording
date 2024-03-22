@@ -13,8 +13,7 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
-source ~/bluerecording-dev/bin/activate
 spack env activate bluerecording-dev
-
+source ~/bluerecording-env/bin/activate
 
 srun -n 1 python ../../../scripts/run_initialize_h5.py 'ecog_eeg.csv' '../getPositions/imulation_config.json' 'coeffsEcog_EEG.h5' 

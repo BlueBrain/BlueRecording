@@ -57,7 +57,7 @@ pip install -e .
 5. Run the file writeH5File(). This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
 
 # Examples
-See [here](https://bbpgitlab.epfl.ch/conn/personal/tharayil/bluerecording/-/tree/main/examples?ref_type=heads)
+See [here](https://github.com/BlueBrain/BlueRecording/tree/main/examples)
 
 # Contribution Guidelines
 [Here](./CONTRIBUTING.md)

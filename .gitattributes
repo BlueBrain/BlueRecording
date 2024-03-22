@@ -1,3 +1,4 @@
 *.asc linguist-detectable=false
+x86_64/ linguist-detectable=false
 **/electrodeFile/*.h5 filter=lfs diff=lfs merge=lfs -text
 **/*.nrrd filter=lfs diff=lfs merge=lfs -text

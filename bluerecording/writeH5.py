@@ -9,7 +9,7 @@ import json
 from scipy.interpolate import RegularGridInterpolator
 import time 
 from .utils import *
-
+import warnings
 
 def add_data(h5, ids, coeffs ,population_name):
 
@@ -338,12 +338,12 @@ def get_indices(rank, nranks,neurons_per_file,numPositionFiles):
     
     iterationsPerFile = int(nranks/numPositionFiles) # How many ranks is any position file divided among
 
-    if iterationsPerFile <= 0:
+    if iterationsPerFile < 1:
         raise AssertionError("One rank cannot process more than one position file. Either increase the number of ranks or increase the number of neurons per file if necessary")
     
-    iterationSize = int(neurons_per_file/iterationsPerFile)  # Number of node_ids processed on this rank
+    iterationSize = np.ceil(neurons_per_file/iterationsPerFile)  # Number of node_ids processed on this rank
     
-    if iterationSize <= 0:
+    if iterationSize < 1:
         raise AssertionError("Each rank must process at least one neuron. Either decrease the number of ranks or decrease the number of neurons per file if necessary")
 
     iteration = int(rank/numPositionFiles)
@@ -373,9 +373,6 @@ def getCurrentIds(positions,iteration,iterationSize):
     except:
         node_ids = np.unique(np.array(list(positions.columns))[:,0])[iteration*iterationSize:]
 
-    if len(node_ids)<0:
-        raise AssertionError("Number of node ids must be greater than 0")
-
     #####
     
     return node_ids
@@ -398,7 +395,7 @@ def getIdsAndPositions(ids, segment_position_folder,neurons_per_file, numFilesPe
     g = getCurrentIds(positions,iteration,iterationSize)
     
     positions = positions[g] # Gets positions for specific gids
-    
+        
     return g, positions
     
 def sort_electrode_names(electrodeKeys,population_name):
@@ -447,12 +444,15 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
 
-    #try:
     node_ids, positions = getIdsAndPositions(allNodeIds, segment_position_folder,neurons_per_file, files_per_folder)
 
-    #except:
-    #    h5.close()
-    #    return 1
+    if len(node_ids)==0:
+        
+        warnings.warn('No nodes are processed on rank '+str(MPI.COMM_WORLD.Get_rank())+' Either increase or reduce the number of ranks such that it is an integer multiple of the number of position files') 
+
+        h5.close()
+    
+        return 1 
 
     
     data = getMinimalData(r,node_ids) # Loads compartment report for sleected node_ids

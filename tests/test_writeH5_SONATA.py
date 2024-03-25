@@ -81,6 +81,11 @@ def test_get_indices(numPositionFiles):
     
     assert iterationSize == 250
     assert iteration == 0
+
+    with pytest.raises(AssertionError):
+        nranks = 2
+        iteration, iterationSize = get_indices(rank, nranks, neuronsPerFile, numPositionFiles)
+
     
 def test_getSegmentMidpts(positions,gids):
     

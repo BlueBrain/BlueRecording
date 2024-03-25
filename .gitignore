@@ -15,4 +15,7 @@ mod/
 **/*.err
 build/
 bluerecording.egg-info
+.exception_node
+*.nrrd
+neurodamus/
 htmlcov/

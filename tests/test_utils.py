@@ -2,15 +2,19 @@ import pytest
 import numpy as np
 from bluerecording.utils import *
 
-def test_getSimulationInfo(path_to_simconfig_with_output,expected_circuit_path):
+def test_getSimulationInfo(path_to_simconfig_with_output):
     
-    report, circuitpath, population, population_name, nodeIds, data = getSimulationInfo(path_to_simconfig_with_output)
-    
-    assert population_name == 'S1nonbarrel_neurons'
-    
-    assert circuitpath == expected_circuit_path
-    
+    report, nodeIds = getSimulationInfo(path_to_simconfig_with_output)
+            
     assert nodeIds == 0
+
+def test_getPopulationName(path_to_simconfig_with_output):
+
+    assert getPopulationName(path_to_simconfig_with_output)=='S1nonbarrel_neurons'
+
+def test_getCircuitPath(path_to_simconfig_with_output,expected_circuit_path):
+
+    assert getCircuitPath(path_to_simconfig_with_output)==expected_circuit_path
 
 def test_atlasInfo(path_to_simconfig_with_atlas):
     

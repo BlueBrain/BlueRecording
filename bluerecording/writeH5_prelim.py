@@ -5,7 +5,7 @@ import pandas as pd
 import sys
 import bluepysnap as bp
 import json
-from .utils import getSimulationInfo
+from .utils import *
 
 class ElectrodeFileStructure(object):
 
@@ -129,7 +129,13 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
     type is either EEG or LFP
     '''
 
-    _, circuitpath, _, population_name, nodeIds, data = getSimulationInfo(path_to_simconfig)
+    report, nodeIds = getSimulationInfo(path_to_simconfig)
+
+    population_name = getPopulationName(path_to_simconfig)
+
+    circuitpath = getCircuitPath(path_to_simconfig)
+
+    data = getMinimalData(report, nodeIds)
 
 
     sectionIdsFrame = data.columns.to_frame()

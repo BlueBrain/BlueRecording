@@ -10,9 +10,8 @@
 #SBATCH --job-name=CortexNrdmsPySim
 
 spack env activate bluerecording-dev
-source ~/bluerecording-env/bin/activate
+#source ~/bluerecording-dev/bin/activate
 
-export NEURODAMUS_PYTHON=../../../../neurodamus
+export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
 
-
-srun dplace ../../../../x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin
+srun dplace /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/longSim/compareModalities/f554be01-456c-4a15-8670-df39a3187b7e/0/x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

@@ -9,36 +9,72 @@ def getSimulationInfo(path_to_simconfig):
 
     '''
     Returns the following:
-    circuit: Path to the circuit used to generate the time steps. Gets written to the h5 file and is checked by neurodamus when and LFP simulation is run. LFP simulation will fail if it uses a different circuit than the one in the h5 file
-    population_name: SONATA population name
+    report: Sonata report object
     node_ids: list of ids for which segment coefficients will be written
-    data: dataframe with a compartment report, whose columns are the node_id and sectionId of each neuron
     '''
     
-    with open(path_to_simconfig) as f:
-
-        circuitpath = json.load(f)['network']
-
     rSim = bp.Simulation(path_to_simconfig)
     r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
 
-    circuit = rSim.circuit
-
-    population_name = r.population_names[0]
+    population_name = getPopulationName(path_to_simconfig)
 
     report = r[population_name]
     
     nodeIds = report.node_ids
 
+    return report, nodeIds
 
-    data = report.get(group=nodeIds,t_start=0,t_stop=r.dt)
+def getPopulationObject(path_to_simconfig):
+
+    '''
+    Returns the following:
+    'population': SONATA population object
+    '''
+    
+    rSim = bp.Simulation(path_to_simconfig)
+
+    population_name = getPopulationName(path_to_simconfig)
+
+    population = rSim.circuit.nodes[population_name]
+
+    return population
+
+
+def getPopulationName(path_to_simconfig):
+
+    rSim = bp.Simulation(path_to_simconfig)
+    r = rSim.reports[list(rSim.reports.keys())[0]] # We assume that the compartment report is the only report produced by the simulation
+
+    population_name = r.population_names[0]
+
+    return population_name
+
+def getCircuitPath(path_to_simconfig):
+
+    '''
+    circuit: Path to the circuit used to generate the time steps. Gets written to the h5 file and is checked by neurodamus when and LFP simulation is run. LFP simulation will fail if it uses a different circuit than the one in the h5 file
+    '''
+
+    with open(path_to_simconfig) as f:
+
+        circuitpath = json.load(f)['network']
+
+    return circuitpath
+
+def getMinimalReport(report,node_ids):
+
+    '''
+    Returns the following:
+    data: dataframe with a compartment report, whose columns are the node_id and sectionId of each neuron
+    '''
+
+
+    data = report.get(group=nodeIds,t_start=0,t_stop=report.frame_report.dt)
     
     data.columns = data.columns.rename('id',level=0)
     data.columns = data.columns.rename('section',level=1)
 
-    population = rSim.circuit.nodes[population_name]
-
-    return report, circuitpath, population, population_name, nodeIds, data
+    return data
 
 def getAtlasInfo(path_to_simconfig,electrodePositions):
 
@@ -46,8 +82,7 @@ def getAtlasInfo(path_to_simconfig,electrodePositions):
     For an array of electrode positions, returns brain region and layer in which each electrode is located. 
     '''
     
-    with open(path_to_simconfig) as f:
-        circuitpath = json.load(f)['network']
+    circuitpath = getCircuitPath(path_to_simconfig)
 
     with open(circuitpath) as f:
         path_to_atlas = json.load(f)['components']['provenance']['atlas_dir']

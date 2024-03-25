@@ -8,7 +8,7 @@ from scipy.spatial.transform import Rotation
 import json
 from scipy.interpolate import RegularGridInterpolator
 import time 
-from .utils import getSimulationInfo
+from .utils import *
 
 
 def add_data(h5, ids, coeffs ,population_name):
@@ -441,7 +441,8 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
     files_per_folder is the number of positions pickle files in each subfolder in segment_position_folder. This is also specified by the user in getPositions()
     '''
 
-    r, _, _, population_name, allNodeIds, _ = getSimulationInfo(path_to_simconfig)
+    r, allNodeIds = getSimulationInfo(path_to_simconfig)
+    population_name = getPopulationName(path_to_simconfig)
 
 
     h5 = h5py.File(outputfile, 'a',driver='mpio',comm=MPI.COMM_WORLD)
@@ -454,7 +455,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
     #    return 1
 
     
-    data = r.get(group=node_ids,t_start=0,t_stop=0.1) # Loads compartment report for sleected node_ids
+    data = getMinimalData(r,node_ids) # Loads compartment report for sleected node_ids
     
 
     columns = data.columns

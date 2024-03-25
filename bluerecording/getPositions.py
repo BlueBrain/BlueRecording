@@ -11,7 +11,7 @@ from mpi4py import MPI
 import warnings
 import json
 from scipy.spatial.transform import Rotation as R
-from .utils import getSimulationInfo
+from .utils import *
 import os
 import math
 
@@ -275,9 +275,7 @@ def get_morph_path(population, i, path_to_simconfig):
     
     morphName = population.get(i, 'morphology') # Gets name of the morphology file for node_id i
 
-    with open(path_to_simconfig) as f:
-
-        circuitpath = json.load(f)['network'] # path to circuit_config file
+    circuitpath = getCircuitPath(path_to_simconfig) # path to circuit_config file
 
     with open(circuitpath) as f: # Gets path to morphology file from circuit_config
 
@@ -374,7 +372,8 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
     
     newidx = MPI.COMM_WORLD.Get_rank()
 
-    _, _, population,_, nodeIds, data = getSimulationInfo(path_to_simconfig)
+    report, nodeIds = getSimulationInfo(path_to_simconfig)
+    population = getPopulationObject(path_to_simconfig)
     
     if len(nodeIds)/neurons_per_file > MPI.COMM_WORLD.Get_size():
         raise AssertionError("Make sure that enough processes have been allocated to write position files")
@@ -386,6 +385,8 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
     if len(ids) == 0:
         return 1
+
+    data = getMinimalData(report,ids)
 
     colIdx = data.columns # node_id and Section IDs for each cell
     cols = np.array(list(data.columns))

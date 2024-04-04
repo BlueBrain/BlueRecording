@@ -4,12 +4,15 @@ Here, we provide examples of extracellular signals produced by a single layer 5 
 
 ## System requirements
 
-We assume that you are running these examples on a Linux system with slurm. If this is not the case, you will have to modify the provided bash scripts accordingly. You must also have Git LFS set up on your system in order to download the finite element results that are used as inputs to the electode weights calculations.
+We assume that you are running these examples on a Linux system with slurm. If this is not the case, you will have to modify the provided bash scripts accordingly.
 
 ## Instructions
 
 ### Dependencies
 For each of the bash scripts described below, the dependencies are the same as described in the readme for the repository as a whole
+
+### Download data
+Download the files Infinite_VeryFar_HighRes.h5 and Infinite_Close_HighRes_SmallSphere.h5 from 10.5281/zenodo.10927050 into the folders distant-electrodes/electrodeFile and close-electrodes/electrodeFile, respectively.
 
 ### Calculating Segment Positions
 

@@ -1,7 +1,5 @@
 # Contribution Guide
 
-This contrbution guide is a draft. It does not confer any permission to modify the software
-
 We would love for you to contribute to the BlueRecording project and help make it better than it is today.
 As a contributor, here are the guidelines we would like you to follow:
 
@@ -107,7 +105,7 @@ the main (upstream) repository:
     git pull --ff upstream main
     ```
 
-[github]: https://github.com/joseph-tharayil/create_lfp_weights_for_neurodamus/
+[github]: https://github.com/BlueBrain/BlueRecording
 
 
 # Development Environment

@@ -54,7 +54,7 @@ pip install -e .
 
 3. Run the function `bluerecording.getPositions.getPositions()`. This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
 4. Run the function `bluerecording.writeH5_prelim.initializeH5File()`. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
-5. Run the file `bluerecording.writeH5.writeH5File()`. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
+5. Run the function `bluerecording.writeH5.writeH5File()`. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
 
 # Examples
 See [here](https://github.com/BlueBrain/BlueRecording/tree/main/examples)

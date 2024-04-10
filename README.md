@@ -39,22 +39,27 @@ pip install -e .
 
 ## Steps to produce electrode files
 
-1. Produce a compartment report from a target including the cells that will be used for the LFP calculation. Instructions for this step are found [here](https://github.com/BlueBrain/neurodamus/blob/main/docs/online-lfp.rst)
+1. Produce a compartment report from a target including the cells that will be used in the extracellular recording. Instructions for this step are found [here](https://github.com/BlueBrain/neurodamus/blob/main/docs/online-lfp.rst)
 2. Create a csv file containing information about the electrodes. Each row of the file contains information about one electrode contact. The format of the csv file is defined as follows:
-   - The header is *name,x,y,z,layer,region*
+   - The header is *name,x,y,z,layer,region,type*
    - The first column is the name of the electrode contact. It is either a string or an integer
    - The second through fourth columns are the x, y, and z coordinates of the contact in Cartesian space. They are floats.
    - The fifth column is the cortical layer in which the electrode is located. It is a string in the format L*N*, where *N* is an integer.
        + If the electrode is outside of the brain, the value in the column is the strign *Outside*
        + If the electrode is in a region without laminar oraginzation, the value in the column is the string *NA*
    - The sixth column is the brain region in which the electrode is located. It is a string.
-       + If the electrode is outside the brain, the value in the column is the strong *Outside* 
+       + If the electrode is outside the brain, the value in the column is the strong *Outside*
+   -  The seventh column is the calculation method used to determine the compartment weights. Supported values are *PointSource*, *LineSource*, *Reciprocity*, and *DipoleReciprocity*. The *PointSource* and *LineSource* methods assume that the neurons are in an infinite homogeneous medium. They should be used only for recordings made inside the brain tissue. If they are used, the tissue conductivity should be provided in step 6. *Reciprocity* and *DipoleReciprocity* assign the compartment weights based on a lead-field calculated in step 2a. These should be used for EEG or ECoG recordings. In general, we recommend using the *Reciprocity* method.
 
     The folder *examples/makeCsvFiles* contains an example python script that will generate a csv file for a Neuropixels probe.
 
-3. Run the function `bluerecording.getPositions.getPositions()`. This loads the compartment report produced in step 1, and will create a folder containing pickle files listing the (x,y,z) position of each segment in each cell in the target.
-4. Run the function `bluerecording.writeH5_prelim.initializeH5File()`. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, populating all coefficients with 1s.
-5. Run the function `bluerecording.writeH5.writeH5File()`. This loads the position files created in step 3 and the electrode file created in step 4, populates the electrode file with the correct coefficients. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
+3. If the *Reciprocity* or *DipoleReciprocity* methods are used, you must calculate a lead-field. The lead field is the potential field (for the reciprocity method) or the E-field (for the dipole reciprocity method) produced in the neural tissue by running a current of 1 nA between the recording electrode and the reference electrode. BlueRecording assumes that this field is calculated using the Sim4Lfie finite element solver ad exported as an h5 file. Other calculation methods are possible, asusming the field is exported in the same format. 
+
+4. Run the function `bluerecording.getPositions.getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_positions_folder,replace_axons=True)`. This loads the compartment report produced in step 1, and will create folders containing pickle files listing the (x,y,z) position of each segment in each cell in the target. The argument `neurons_per_file` refers to the number of neurons whose positions are stored in each pickle file, and `files_per_folder` refers to the number of such files in each folder (which should be adjusted based on your filesystem)
+
+5. Run the function `bluerecording.writeH5_prelim.initializeH5File(path_to_simconfig,outputfile,electrode_csv)`. This loads the compartment report produced in step 1 and the csv file produced in step 2, and will create the electrodes file, with the name `outputfile`, populating all coefficients with 1s.
+
+6. Run the function `bluerecording.writeH5.writeH5File(path_to_simconfig,path_to_segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None)`. This loads the position files created in step 4 and the electrode file created in step 4, populates the electrode file with the correct coefficients. Here `sigma` is the conductivity of the tissue, and must be provided if one of the analytic methods is used. `path_to_fields` is the path to the finite element output calculated in step 3, which must be provided if the reciprocity-based methods are used. This two-step procedure is used because the calculation of the LFP coefficients for large neural populatons is not feasible without parallelization, but MPI cannot be used when H5 files are created, since parallel writing of variable length strings is not supported.
 
 # Examples
 See [here](https://github.com/BlueBrain/BlueRecording/tree/main/examples)

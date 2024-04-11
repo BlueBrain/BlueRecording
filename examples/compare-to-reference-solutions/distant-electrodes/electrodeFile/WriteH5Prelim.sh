@@ -14,6 +14,6 @@
 #SBATCH --mem=0
 
 spack env activate bluerecording-dev
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
-srun -n 1 python ../../../scripts/run_initialize_h5.py 'electrodes.csv' '../../../data/simulation/simulation_config.json' 'coeffs.h5' 
+srun -n 1 python ../../../scripts/run_initialize_h5.py 'electrodes.csv' '../../data/simulation/simulation_config.json' 'coeffs.h5' 

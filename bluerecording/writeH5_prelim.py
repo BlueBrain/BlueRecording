@@ -135,7 +135,7 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
 
     circuitpath = getCircuitPath(path_to_simconfig)
 
-    data = getMinimalData(report, nodeIds)
+    data = getMinimalReport(report, nodeIds)
 
 
     sectionIdsFrame = data.columns.to_frame()

@@ -386,7 +386,7 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
     if len(ids) == 0:
         return 1
 
-    data = getMinimalData(report,ids)
+    data = getMinimalReport(report,ids)
 
     colIdx = data.columns # node_id and Section IDs for each cell
     cols = np.array(list(data.columns))

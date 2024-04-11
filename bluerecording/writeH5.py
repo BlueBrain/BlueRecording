@@ -95,9 +95,9 @@ def get_line_coeffs(startPos,endPos,electrodePos,sigma,old=False):
     if old:
         subtractionTerm = h**2
     else:
-        subtractionTerm = l**2
+        subtractionTerm = h**2
 
-    r2 = (electrodePos[0]-startPos[0])**2 + (electrodePos[1]-startPos[1])**2 + (electrodePos[2]-startPos[2])**2 - subtractionTerm
+    r2 = (electrodePos[0]-endPos[0])**2 + (electrodePos[1]-endPos[1])**2 + (electrodePos[2]-endPos[2])**2 - subtractionTerm
     
     r2 = np.abs(r2)
 
@@ -341,7 +341,7 @@ def get_indices(rank, nranks,neurons_per_file,numPositionFiles):
     if iterationsPerFile < 1:
         raise AssertionError("One rank cannot process more than one position file. Either increase the number of ranks or increase the number of neurons per file if necessary")
     
-    iterationSize = np.ceil(neurons_per_file/iterationsPerFile)  # Number of node_ids processed on this rank
+    iterationSize = int(np.ceil(neurons_per_file/iterationsPerFile))  # Number of node_ids processed on this rank
     
     if iterationSize < 1:
         raise AssertionError("Each rank must process at least one neuron. Either decrease the number of ranks or decrease the number of neurons per file if necessary")
@@ -455,7 +455,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         return 1 
 
     
-    data = getMinimalData(r,node_ids) # Loads compartment report for sleected node_ids
+    data = getMinimalReport(r,node_ids) # Loads compartment report for sleected node_ids
     
 
     columns = data.columns

@@ -69,7 +69,7 @@ def getMinimalReport(report,node_ids):
     '''
 
 
-    data = report.get(group=nodeIds,t_start=0,t_stop=report.frame_report.dt)
+    data = report.get(group=node_ids,t_start=0,t_stop=report.frame_report.dt)
     
     data.columns = data.columns.rename('id',level=0)
     data.columns = data.columns.rename('section',level=1)

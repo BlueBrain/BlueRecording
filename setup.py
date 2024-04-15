@@ -23,8 +23,7 @@ setup(
     'MEAutility',
     'neuron',
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
-    'pytest-cov',
-    'neurodamus @git+https://github.com/BlueBrain/neurodamus.git@new_conductance_source#egg=neurodmaus'
+    'pytest-cov'
     ]
    )
 

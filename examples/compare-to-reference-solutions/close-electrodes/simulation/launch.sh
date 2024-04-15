@@ -14,7 +14,8 @@
 
 module load unstable py-neurodamus neurodamus-neocortex
 
-export NEURODAMUS_PYTHON=../../../../neurodamus
+export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
+#export NEURODAMUS_PYTHON=../../../../neurodamus
 
 
-srun dplace ../../../../x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin
+srun dplace /gpfs/bbp.cscs.ch/project/proj83/tharayil/new_mod_file/with_neurodamus/x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

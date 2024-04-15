@@ -263,7 +263,7 @@ def test_sort_electrode_names():
 
 def test_electrodeType():
     
-    electrodeTypes = ['PointSource','LineSource','LineSourceOld','Reciprocity','DipoleReciprocity']
+    electrodeTypes = ['PointSource','LineSource','Reciprocity','DipoleReciprocity']
     
     for electrodeType in electrodeTypes:
         assert ElectrodeType(electrodeType) == 0

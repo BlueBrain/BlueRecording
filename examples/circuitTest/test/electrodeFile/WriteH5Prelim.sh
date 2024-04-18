@@ -1,6 +1,6 @@
 #!/bin/bash -l
 #SBATCH --job-name="EEG_2_CoordsV"
-#SBATCH --partition=prod_small
+#SBATCH --partition=prod
 #SBATCH --nodes=1
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2

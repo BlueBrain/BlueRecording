@@ -9,7 +9,7 @@
   "network": "/gpfs/bbp.cscs.ch/project/proj83/circuits/Bio_M/20200805-pure-sonata/circuit_config.json",
   "node_sets_file": "user_node_sets.json",
   "node_set": "hex_O1_L4_100",
-  "target_simulator": "NEURON",
+  "target_simulator": "CORENEURON",
   "output": {
     "output_dir": "./output_sonata",
     "spikes_file": "out.h5"
@@ -32,7 +32,7 @@
   "reports": {
    "extracellular_report": {
    "type": "lfp",
-   "cells": "Cell",
+   "cells": "All",
    "sections": "all",
    "variable_name": "v",
    "dt": 0.1,

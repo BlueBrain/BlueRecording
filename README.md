@@ -20,11 +20,15 @@ Bluerecording also depends on neurodamus in order to run neural simulations. Neu
 
 We recommend using a combimation of a spack environment and a `virtulenvironment`
 
-First create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
+First create a spack environment, which is used to satisfy the neurodamus, h5py+mpi and mpi4py dependencies 
 
 ```
-spack env create bluerecording-dev 
-spack env activate -p bluerecording-dev 
+git clone https://github.com/BlueBrain/spack.git
+cd spack
+git checkout jblanco/new-conductance-source
+spack env create bluerecording
+spack env activate -p bluerecording
+spack install --add neurodamus-models
 spack install --add py-h5py+mpi 
 spack install --add py-mpi4py
 ```

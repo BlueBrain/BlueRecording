@@ -36,6 +36,8 @@ spack install --add py-mpi4py
 Then install bluerecording in a `virtualenv`:
 
 ```
+git clone https://github.com/BlueBrain/BlueRecording.git
+cd BlueRecording
 python -m venv bluerecording-dev
 source bluerecording-dev/bin/activate
 pip install -e .

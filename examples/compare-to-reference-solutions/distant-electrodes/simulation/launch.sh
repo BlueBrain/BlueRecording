@@ -12,9 +12,8 @@
 #spack env activate bluerecording-dev
 #source ~/bluerecording-env/bin/activate
 
-module load unstable py-neurodamus neurodamus-neocortex
+unset MODULEPATH
+. /gpfs/bbp.cscs.ch/ssd/apps/bsd/pulls/2379/config/modules.sh
+module load unstable neurodamus-neocortex
 
-export NEURODAMUS_PYTHON=../../../../neurodamus
-
-
-srun dplace ../../../../x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin
+srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json

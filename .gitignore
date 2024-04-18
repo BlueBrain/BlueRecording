@@ -2,6 +2,7 @@
 figures/
 **/coeffs.h5
 reporting/
+output_sonata/
 **/*.png
 **/*.pyc
 **/*.log

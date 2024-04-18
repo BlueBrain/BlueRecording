@@ -24,6 +24,7 @@ First create a spack environment, which is used to satisfy the neurodamus, h5py+
 
 ```
 git clone https://github.com/BlueBrain/spack.git
+. spack/share/spack/setup-env.sh
 cd spack
 git checkout jblanco/new-conductance-source
 spack env create bluerecording
@@ -42,6 +43,9 @@ python -m venv bluerecording-dev
 source bluerecording-dev/bin/activate
 pip install -e .
 ```
+
+## Testing
+After following the instructions above, run `pytest tests`
 
 ## Steps to produce electrode files
 

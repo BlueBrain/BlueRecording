@@ -1,0 +1,58 @@
+{
+  "manifest": {
+    "$BASE_DIR": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/circuitTest/data/simulation/configuration",
+    "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
+    "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges/",
+    "$MORPHOLOGIES": "$BASE_DIR/components/morphologies"
+  },
+  "components": {
+    "morphologies_dir": "$MORPHOLOGIES",
+    "biophysical_neuron_models_dir": "$BASE_DIR/components/biophysical_model_templates",
+    "provenance": {
+       "atlas_dir": "/gpfs/bbp.cscs.ch/project/proj83/data/atlas/S1/MEAN/P14-MEAN"
+    }
+  },
+  "node_sets_file": "$BASE_DIR/node_sets.json",
+  "networks": {
+    "nodes": [
+      {
+        "nodes_file": "$NETWORK_NODES_DIR/S1nonbarrel_neurons/nodes.h5",
+        "populations": {
+           "S1nonbarrel_neurons": {
+              "alternate_morphologies": {
+                 "neurolucida-asc": "$MORPHOLOGIES/ascii",
+                 "h5v1": "$MORPHOLOGIES/h5"
+              },
+              "type": "biophysical"
+           }
+        }
+      },
+      {
+        "nodes_file": "$NETWORK_NODES_DIR/VPM/nodes.h5",
+        "populations": {
+           "VPM": {
+              "type": "virtual"
+           }
+        }
+      },
+      {
+        "nodes_file": "$NETWORK_NODES_DIR/POm/nodes.h5",
+        "populations": {
+           "POm": {
+              "type": "virtual"
+           }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "edges_file": "$NETWORK_EDGES_DIR/edges.h5",
+        "populations": {
+           "S1nonbarrel_neurons__S1nonbarrel_neurons__chemical": {
+              "type": "chemical"
+           }
+        }
+      }
+    ]
+  }
+}

@@ -1,6 +1,8 @@
 **/core*
 figures/
 **/coeffs.h5
+networks/
+atlas/
 reporting/
 output_sonata/
 **/*.png

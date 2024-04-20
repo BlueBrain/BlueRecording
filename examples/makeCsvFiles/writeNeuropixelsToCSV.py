@@ -3,7 +3,7 @@ import pandas as pd
 import bluepysnap as bp
 import sys
 from bluerecording.utils import alignmentInfo, getAtlasInfo
-
+import numpy as np
 
 def repositionElectrode(probe,center,azimuth,elevation):
 
@@ -22,7 +22,7 @@ if __name__=='__main__':
 
     probe = MEA.return_mea(probe_name)
 
-    center, azimuth, elevation = alignentInfo(path_to_simconfig,'hex0')
+    center, azimuth, elevation = alignmentInfo(path_to_simconfig,'hex0')
 
     repositionElectrode(probe, center, azimuth, elevation)
 

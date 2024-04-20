@@ -120,7 +120,7 @@ def alignmentInfo(path_to_simconfig,target):
     Gets loction and angle information in order to align a probe with long axis of of the specified target (typically a cortical column)
     '''
     
-    _, _, population, _, _, _ = getSimulationInfo(path_to_simconfig)
+    population = getPopulationObject(path_to_simconfig)
 
     somaPos = population.get(properties=['x','y','z'],group=target) # Gets soma position
 

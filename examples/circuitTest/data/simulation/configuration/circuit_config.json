@@ -9,7 +9,7 @@
     "morphologies_dir": "$MORPHOLOGIES",
     "biophysical_neuron_models_dir": "$BASE_DIR/components/biophysical_model_templates",
     "provenance": {
-       "atlas_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/data"
+       "atlas_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/data/atlas"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

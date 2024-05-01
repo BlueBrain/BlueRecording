@@ -283,7 +283,7 @@ def get_morph_path(population, i, path_to_simconfig):
 
         if 'components' in js.keys():
             if 'morphologies_dir' in js['components'].keys():
-                finalmorphpath = js['components']['morphologies_dir']
+                finalmorphpath = js['components']['morphologies_dir'] + '/morphologies'
         
         else:
         

@@ -281,11 +281,17 @@ def get_morph_path(population, i, path_to_simconfig):
 
         js = json.load(f)
 
-        basedir = js['manifest']['$BASE_DIR']
-        morphpath = js['manifest']['$MORPHOLOGIES']
-        finalmorphpath = basedir
-        for m in morphpath.split('/')[1:]:
-            finalmorphpath = finalmorphpath + '/'+m
+        if 'components' in js.keys():
+            if morphologies_dir in js['components'].keys():
+                finalmorphpath = morphologies_dir
+        
+        else:
+        
+            basedir = js['manifest']['$BASE_DIR']
+            morphpath = js['manifest']['$MORPHOLOGIES']
+            finalmorphpath = basedir
+            for m in morphpath.split('/')[1:]:
+                finalmorphpath = finalmorphpath + '/'+m
             
     return finalmorphpath+'/ascii/'+morphName+'.asc'
     

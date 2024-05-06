@@ -7,22 +7,17 @@ In order to generate compartment reports to input to BlueRecording, and to use B
 Assuming you are using an Ubuntu system, first, run
 
 ```
-sudo apt-get install cmake libopenmpi-dev libhdf5-dev
+sudo apt-get install cmake libopenmpi-dev libhdf5-dev ninja-build
 ```
 Then, install NEURON with `python -m pip install NEURON-nightly`.
 
 Install [libsonatareport](https://github.com/BlueBrain/libsonatareport) with
 
 ```
-git clone https://github.com/BlueBrain/libsonatareport reports/src --recursive
-cmake \
-  -B reports/build \
-  -S reports/src \
-  -DCMAKE_INSTALL_PREFIX=reports/install \
-  -DSONATA_REPORT_ENABLE_SUBMODULES=ON \
-  -DSONATA_REPORT_ENABLE_TEST=OFF
-cmake --build reports/build
-cmake --install reports/build
+git clone git@github.com:BlueBrain/libsonatareport.git --recursive
+cd libsonatareport
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DSONATA_REPORT_ENABLE_SUBMODULES=ON -GNinja
+cmake --build build
 ```
 
 ## Installation of Neurodamus

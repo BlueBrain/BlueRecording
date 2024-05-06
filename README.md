@@ -12,24 +12,19 @@ Our documentation and examples assume that you are running BlueRecording on a Li
 
 ## Dependencies
 
-Bluerecording requires mpi4py, h5py, and hdf5 built with MPI support. These should be installed with spack, as per the instructions in the following section.
+Bluerecording requires mpi4py, h5py, and hdf5 built with MPI support. These should be installed with spack, as per the instructions in the following section. Bluerecording also depends on several other python packages, which are automatically installed with setuptools when Bluerecording is installed.
 
-Bluerecording also depends on neurodamus in order to run neural simulations. Neurodamus is provided in this repo and does not need to be installed (the bash scripts which run the simulations take care of that for you). Bluerecording also depends on several other python packages, which are automatically installed with setuptools when Bluerecording is installed
+Running neural simulations to generate inputs to BlueRecording (and to calculate extracellular signals using weights files produced by BlueRecording) requires [neurodamus](https://github.com/BlueBrain/neurodamus) and [neurodamus-models](https://github.com/BlueBrain/neurodamus-models). Instructions on how to install and run them are provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/NeurodamusInstructions.md)
 
 ## Installation
 
 We recommend using a combimation of a spack environment and a `virtulenvironment`
 
-First create a spack environment, which is used to satisfy the neurodamus, h5py+mpi and mpi4py dependencies 
+First create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
 
 ```
-git clone https://github.com/BlueBrain/spack.git
-. spack/share/spack/setup-env.sh
-cd spack
-git checkout jblanco/new-conductance-source
 spack env create bluerecording
 spack env activate -p bluerecording
-spack install --add neurodamus-models
 spack install --add py-h5py+mpi 
 spack install --add py-mpi4py
 ```

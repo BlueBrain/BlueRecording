@@ -14,7 +14,7 @@ Then, install NEURON with `python -m pip install NEURON-nightly`.
 Install [libsonatareport](https://github.com/BlueBrain/libsonatareport) with
 
 ```
-git clone https://github.com/BlueBrain/libsonatareport reports/src --recursive --shallow-submodules
+git clone https://github.com/BlueBrain/libsonatareport reports/src --recursive
 cmake \
   -B reports/build \
   -S reports/src \

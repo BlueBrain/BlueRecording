@@ -56,7 +56,7 @@ spack env create bluerecording
 spack env activate -p bluerecording
 spack install --add neurodamus-models+coreneuron
 ```
-Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided here. Then, run 
+Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/modules.yaml). Then, run 
 ```
 spack module tcl refresh
 module use $SPACK_INSTALL_PREFIX/modules/linux-rhel7-skylake

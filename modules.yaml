@@ -1,0 +1,62 @@
+modules:
+  default:
+    tcl:
+      verbose: true
+      hash_length: 0
+      include:
+        #- neurodamus-neocortex
+        #- neurodamus-hippocampus
+        - py-neurodamus
+        - neurodamus-models
+        - neuron
+      projections:
+        all: '{name}/{version}'
+        neurodamus-models model=hippocampus: 'neurodamus-hippocampus/{version}'
+        neurodamus-models model=neocortex +plasticity: 'neurodamus-neocortex-plasticity/{version}'
+        neurodamus-models model=neocortex +ngv+metabolism: 'neurodamus-neocortex-multiscale/{version}'
+        neurodamus-models model=neocortex: 'neurodamus-neocortex/{version}'
+        neurodamus-models model=thalamus: 'neurodamus-thalamus/{version}'
+      all:
+        autoload: external
+      gcc:
+        environment:
+          set:
+            MPICC_CC: gcc
+            MPICXX_CXX: g++
+            MPIF90_F90: gfortran
+      intel:
+        environment:
+          set:
+            MPICC_CC: icc
+            MPICXX_CXX: icpc
+            MPIF90_F90: ifort
+      intel-oneapi-compilers:
+        environment:
+          set:
+            MPICC_CC: icc
+            MPICXX_CXX: icpc
+            MPIF90_F90: ifort
+      intel-oneapi-mkl:
+        environment:
+          set:
+            MKL_THREADING_LAYER: SEQUENTIAL
+      llvm:
+        environment:
+          set:
+            MPICC_CC: clang
+            MPICXX_CXX: clang++
+            MPIF90_F90: gfortran
+      nvhpc:
+        environment:
+          set:
+            MPICC_CC: nvc
+            MPICXX_CXX: nvc++
+            MPIF90_F90: nvfortran
+      exclude:
+      - '%clang'
+      - '%gcc'
+      - '%intel'
+      - '%nvhpc'
+      - '%oneapi'
+    roots:
+      tcl: $SPACK_INSTALL_PREFIX/modules

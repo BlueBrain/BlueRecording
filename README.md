@@ -14,11 +14,13 @@ Our documentation and examples assume that you are running BlueRecording on a Li
 
 Bluerecording requires mpi4py, h5py, and hdf5 built with MPI support. These should be installed with spack, as per the instructions in the following section. Bluerecording also depends on several other python packages, which are automatically installed with setuptools when Bluerecording is installed.
 
-Running neural simulations to generate inputs to BlueRecording (and to calculate extracellular signals using weights files produced by BlueRecording) requires [neurodamus](https://github.com/BlueBrain/neurodamus) and [neurodamus-models](https://github.com/BlueBrain/neurodamus-models). Instructions on how to install and run them are provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/NeurodamusInstructions.md)
+Running neural simulations to generate inputs to BlueRecording (and to calculate extracellular signals using weights files produced by BlueRecording) requires [neurodamus](https://github.com/BlueBrain/neurodamus), the BBP Simulation Control application for Neuron, [neurodamus-models](https://github.com/BlueBrain/neurodamus-models), which contains mod files for neural mechanisms. These should be installed in a separate spack environment
 
 ## Installation
 
-We recommend using a combimation of a spack environment and a `virtulenvironment`
+### BlueRecording
+
+We recommend using a combimation of a spack environment and a `virtulenvironment` to install BlueRecording and its dependencies
 
 First create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
 
@@ -38,6 +40,30 @@ python -m venv bluerecording-dev
 source bluerecording-dev/bin/activate
 pip install -e .
 ```
+
+### Neurodamus
+
+We recommend installing Neurodamus and the Neurodamus-Models mechanisms in a separate spack environment. 
+
+First, run 
+
+```
+git clone https://github.com/BlueBrain/spack.git
+. spack/share/spack/setup-env.sh
+cd spack
+git checkout jblanco/new-conductance-source
+spack env create bluerecording
+spack env activate -p bluerecording
+spack install --add neurodamus-models+coreneuron
+```
+Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided here. Then, run 
+```
+spack module tcl refresh
+module use $SPACK_INSTALL_PREFIX/modules/linux-rhel7-skylake
+```
+The second of the two lines above must be run every time you begin a new terminal session. 
+
+Neurodamus expects that 
 
 ## Testing
 After following the instructions above, run `pytest tests`

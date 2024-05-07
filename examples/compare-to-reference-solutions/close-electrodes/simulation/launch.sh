@@ -9,11 +9,10 @@
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
-#spack env activate bluerecording-dev
-#source ~/bluerecording-env/bin/activate
 
-unset MODULEPATH
-. /gpfs/bbp.cscs.ch/ssd/apps/bsd/pulls/2379/config/modules.sh
-module load unstable neurodamus-neocortex
+spack env activate bluerecording
+module load unstable
+module load neurodamus-neocortex/42.42.42_conductance neuron/9.0.a16_conductance 
+module load py-neurodamus/3.2.conductance 
 
-srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json
+srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

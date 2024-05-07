@@ -9,13 +9,12 @@
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
-#spack env activate bluerecording-dev
-source ~/bluerecording-dev/bin/activate
 
-export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
+export NEURODAMUS_PYTHON=/gpfs/bbp.cscs.ch/home/tharayil/spack_install/software/install_gcc-12.3.0-skylake/py-neurodamus-3.2.conductance-qaaluj/lib/python3.11/site-packages/neurodamus/data
+#export  MOD_FILE_PATH=/gpfs/bbp.cscs.ch/home/tharayil/spack_install/software/install_oneapi-2023.2.0-skylake/neurodamus-models-42.42.42_conductance-hl4mep/share/neurodamus_neocortex/
 
-echo $PYTHONPATH
+#cp -r $MOD_FILE_PATH/mod .
 
-neurodamus simulation_config.json
+#nrnivmodl mod
 
-#srun dplace /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/longSim/compareModalities/f554be01-456c-4a15-8670-df39a3187b7e/0/x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin
+srun dplace ./x86_64/special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

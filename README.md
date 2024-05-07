@@ -63,7 +63,7 @@ module use $SPACK_INSTALL_PREFIX/modules/linux-rhel7-skylake
 ```
 The second of the two lines above must be run every time you begin a new terminal session. 
 
-Neurodamus expects that 
+Neurodamus-models expects that you have modules available on your system for `python/3.11.6`, `intel-oneapi-mkl/2023.2.0`, and `hpe-mpi/2.27.p1.hmpt`
 
 ## Testing
 After following the instructions above, run `pytest tests`

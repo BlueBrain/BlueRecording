@@ -15,7 +15,7 @@
 
 spack env activate bluerecording-dev
 
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
 mkdir pkls
 

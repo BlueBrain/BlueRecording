@@ -1,6 +1,8 @@
 **/core*
 figures/
-**/coeffs.h5
+positions_all_new/
+**/*coeffs*.h5
+**/*.SUCCESS
 networks/
 atlas/
 reporting/

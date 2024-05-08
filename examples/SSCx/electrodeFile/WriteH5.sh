@@ -15,7 +15,14 @@
 
 
 spack env activate bluerecording-dev
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
-
-srun -n 6000 python ../../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' 50 'ecog_eeg_2.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5'
+PATH_TO_SIMCONFIG='../data/simulation/simulation_config.json'
+PATH_TO_POSITIONS_FOLDER='../data/getPositions/positions_all_new'
+OUTPUT_FILE='coeffsEcog_EEG.h5'
+NEURONS_PER_FILE=1000
+FILES_PER_FOLDER=50
+ELECTRODE_CSV='ecog_eeg.csv'
+TISSUE_CONDUCTANCE=0.374556
+ 
+srun -n 6000 python ../../scripts/run_write_weights.py $PATH_TO_SIMCONFIG $PATH_TO_POSITIONS_FOLDER $OUTPUT_FILE $NEURONS_PER_FILE $FILES_PER_FOLDER $ELECTRODE_CSV $TISSUE_CONDUCTANCE '/gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/_ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5'

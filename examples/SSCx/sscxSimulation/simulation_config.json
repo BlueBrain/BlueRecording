@@ -5,7 +5,7 @@
     "tstop": 5000,
     "random_seed": 851,
     "run_mode":"WholeCell",
-    "electrodes_file": "/gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/electrodeFile/coefsEcog_EEG.h5"
+    "electrodes_file": "/gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/electrodeFile/coeffsEcog_EEG.h5"
   },
 
   "conditions": {

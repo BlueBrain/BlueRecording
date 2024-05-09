@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name="EEG_2_CoordsV"
 #SBATCH --partition=prod
-#SBATCH --nodes=200
+#SBATCH --nodes=400
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2
 #SBATCH --time=24:00:00
@@ -25,4 +25,4 @@ FILES_PER_FOLDER=50
 ELECTRODE_CSV='ecog_eeg.csv'
 TISSUE_CONDUCTANCE=0.374556
  
-srun -n 6000 python ../../scripts/run_write_weights.py $PATH_TO_SIMCONFIG $PATH_TO_POSITIONS_FOLDER $OUTPUT_FILE $NEURONS_PER_FILE $FILES_PER_FOLDER $ELECTRODE_CSV $TISSUE_CONDUCTANCE '/gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/_ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5'
+srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'ecog_eeg.csv' $TISSUE_CONDUCTANCE '/gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5'

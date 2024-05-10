@@ -51,10 +51,10 @@ First, run
 git clone https://github.com/BlueBrain/spack.git
 . spack/share/spack/setup-env.sh
 cd spack
-git checkout jblanco/new-conductance-source
+git checkout tharayil/neurodamus-updates
 spack env create bluerecording
 spack env activate -p bluerecording
-spack install --add neurodamus-models+coreneuron
+spack install --add neurodamus-models@develop+coreneuron
 ```
 Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/modules.yaml). Then, run 
 ```

@@ -139,7 +139,7 @@ def get_axon_points(m,center):
         for pt in pts: # Iterate through 3d points in the section
 
             if (lastpt == somaPos).all(): # We calculate the distance of the current point from the soma
-                currentLen += np.linalg.norm(pt - lastpt)
+                currentLen += np.linalg.norm(pt.flatten() - lastpt.flatten())
             else:
                 currentLen += np.linalg.norm(pt - lastpt)
 
@@ -171,7 +171,9 @@ def get_axon_points(m,center):
 
         runningLen.append(currentLen)
 
-    return np.unique(np.array(points),axis=0), np.unique(np.array(runningLen)) # We delete duplicate points that may occur if the morphology is in a format where section start and end points are repeated
+    axonPoints, indices = np.unique(np.array(points),axis=0,return_index=True)
+
+    return axonPoints, np.array(runningLen)[indices] # We delete duplicate points that may occur if the morphology is in a format where section start and end points are repeated
 
 
 def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPos):

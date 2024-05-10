@@ -23,4 +23,6 @@ bluerecording.egg-info
 .exception_node
 *.nrrd
 neurodamus/
+positions/
+pkls/
 htmlcov/

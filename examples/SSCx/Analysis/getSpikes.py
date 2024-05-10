@@ -11,7 +11,7 @@ rank = MPI.COMM_WORLD.Get_rank()
 nranks = MPI.COMM_WORLD.Get_size()
 
 
-s = bp.Simulation('simulation_config.json')
+s = bp.Simulation('../sscxSimulation/simulation_config.json')
 population_name = s.reports['lfp_report'].population_names[0]
 
 types = np.sort(list(s.circuit.nodes.property_values('mtype')))
@@ -31,4 +31,4 @@ spikeReports = s.spikes[population_name]
 spikes = spikeReports.get(group=ids,t_start=2000) # Ignore first 2 seconds to exclude transient
 
 
-spikes.to_pickle('pkls/spikes_'+regions[rIdx]+'_'+types[tIdx]+'.pkl')
+spikes.to_pickle('../sscxSimulation/pkls/spikes_'+regions[rIdx]+'_'+types[tIdx]+'.pkl')

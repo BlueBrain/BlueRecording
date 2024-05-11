@@ -6,7 +6,7 @@
     "tstop": 100,
     "electrodes_file": "../electrodeFile/coeffs.h5"
   },
-  "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/circuitTest/data/simulation/configuration/circuit_config.json",
+  "network": "../../data/simulation/configuration/circuit_config.json",
   "node_sets_file": "user_node_sets.json",
   "node_set": "hex_O1_L4_100",
   "target_simulator": "CORENEURON",

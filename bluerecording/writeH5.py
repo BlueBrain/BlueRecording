@@ -488,9 +488,9 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
             
                 if electrodeType == 'DipoleReciprocity':
 
-                    #center = newPositions.mean(axis=1)
+                    center = newPositions.mean(axis=1)
 
-                    center = newPositions.iloc[:,0]#.values
+                    #center = newPositions.iloc[:,0]#.values
                     
                     coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
 

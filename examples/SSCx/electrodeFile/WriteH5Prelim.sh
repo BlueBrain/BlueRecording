@@ -14,6 +14,10 @@
 #SBATCH --mem=0
 
 spack env activate bluerecording-dev
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
-srun -n 1 python ../../../scripts/run_initialize_h5.py 'ecog_eeg.csv' '../getPositions/imulation_config.json' 'coeffsEcog_EEG.h5' 
+ELECTRODE_FILE='electrodes.csv'
+PATH_TO_SIMCONFIG='../data/simulation/simulation_config.json'
+OUTPUT_FILE='coeffs.h5'
+
+srun -n 1 python ../../scripts/run_initialize_h5.py $ELECTRODE_FILE $PATH_TO_SIMCONFIG $OUTPUT_FILE 

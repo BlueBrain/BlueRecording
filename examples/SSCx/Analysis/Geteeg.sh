@@ -4,9 +4,9 @@
 #SBATCH --nodes=14
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2
-#SBATCH --time=2:00:00
+#SBATCH --time=24:00:00
 ##SBATCH --mail-type=ALL
-#SBATCH --account=proj45
+#SBATCH --account=proj85
 #SBATCH --no-requeue
 #SBATCH --output=EEG_0_CoordsV.out
 #SBATCH --error=EEG_0_CoordsV.err
@@ -15,9 +15,9 @@
 
 spack env activate bluerecording-dev
 
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
-mkdir pkls
+mkdir ../sscxSimulation/pkls
 
 srun -n 420 python geteeg.py
 

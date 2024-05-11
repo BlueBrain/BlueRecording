@@ -23,10 +23,10 @@
   },
 
   "target_simulator": "CORENEURON",
-  "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/compare-to-reference-solutions/data/simulation/configuration/circuit_config.json",
+  "network": "./configuration/circuit_config.json",
   "node_set": "Cell",
   "output": {
-    "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/compare-to-reference-solutions/data/simulation/reporting",
+    "output_dir": "./reporting",
     "spikes_file": "spikes.h5"
   },
 

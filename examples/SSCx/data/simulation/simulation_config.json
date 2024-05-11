@@ -24,7 +24,7 @@
   },
 
   "target_simulator": "CORENEURON",
-  "network": "/gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/data/simulation/configuration/circuit_config.json",
+  "network": "./configuration/circuit_config.json",
   "node_set": "Mosaic",
   "output": {
     "output_dir": "./reporting",

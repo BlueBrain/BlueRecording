@@ -19,10 +19,10 @@ source ~/bluerecording-dev/bin/activate
 
 PATH_TO_SIMCONFIG='../data/simulation/simulation_config.json'
 PATH_TO_POSITIONS_FOLDER='../data/getPositions/positions_all_new'
-OUTPUT_FILE='coeffsEcog_EEG.h5'
+OUTPUT_FILE='coeffs.h5'
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50
-ELECTRODE_CSV='ecog_eeg.csv'
+ELECTRODE_CSV='electrodes.csv'
 TISSUE_CONDUCTANCE=0.374556
  
-srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'ecog_eeg.csv' $TISSUE_CONDUCTANCE '/gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5'
+srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' $TISSUE_CONDUCTANCE 'ECoG.h5 EEG.h5 LFP.h5 ECoG.h5 EEG.h5 LFP.h5'

@@ -1,6 +1,6 @@
 {
   "manifest": {
-    "$BASE_DIR": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/circuitTest/data/simulation/configuration",
+    "$BASE_DIR": ".",
     "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
     "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges/",
     "$MORPHOLOGIES": "$BASE_DIR/components/morphologies"
@@ -9,7 +9,7 @@
     "morphologies_dir": "$MORPHOLOGIES",
     "biophysical_neuron_models_dir": "$BASE_DIR/components/biophysical_model_templates",
     "provenance": {
-       "atlas_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/data/atlas"
+       "atlas_dir": "../../../data/atlas"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",

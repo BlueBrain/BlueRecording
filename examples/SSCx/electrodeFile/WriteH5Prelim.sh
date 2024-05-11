@@ -16,8 +16,8 @@
 spack env activate bluerecording-dev
 source ~/bluerecording-dev/bin/activate
 
-ELECTRODE_FILE='ecog_eeg.csv'
+ELECTRODE_FILE='electrodes.csv'
 PATH_TO_SIMCONFIG='../data/simulation/simulation_config.json'
-OUTPUT_FILE='coeffsEcog_EEG.h5'
+OUTPUT_FILE='coeffs.h5'
 
 srun -n 1 python ../../scripts/run_initialize_h5.py $ELECTRODE_FILE $PATH_TO_SIMCONFIG $OUTPUT_FILE 

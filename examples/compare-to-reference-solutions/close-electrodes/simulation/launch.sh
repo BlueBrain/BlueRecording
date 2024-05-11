@@ -10,8 +10,8 @@
 #SBATCH --job-name=CortexNrdmsPySim
 
 
-spack env activate test-new-neurodamus 
+spack env activate neurodamus
 module load unstable
-module load neurodamus-neocortex/develop neuron/develop py-neurodamus/develop
+module load neurodamus-neocortex/unstable neuron/develop py-neurodamus/unstable
 
 srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

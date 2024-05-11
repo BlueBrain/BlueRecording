@@ -8,9 +8,6 @@ We assume that you are running these examples on a Linux system with slurm. If t
 
 ## Instructions
 
-### Dependencies
-For each of the bash scripts described below, the dependencies are the same as described in the readme for the repository as a whole
-
 ### Download data
 Download the file networks.zip from 10.5281/zenodo.10927050 and unzip it into the folder *data/simulation/configuration/networks*
 

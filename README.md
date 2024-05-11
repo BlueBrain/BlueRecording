@@ -54,7 +54,7 @@ cd spack
 git checkout tharayil/neurodamus-updates
 spack env create bluerecording
 spack env activate -p bluerecording
-spack install --add neurodamus-models@develop+coreneuron
+spack install --add neurodamus-models@unstable+coreneuron
 ```
 Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/modules.yaml). Then, run 
 ```

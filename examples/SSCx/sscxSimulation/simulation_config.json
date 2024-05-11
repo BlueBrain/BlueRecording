@@ -5,7 +5,7 @@
     "tstop": 5000,
     "random_seed": 851,
     "run_mode":"WholeCell",
-    "electrodes_file": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/BlueRecording/examples/SSCx/electrodeFile/coefsEcog_EEG.h5"
+    "electrodes_file": "../electrodeFile/coeffs.h5"
   },
 
   "conditions": {
@@ -25,10 +25,17 @@
   },
 
   "target_simulator": "CORENEURON",
+<<<<<<< HEAD
   "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/BlueRecording/examples/SSCx/data/simulation/configuration/circuit_config.json",
   "node_set": "Mosaic",
   "output": {
     "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/BlueRecording/examples/SSCx/sscxSimulation/reporting",
+=======
+  "network": "../data/simulation/configuration/circuit_config.json",
+  "node_set": "Mosaic",
+  "output": {
+    "output_dir": "./reporting",
+>>>>>>> db1edb8d5a343cdeb7c210c866eea0a6c18589b1
     "spikes_file": "spikes.h5"
   },
 

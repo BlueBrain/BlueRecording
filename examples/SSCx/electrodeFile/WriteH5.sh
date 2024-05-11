@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name="EEG_2_CoordsV"
 #SBATCH --partition=prod
-#SBATCH --nodes=200
+#SBATCH --nodes=400
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2
 #SBATCH --time=24:00:00
@@ -15,7 +15,14 @@
 
 
 spack env activate bluerecording-dev
-source ~/bluerecording-env/bin/activate
+source ~/bluerecording-dev/bin/activate
 
-
-srun -n 6000 python ../../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffsEcog_EEG.h5' 50 'ecog_eeg_2.csv' '/gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_ECoG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_EEG_2.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/Forelimb_LFP_2.h5'
+PATH_TO_SIMCONFIG='../data/simulation/simulation_config.json'
+PATH_TO_POSITIONS_FOLDER='../data/getPositions/positions_all_new'
+OUTPUT_FILE='coeffs.h5'
+NEURONS_PER_FILE=1000
+FILES_PER_FOLDER=50
+ELECTRODE_CSV='electrodes.csv'
+TISSUE_CONDUCTANCE=0.374556
+ 
+srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' $TISSUE_CONDUCTANCE 'ECoG.h5 EEG.h5 LFP.h5 ECoG.h5 EEG.h5 LFP.h5'

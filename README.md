@@ -25,8 +25,8 @@ We recommend using a combimation of a spack environment and a `virtulenvironment
 First create a spack environment, which is used to satisfy the h5py+mpi and mpi4py dependencies 
 
 ```
-spack env create bluerecording
-spack env activate -p bluerecording
+spack env create bluerecording-dev
+spack env activate -p bluerecording-dev
 spack install --add py-h5py+mpi 
 spack install --add py-mpi4py
 ```
@@ -52,8 +52,8 @@ git clone https://github.com/BlueBrain/spack.git
 . spack/share/spack/setup-env.sh
 cd spack
 git checkout tharayil/neurodamus-updates
-spack env create bluerecording
-spack env activate -p bluerecording
+spack env create neurodamus
+spack env activate -p neurodamus
 spack install --add neurodamus-models@unstable+coreneuron
 ```
 Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/modules.yaml). Then, run 

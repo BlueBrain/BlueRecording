@@ -66,6 +66,9 @@ The second of the two lines above must be run every time you begin a new termina
 Neurodamus-models expects that you have modules available on your system for `python/3.11.6`, `intel-oneapi-mkl/2023.2.0`, and `hpe-mpi/2.27.p1.hmpt`
 
 ## Testing
+
+Please note that some of the unit tests rely on the following configuration files *tests/data/simulation_config.json*, *tests/data/configuration/circuit_config.json*, *examples/compare-to-reference-solutions/data/simulation/simulation_config.json*, and *examples/compare-to-reference-solutions/data/simulation/configuration/circuit_config.json*. These configuration files contain absolute paths to files, which must be updated to match your system.  
+
 After following the instructions above, run `pytest tests`
 
 ## Steps to produce electrode files
@@ -102,8 +105,6 @@ See [here](https://github.com/BlueBrain/BlueRecording/tree/main/examples)
 # Contribution Guidelines
 [Here](./CONTRIBUTING.md)
 
-# Important notes about unit tests
-Please note that some of the unit tests rely on the following configuration files *tests/data/simulation_config.json*, *tests/data/configuration/circuit_config.json*, *examples/compare-to-reference-solutions/data/simulation/simulation_config.json*, and *examples/compare-to-reference-solutions/data/simulation/configuration/circuit_config.json*. These configuration files contain absolute paths to files, which must be updated to match your system.  
 
 # Citation
 If you use this software, we kindly ask you to cite the following publication:

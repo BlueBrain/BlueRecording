@@ -1,8 +1,8 @@
 {
   "manifest": {
     "$BASE_DIR": ".",
-    "$NETWORK_NODES_DIR": "/gpfs/bbp.cscs.ch/project/proj83/circuits/Bio_M/20200805-pure-sonata/networks/nodes",
-    "$NETWORK_EDGES_DIR": "/gpfs/bbp.cscs.ch/project/proj83/circuits/Bio_M/20200805-pure-sonata/networks/edges/",
+    "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
+    "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges/",
     "$MORPHOLOGIES": "$BASE_DIR/components/morphologies"
   },
   "components": {
@@ -29,7 +29,7 @@
     ],
     "edges": [
       {
-        "edges_file": "$NETWORK_EDGES_DIR/S1nonbarrel_neurons__S1nonbarrel_neurons__chemical/edges.h5",
+        "edges_file": "$NETWORK_EDGES_DIR/edges.h5",
         "populations": {
            "S1nonbarrel_neurons__S1nonbarrel_neurons__chemical": {
               "type": "chemical"

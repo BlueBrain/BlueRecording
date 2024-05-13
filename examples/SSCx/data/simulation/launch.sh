@@ -9,6 +9,8 @@
 #SBATCH --time=24:00:00
 #SBATCH --job-name=CortexNrdmsPySim
 
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 spack env activate neurodamus
 module load unstable
 module load neurodamus-neocortex/develop neuron/develop py-neurodamus/develop

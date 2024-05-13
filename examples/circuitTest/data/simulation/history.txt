@@ -1,0 +1,1000 @@
+   47  ls
+   48  vi slurm-2168127.out 
+   49  squeue -u tharayil
+   50  cd ..
+   51  ls
+   52  scancel 2168155
+   53  scancel 2168156
+   54  ls
+   55  cd getPositions/
+   56  ls
+   57  vi EEG_1_CoordsV.out 
+   58  vi GetPositions.sh 
+   59  sbatch GetPositions.sh 
+   60  cd ..
+   61  ls
+   62  sacct -j 2168154
+   63  squeue -u tharayil
+   64  cd getPositions/
+   65  vi EEG_1_CoordsV.out e
+   66  vi GetPositions.sh 
+   67  vi ../../../scripts/run_get_positions.py
+   68  vi GetPositions.sh 
+   69  sbatch GetPositions.sh 
+   70  squeue -u tharayil
+   71  sacct -j 2168154
+   72  squeue -u tharayil
+   73  vi EEG_1_CoordsV.out 
+   74  vi GetPositions.sh 
+   75  sbatch GetPositions.sh 
+   76  squeue -u tharayil
+   77  vi EEG_1_CoordsV.out 
+   78  vi GetPositions.sh 
+   79  sbatch GetPositions.sh 
+   80  squeue -u tharayil
+   81  vi EEG_1_CoordsV.out 
+   82  ls
+   83  ls ..
+   84  ls ../simulation/configuration/circuit_config.json 
+   85  vi ../simulation/configuration/circuit_config.json 
+   86  vi /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/GetPositions.sh 
+   87  vi /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/getPositions.py 
+   88  vi ../simulation/simulation_config.json
+   89  vi ../../../../bluerecording/getPositions.py 
+   90  vi /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/getPositions.py 
+   91  vi ../../../../bluerecording/getPositions.py 
+   92  vi EEG_1_CoordsV.out 
+   93  vi ../../../../bluerecording/getPositions.py 
+   94  vi ../simulation/configuration/circuit_config.json 
+   95  vi ../../../../bluerecording/getPositions.py 
+   96  vi ../simulation/configuration/circuit_config.json 
+   97  vi EEG_1_CoordsV.out 
+   98  vi ../../../../bluerecording/getPositions.py 
+   99  vi ../simulation/configuration/circuit_config.json 
+  100  vi ../../../../bluerecording/getPositions.py 
+  101  sbatch GetPositions.sh 
+  102  sacct -j 2168161
+  103  squeue -u tharayil
+  104  vi EEG_1_CoordsV.out e
+  105  vi ../../../../bluerecording/getPositions.py 
+  106  sbatch GetPositions.sh 
+  107  squeue -u tharayil
+  108  vi EEG_1_CoordsV.out 
+  109  vi ../../../../bluerecording/getPositions.py 
+  110  vi GetPositions.sh 
+  111  vi ../../../../bluerecording/getPositions.py 
+  112  sbatch GetPositions.sh 
+  113  squeue -u tharayil
+  114  vi EEG_1_CoordsV.out 
+  115  source ~/bluerecording-dev/bin/activate
+  116  ls
+  117  pip list
+  118  pip install -e ../../../../.
+  119  vi ../../../../bluerecording/getPositions.py 
+  120  sbatch GetPositions.sh 
+  121  squeue -u tharayil
+  122  vi ../../../circuitTest/data/simulation/configuration/circuit_config.json 
+  123  sbatch GetPositions.sh 
+  124  scancel 2168165
+  125  scancel 2168164
+  126  sbatch GetPositions.sh 
+  127  squeue -u tharayil
+  128  cd ..
+  129  ls
+  130  cd ..
+  131  cd electrodeFile/
+  132  ls
+  133  sbatch --dependency=afterok:2168166 WriteH5.sh 
+  134  cd ../
+  135  cd sscxSimulation/
+  136  ls
+  137  sbatch --dependency=afterok:2168167 launch.sh 
+  138  squeue -u tharayil
+  139  cd /gpfs/bbp.cscs.ch/project/proj85/
+  140  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  141  s
+  142  ls
+  143  cd ../
+  144  cd scratch/home/tharayil/
+  145  ls
+  146  cd BlueRecording/
+  147  ls
+  148  cd examples/SSCx/electrodeFile/
+  149  vi WriteH5.sh 
+  150  vi /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/WriteH5_resized.sh 
+  151  vi WriteH5.sh 
+  152  vi WriteH5Prelim.sh 
+  153  sbatch WriteH5.sh 
+  154  sacct -j 2168754
+  155  vi EEG_2_CoordsV.err 
+  156  vi WriteH5.sh 
+  157  sbatch WriteH5.sh 
+  158  sacct -j 2168756
+  159  vi EEG_2_CoordsV.err 
+  160  vi EEG_2_CoordsV.out 
+  161  vi WriteH5.sh 
+  162  PATHS_TO_FIELDS='/gpfs/bbp.cscs.ch/project/proj85/scratch/ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/_ECoG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/EEG.h5 /gpfs/bbp.cscs.ch/project/proj85/scratch/LFP.h5'
+  163  echo $PATHS_TO_FIELDS
+  164  vi WriteH5.sh 
+  165  sbatch WriteH5.sh 
+  166  sacct -j 2168820
+  167  vi EEG_2_CoordsV.out 
+  168  sbatch WriteH5.sh 
+  169  sacct -j 2168828
+  170  vi EEG_2_CoordsV.out 
+  171  vi WriteH5.sh 
+  172  sbatch WriteH5.sh 
+  173  sacct -j 2168831
+  174  vi EEG_2_CoordsV.out 
+  175  vi WriteH5.sh 
+  176  sbatch WriteH5.sh 
+  177  sacct -j 2168832
+  178  vi EEG_2_CoordsV.out 
+  179  vi WriteH5.sh 
+  180  sbatch WriteH5.sh 
+  181  sacct -j 2168834
+  182  squeue -u tharayil
+  183  cd ..
+  184  ls
+  185  cd sscxSimulation/
+  186  ls
+  187  sbatch --dependency=afterok:2168834 launch.sh 
+  188  squeue -u tharayil
+  189  cd ../..
+  190  git status
+  191  cd ..
+  192  git add *.py
+  193  git add *.hs
+  194  git add *.sh
+  195  git status
+  196  vi .gitignore 
+  197  git status
+  198  vi .gitignore 
+  199  git status
+  200  git add .
+  201  git commit -m "Updates"
+  202  git push
+  203  squeue -u tharayil
+  204  cd 
+  205  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/spack
+  206  git status
+  207  git add .
+  208  git commit -m "Updates packages"
+  209  git push
+  210  squeue -u tharayil
+  211  salloc --account=proj83 
+  212  salloc --account=proj83 --mem=0 --time=8:00:00
+  213  scancel 2168168
+  214  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/
+  215  ls
+  216  cd SSCx/
+  217  ls
+  218  cd electrodeFile/
+  219  ls
+  220  vi EEG_2_CoordsV.err 
+  221  sbatch WriteH5.sh 
+  222  scancel 2168722
+  223  vi WriteH5.sh 
+  224  sbatch WriteH5.sh 
+  225  squeue -u tharayil
+  226  vi EEG_2_CoordsV.err 
+  227  vi WriteH5.sh 
+  228  vi ../../scripts/run_write_weights.py 
+  229  salloc --account=proj83 
+  230  squeue -u tharayil
+  231  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  232  ls
+  233  cd BlueRecording/examples/SSCx/electrodeFile/
+  234  ls
+  235  vi EEG_2_CoordsV.err 
+  236  stat coeffsEcog_EEG.h5 
+  237  vi ../sscxSimulation/simulation_config.json 
+  238  cd 
+  239  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/ne
+  240  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/neurodamus
+  241  ls
+  242  cd ../
+  243  cd neurodamus
+  244  cd docs/
+  245  ks
+  246  ls
+  247  git pull
+  248  git status
+  249  git clean
+  250  git clean -f
+  251  git status
+  252  cd ..
+  253  git clean -f
+  254  ls
+  255  git status
+  256  cd tests/
+  257  git clean -f
+  258  git status
+  259  cd scientific
+  260  git clean -f
+  261  rm .ipynb_checkpoints/
+  262  rm -r .ipynb_checkpoints/
+  263  cd ..
+  264  rm -r simulations/stimulus_injection/
+  265  rm -r tests/simulations/usecase3/.ipynb_checkpoints/
+  266  rm -r simulations/usecase3/.ipynb_checkpoints/
+  267  git status
+  268  cd ..
+  269  ls
+  270  cd docs
+  271  ls
+  272  vi online-lfp.rst 
+  273  gut status
+  274  git status
+  275  git add .
+  276  git commit -m "Updates docs"
+  277  git push
+  278  squeue -u tharayil
+  279  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/sscxSimulation/
+  280  ls
+  281  ls reporting/
+  282  vi slurm-2169146.out 
+  283  ls /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/electrodeFile/coefsEcog_EEG.h5
+  284  ls /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/electrodeFile/
+  285  vi simulation_config.json 
+  286  stat pydamus_2024-05-09_03h53.log 
+  287  sbatch launch.sh 
+  288  squeue -u tharayil
+  289  ls
+  290  vi pydamus_2024-05-09_10h48.log 
+  291  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  292  cd ../scr
+  293  cd ,.,
+  294  cd ..
+  295  ls
+  296  cd scratch/
+  297  ls
+  298  cd home/tharayil/
+  299  ls
+  300  cd BlueRecording/examples/SSCx/sscxSimulation/
+  301  ls
+  302  vi slurm-2170740.out 
+  303  vi slurm-2170731.out 
+  304  vi slurm-2170740.out 
+  305  vi slurm-2170731.out 
+  306  cd ..
+  307  salloc --account=proj83 --mem=0 --time=8:00:00
+  308  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/sscxSimulation/
+  309  ls
+  310  vi pydamus_2024-05-09_10h48.log 
+  311  ls
+  312  vi slurm-2170731.out 
+  313  ls
+  314  vi launch.sh 
+  315  stat slurm-2170731.out 
+  316  sbatch launch.sh 
+  317  squeue -u tharayil
+  318  squeue
+  319  squeue -u tharayil
+  320  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  321  cd ../
+  322  cd scratch/
+  323  ls
+  324  cd home/tharayil/BlueRecording/examples/SSCx/sscxSimulation/
+  325  ls
+  326  vi slurm-2170740.out 
+  327  stat 2170731
+  328  stat slurm-2170731.out 
+  329  squeue -u tharayil
+  330  vi slurm-2170740.out 
+  331  squeue -u tharayil
+  332  cd 
+  333  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/th
+  334  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/
+  335  cd home/tharayil/
+  336  ls
+  337  cd BlueRecording/examples/
+  338  git status
+  339  cd SSCx/electrodeFile/
+  340  l
+  341  s
+  342  ls
+  343  vi WriteH5.sh 
+  344  vi ecog_eeg.csv 
+  345  squeue -u tharayi;
+  346  squeue -u tharayil
+  347  scancel 2170740
+  348  rm coeffsEcog_EEG.h5 
+  349  vi ecog_eeg.csv 
+  350  sbatch WriteH5Prelim.sh 
+  351  sbatch --dependency=afterok:WriteH5.sh 2170745
+  352  cd ..
+  353  cd sscxSimulation/
+  354  ls
+  355  rm core.*
+  356  rm slurm-21*
+  357  rm pydamus_2024-05-09_
+  358  rm pydamus_2024-05-09_*
+  359  squeue -u tharayil
+  360  cd ../
+  361  ls
+  362  cd electrodeFile/
+  363  ls
+  364  vi WriteH5.sh 
+  365  sbatch --dependency=afterok:2170745 WriteH5.sh 
+  366  squeue -u tharayil
+  367  cdcd ../sscxSimulation/
+  368  ls
+  369  cd ..
+  370  ls
+  371  cd sscxSimulation/
+  372  ls
+  373  ls reporting/
+  374  rm -r reporting/
+  375  ls
+  376  rm -r sim
+  377  rm -r sim_conf/
+  378  sbatch --dependency=afterok:2170746 launch.sh 
+  379  squeue -u tharayil
+  380  squeue -u tharayil
+  381  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  382  ls
+  383  cd ..
+  384  cd 
+  385  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/electrodeFile/
+  386  ls
+  387  h5ls coeffsEcog_EEG.h5 
+  388  h5ls coeffsEcog_EEG.h5/S1nonbarrel_neurons 
+  389  squeue -u tharayil
+  390  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/bluerecording/
+  391  ls
+  392  vi getPositions.py 
+  393  ls
+  394  cd ..
+  395  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  396  ls
+  397  cd BlueRecording/examples/
+  398  ls
+  399  cd SSCx/
+  400  ls
+  401  cd sscxSimulation/
+  402  ls
+  403  cd ..
+  404  cd f
+  405  cd data/
+  406  ls
+  407  cd simulation/
+  408  ls
+  409  vi launch.sh 
+  410  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/sscxSimulation/
+  411  ls
+  412  vi slurm-2170747.out 
+  413  squeue -u tharayil
+  414  salloc --account=proj83 --mem=0 --time=8:00:00
+  415  squeue -u tharayil
+  416  salloc --account=proj83 --mem=0 --time=8:00:00
+  417  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/
+  418  ls
+  419  cd home/tharayil/
+  420  ls
+  421  cd BlueRecording/examples/SSCx/data/getPositions/
+  422  squeue -u tharayil
+  423  exit
+  424  salloc --account=proj83 --time=8:00:00
+  425  mosule spack env activate -p bluerecording-dev/
+  426  spack env activate -p bluerecording-dev/
+  427  spack env activate -p bluerecording-dev 
+  428  source bluerecording-dev/bin/activate
+  429  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/
+  430  ls
+  431  cd examples/
+  432  ls
+  433  cd SSCx/data/getPositions/
+  434  ipython
+  435  cd positions_all_new/
+  436  ipython
+  437  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  438  cd ..
+  439  ls
+  440  cd scratch/
+  441  ls
+  442  cd home/tharayil/BlueRecording/
+  443  ls
+  444  git status
+  445  git add .
+  446  git commit -m "Updates
+  447  git commit -m "Updates"
+  448  git push
+  449  ls
+  450  vi tests/test_getPositions_SONATA.py 
+  451  vi tests/conftest.py 
+  452  vi tests/test_getPositions_SONATA.py 
+  453  pwd
+  454  jupyter notebook --no-browser --port=8889
+  455  ls
+  456  pytest tests/
+  457  jupyter notebook --no-browser --port=8889
+  458  ipython
+  459  cd examples/SSCx/
+  460  ls
+  461  cd data/
+  462  ls
+  463  ipython
+  464  cd simulation/
+  465  ipytjon
+  466  ipython
+  467  jupyter notebook --no-browser --port=8889
+  468  cd ../..
+  469  ls
+  470  cd ..
+  471  ls
+  472  jupyter notebook --no-browser --port=8889
+  473  pytest tests/
+  474  jupyter notebook --no-browser --port=8889
+  475  pytest tests/
+  476  ls
+  477  cd examples/SSCx/data/simulation/
+  478  iptyhon
+  479  ipython
+  480  cd ..
+  481  ls
+  482  cd ..
+  483  ls
+  484  cd data/G
+  485  cd data/getPositions/
+  486  ls
+  487  vi GetPositions.sh 
+  488  sbatch GetPositions.sh 
+  489  cd ../..
+  490  ls
+  491  cd ..
+  492  ls
+  493  cd compare-to-reference-solutions/
+  494  ls
+  495  cd d
+  496  cd data/
+  497  ls
+  498  cd getPositions/
+  499  ls
+  500  sbatch GetPositions.sh 
+  501  cd ..
+  502  ls
+  503  cd ..
+  504  ls
+  505  cd close-electrodes/
+  506  squeue -u tharayil
+  507  sacct -j 2170869
+  508  cd ../
+  509  l;s
+  510  ;s
+  511  ls
+  512  cd data/getPositions/
+  513  vi EEG_1_CoordsV.out 
+  514  vi GetPositions.sh 
+  515  sbatch GetPositions.sh 
+  516  sacct -j 2170870
+  517  cd ..
+  518  ls
+  519  cd ..
+  520  ls
+  521  cd close-electrodes/
+  522  ls
+  523  cd electrodeFile/
+  524  ;s
+  525  ls
+  526  sbatch WriteH5.sh 
+  527  cd ..
+  528  cd simulation/
+  529  ls
+  530  squeue -u tharayil
+  531  sacct -j 2170871
+  532  cd ..
+  533  ls
+  534  cd electrodeFile/
+  535  ls
+  536  vi EEG_2_CoordsV.err 
+  537  vi WriteH5Prelim.sh 
+  538  sbatch WriteH5Prelim.sh 
+  539  sacct -j 2170872
+  540  sbatch WriteH5.sh 
+  541  sacct -j 2170873
+  542  ls
+  543  cd ..
+  544  ls
+  545  cd simulation/
+  546  ls
+  547  sbatch launch.sh 
+  548  sacct -j 2170874
+  549  cd ..
+  550  ls
+  551  cd ..
+  552  ls
+  553  cd distant-electrodes/
+  554  ls
+  555  cd electrodeFile/
+  556  ls
+  557  sbatch WriteH5Prelim.sh 
+  558  squeue -u tharayil
+  559  ls
+  560  sbatch WriteH5.sh 
+  561  cd ..
+  562  ls
+  563  cd simulation/
+  564  ls
+  565  squeue -u tharayil
+  566  sbatch launch.sh 
+  567  sacct -j 2170877
+  568  despacktivate
+  569  deactivate
+  570  despacktivate
+  571  exit
+  572  squeue -u tharayil
+  573  scancel 2170847
+  574  salloc --account=proj83 --mem=0 --time=8:00:00
+  575  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  576  ls
+  577  cd ../scratch/home/
+  578  ls
+  579  cd tharayil/
+  580  ls
+  581  cd BlueRecording/
+  582  ls
+  583  cd examples/
+  584  ls
+  585  cd SSCx/
+  586  ls
+  587  cd sscxSimulation/
+  588  ls
+  589  vi slurm-2170747.out 
+  590  salloc --account=proj83 --mem=0 --time=8:00:00
+  591  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/
+  592  vi getPositions.py 
+  593  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/bluerecording/
+  594  vi getPositions.py 
+  595  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/
+  596  vi getPositions.py 
+  597  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/bluerecording/
+  598  vi getPositions.py 
+  599  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/
+  600  ls
+  601  cd ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/
+  602  vi -d getPositions.py /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/bluerecording/getPositions.py 
+  603  squeue -u tharayil
+  604  salloc --account=proj83 --mem=0 --time=8:00:00
+  605  squeue -u tharayil
+  606  getStorageStats 
+  607  salloc --account=proj83 --mem=0 --time=8:00:00
+  608  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/whiskerFlick/
+  609  ls
+  610  cd basalPreference/lfp/
+  611  ls
+  612  cd 4f49c873-216b-46dc-92df-5c0df9eb0241/
+  613  ls
+  614  rm */*.SUCCESS
+  615  rm -r */reporitng
+  616  rm -r */reporting
+  617  squeue -u tharayil
+  618  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/whiskerFlick/
+  619  ls
+  620  cd original/
+  621  ls
+  622  cd 72b70ea2-4521-47f1-842c-9ae4e64d54f4
+  623  rm */*SUCCESS*
+  624  rm -r */reporting
+  625  squeue -u tharayil
+  626  sacct -j 2172233
+  627  exit
+  628  source ~/conntilitEnv/bin/activate
+  629  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  630  cd ../scratch/
+  631  cd home/tharayil/BlueRecording/examples/SSCx/Analysis/
+  632  ls
+  633  jupyter notebook --no-browser --port=8889
+  634  squeue -u tharayil
+  635  source ~/conntilitEnv/bin/activate
+  636  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  637  ls
+  638  cd BlueRecording/examples/SSCx/Analysis/
+  639  jupyter notebook --no-browser --port=8889
+  640  squeue -u tharayil
+  641  exit
+  642  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  643  ls
+  644  cd BlueRecording/
+  645  vi .gitignore 
+  646  ls
+  647  cd examples/SSCx/
+  648  cd Analysis/
+  649  ls
+  650  mkdir figures
+  651  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  652  ls
+  653  cd BlueRecording/examples/
+  654  ls
+  655  cd SSCx/Analysis/
+  656  ;s
+  657  ls
+  658  jupyter notebook --no-browser --port=8889
+  659  source ~/conntilitEnv/bin/activate
+  660  jupyter notebook --no-browser --port=8889
+  661  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/th
+  662  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/SSCx/Analysis/
+  663  cp /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/longSim/3dAnalysis.ipynb newanalysis.ipynb
+  664  vi ../sscxSimulation/simulation_config.json
+  665  squeue -u tharayil
+  666  cd ..
+  667  ls
+  668  cd electrodeFile/
+  669  ls
+  670  vi ecog_eeg.csv 
+  671  cd ../Analysis/
+  672  ls
+  673  vi geteeg.py 
+  674  sbatch Geteeg.sh 
+  675  cd /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/
+  676  ls
+  677  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  678  ls
+  679  cd BlueRecording/
+  680  ls
+  681  cd examples/
+  682  ls
+  683  cd SSCx/
+  684  ls
+  685  cd sscxSimulation/
+  686  ls
+  687  cd ../
+  688  ls
+  689  cd electrodeFile/
+  690  ls
+  691  vi ecog_eeg.csv 
+  692  vi WriteH5.sh 
+  693  vi ../../scripts/run_write_weights.py
+  694  ls coeffsEcog_EEG.h5 
+  695  h5ls coeffsEcog_EEG.h5 
+  696  h5ls coeffsEcog_EEG.h5/electrodes 
+  697  h5ls coeffsEcog_EEG.h5/electrodes/0 
+  698  h5ls coeffsEcog_EEG.h5/electrodes/0/type 
+  699  source ~/conntilitEnv/bin/activate
+  700  ipython
+  701  squeue -u tharayil
+  702  sacct -j 2172708
+  703  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  704  ls
+  705  cd BlueRecording/examples/
+  706  ls
+  707  cd SSCx/
+  708  ls
+  709  cd electrodeFile/
+  710  source ~/conntilitEnv/bin/activate
+  711  ipython
+  712  ls
+  713  vi /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/bluerecording/writeH5.py 
+  714  vi -d /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/bluerecording/writeH5.py /gpfs/bbp.cscs.ch/project/proj85/scratch/from68/sonata_circuits/fullSSCx/ddfc78fe-e349-41e2-b000-1ff92bf0f1b5/0/writeH5.py 
+  715  vi /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/bluerecording/writeH5.py
+  716  sbatch WriteH5.sh 
+  717  squeue -u tharayil
+  718  squeue -u tharayil
+  719  cd basalPreference/lfp/
+  720  salloc --account=proj83 --mem=0 --time=8:00:00
+  721  squeue -u tharayil
+  722  salloc --account=proj83 --mem=0 --time=8:00:00
+  723  salloc --account=proj83
+  724  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/spack
+  725  git status
+  726  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  727  cd ../scratch/home/tharayil/
+  728  cd BlueRecording/
+  729  git status
+  730  git add .
+  731  git status
+  732  git commit -m "Updates and bugfixes"
+  733  git push
+  734  ls
+  735  cd bluerecording
+  736  ls
+  737  cd ..
+  738  cd examples/
+  739  ls
+  740  cd compare-to-reference-solutions/
+  741  ls
+  742  cd ..
+  743  ls
+  744  cd makeCsvFiles/
+  745  ls
+  746  vi WriteNPCSV.sh 
+  747  cd ..
+  748  ls
+  749  cd circuitTest/
+  750  ls
+  751  cd data/
+  752  ls
+  753  cd simulation/
+  754  ls
+  755  vi launch.sh 
+  756  ls
+  757  cd configuration/
+  758  ls
+  759  vi circuit_config.json 
+  760  cd ..
+  761  ls
+  762  cd ..
+  763  ls
+  764  cd ..
+  765  ls
+  766  cd ..
+  767  l
+  768  ls
+  769  cd makeCsvFiles/
+  770  ls
+  771  vi writeNeuropixelsToCSV.py 
+  772  squeue -u tharayil
+  773  salloc --account=proj83
+  774  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/th
+  775  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/
+  776  ls
+  777  cd compare-to-reference-solutions/
+  778  ls
+  779  cd close-electrodes/
+  780  ls
+  781  cd electrodeFile/
+  782  vi electrodes.csv 
+  783  pwd
+  784  cd ..
+  785  ls
+  786  cd ../
+  787  ls
+  788  cd distant-electrodes/
+  789  ls
+  790  cd ../..
+  791  ls
+  792  cd SSCx/
+  793  ls
+  794  cd electrodeFile/
+  795  ls
+  796  vi ecog_eeg.csv 
+  797  squeue -u tharayil
+  798  salloc --account=proj83
+  799  :wq
+  800  d /gpfs/bbp.cscs.ch/project/proj83/scratch/th
+  801  d /gpfs/bbp.cscs.ch/project/proj83/scratch/
+  802  cd homecd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  803  ls
+  804  cd /gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/
+  805  ls
+  806  cd BlueRecording/examples/
+  807  ls
+  808  cd SSCx/
+  809  ls
+  810  cd sscxSimulation/
+  811  ls
+  812  cd ../electrodeFile/
+  813  ls
+  814  vi WriteH5Prelim.sh 
+  815  vi WriteH5.sh 
+  816  git status
+  817  git add --all
+  818  git add --all :/
+  819  git status
+  820  git commit -m "Updates paths"
+  821  git push
+  822  git checkout main
+  823  git status
+  824  git log
+  825  git pull
+  826  vi examples/SSCx/sscxSimulation/simulation_config.json
+  827  cd ../..
+  828  cd ..
+  829  vi examples/SSCx/sscxSimulation/simulation_config.json
+  830  vi examples/SSCx/data/simulation/simulation_config.json
+  831  git status
+  832  git commit
+  833  git add .
+  834  git commit
+  835  git pull
+  836  git push
+  837  git pull
+  838  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  839  cd spack
+  840  ls
+  841  git status
+  842  spack edit neurodamus-models
+  843  spack edit py-neurodamus
+  844  spack edit neurodamus-models
+  845  spack edit py-libsonata
+  846  spack edit libsonata
+  847  spack edit libsonata-report
+  848  spack edit py-neurodamus
+  849  spack edit py-libsonata
+  850  git status
+  851  git add .
+  852  git commit -m "Adds version name 'unstable' to prevent changes to behavior of 'develop' "
+  853  git push
+  854  cd /gpfs/bbp.cscs.ch/project/proj83/home/th
+  855  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/
+  856  git status
+  857  ls
+  858  cd examples/SSCx/
+  859  ls
+  860  cd ../..
+  861  ls
+  862  git pull
+  863  ls
+  864  git status
+  865  cd examples/
+  866  ls
+  867  squeue -u tharayil
+  868  salloc --account=proj83
+  869  spack edit neuroin
+  870  spack edit neuron
+  871  squeue -u tharayil
+  872  source ~/conntilitEnv/bin/activate
+  873  salloc --account=proj83
+  874  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/
+  875  cd BlueCelluLab/
+  876  cd ../generationCode/BlueRecording/
+  877  ls
+  878  git pull
+  879  source ~/bluerecording-dev/bin/activate
+  880  pytest tests/
+  881  deactivate
+  882  spack env activate -p bluerecording
+  883  despacktivate
+  884  spack env activate -p bluerecording-dev 
+  885  source ~/bluerecording-dev/bin/activate
+  886  pytest tests/
+  887  vi tests/test_getPositions_SONATA.py 
+  888  vi tests/conftest.py 
+  889  ls examples/compare-to-reference-solutions/data/simulation/
+  890  ls examples/compare-to-reference-solutions/data/simulation/co
+  891  ls examples/compare-to-reference-solutions/data/simulation/configuration/
+  892  vi tests/conftest.py 
+  893  vi tests/test_getPositions_SONATA.py 
+  894  vi tests/conftest.py 
+  895  pytest --cov=blurerecording tests/
+  896  pytest --cov=bluerecording tests/
+  897  pip install -e .
+  898  pytest --cov=bluerecording tests/
+  899  vi bluerecording/utils.py 
+  900  vi tests/test_utils.py 
+  901  vi bluerecording/utils.py 
+  902  vi tests/test_utils.py 
+  903  vi bluerecording/utils.py 
+  904  vi tests/test_utils.py 
+  905  cd /gpfs/bbp.cscs.ch/project/proj83/
+  906  cd tharayil/generationCode/BlueRecording/
+  907  ls
+  908  cd examples/
+  909  ls
+  910  cd circuitTest/
+  911  ls
+  912  cd data/
+  913  ls
+  914  cd simulation/
+  915  ls
+  916  cd configuration/
+  917  ls
+  918  ls n
+  919  ls networks/
+  920  ls networks/edges/
+  921  ls components/
+  922  ls components/biophysical_model_templates/
+  923  ls components/morphologies/
+  924  cd components/
+  925  pwd
+  926  cd ../..
+  927  cd ../../..
+  928  cd ..
+  929  ls
+  930  cd tests/
+  931  ls
+  932  vi test_utils.py 
+  933  vi conftest.py 
+  934  spack env activate -p bluerecording-dev
+  935  source ~/bluerecording-dev/bin/activate
+  936  pytest test_
+  937  cd ..
+  938  pytest tests/test_utils.py 
+  939  ls tests/
+  940  ls tests/data/
+  941  ls tests/data/configuration/
+  942  ls tests/data/configuration/atlas/
+  943  vi tests/conftest.py 
+  944  git status
+  945  git log
+  946  vi tests/data/simulation_config.json 
+  947  vi tests/data/configuration/circuit_config.json 
+  948  ls ../../..
+  949  cd tests/data/configuration/
+  950  ls ../../../examples/data/atlas/
+  951  cd ..
+  952  git status
+  953  pytest tests/test_utils.py 
+  954  git add .
+  955  pytest tests/
+  956  git status
+  957  git add .
+  958  git commit -m "Updates paths in test configs"
+  959  git push
+  960  git pull
+  961  git push
+  962  rm tests/data/configuration/atlas/
+  963  rm -r tests/data/configuration/atlas/
+  964  git status
+  965  git add --all
+  966  git commit -m "Removes atlas from test directory"
+  967  git push
+  968  ls
+  969  cd examples/
+  970  ls
+  971  cd circuitTest/
+  972  ls
+  973  cd data/simulation/configuration/
+  974  ls
+  975  cd components/
+  976  ls
+  977  cd morphologies/
+  978  ls
+  979  cd ascii/
+  980  ls -l * | wc -l
+  981  du -sh mo
+  982  cd ..
+  983  du -sh ascii/
+  984  du -sh h5
+  985  git status
+  986  cd ../
+  987  cd ..
+  988  ls
+  989  cd ..
+  990  ls
+  991  cd ..
+  992  ls
+  993  cd ..
+  994  ls git status
+  995  ls
+  996  git status
+  997  deactivate
+  998  despacktivate
+  999  squeue -u tharayil
+ 1000  salloc --account=proj83
+ 1001  ;s
+ 1002  ls
+ 1003  vi node_sets.json 
+ 1004  vi circuit_config.json 
+ 1005  ls
+ 1006  ls components/
+ 1007  ls components/morphologies/
+ 1008  ls components/morphologies/ascii/
+ 1009  pwd
+ 1010  rm -r components/morphologies/ascii/
+ 1011  vi circuit_config.json 
+ 1012  ls
+ 1013  cd ..
+ 1014  ls
+ 1015  sbatch launch.sh 
+ 1016  sacct -j 2178307
+ 1017  vi slurm-2178307.out 
+ 1018  vi launch.sh 
+ 1019  spack env activate neurodamus
+ 1020  spack module tcl refresh
+ 1021  sbatch launch.sh 
+ 1022  sacct -j 2178308
+ 1023  vi slurm-2178308.out 
+ 1024  git status
+ 1025  vi configuration/circuit_config.json 
+ 1026  ls
+ 1027  ls configuration/
+ 1028  ls configuration/components/
+ 1029  ls configuration/components/biophysical_model_templates/
+ 1030  ls configuration/components/
+ 1031  cd /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/examples/circuitTest/data
+ 1032  ls
+ 1033  cd simulation/
+ 1034  ls
+ 1035  vi configuration/circuit_config.json 
+ 1036  vi /gpfs/bbp.cscs.ch/project/proj83/tharayil/generationCode/BlueRecording/bluerecording/getPositions.py 
+ 1037  pwd
+ 1038  l
+ 1039  ls
+ 1040  source ~/conntilitEnv/bin/activate
+ 1041  ipython
+ 1042  deactivate
+ 1043  source ~/bluerecording-dev/bin/activate
+ 1044  ipython
+ 1045  history
+ 1046  history > history.txt

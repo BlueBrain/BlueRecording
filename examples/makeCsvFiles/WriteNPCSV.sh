@@ -13,6 +13,8 @@
 #SBATCH --exclusive
 #SBATCH --mem=0
 
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 spack env activate bluerecording-dev
 source ~/bluerecording-dev/bin/activate
 

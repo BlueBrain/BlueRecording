@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import sys
 from bluerecording.writeH5_prelim import initializeH5File
 

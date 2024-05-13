@@ -1,8 +1,9 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 from setuptools import setup
 
 setup(
     name='bluerecording',
-    version='0.0.3',    
+    version='0.1',    
     description='A tool for calculating extracellular recording lead fields',
     url='https://github.com/BlueBrain/BlueRecording',
     author='Blue Brain Project, EPFL',
@@ -23,7 +24,8 @@ setup(
     'MEAutility',
     'neuron',
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
-    'pytest-cov'
+    'pytest-cov',
+    'ipympl'
     ]
    )
 

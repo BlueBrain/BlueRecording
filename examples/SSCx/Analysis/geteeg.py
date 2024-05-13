@@ -6,6 +6,10 @@ import sys
 from mpi4py import MPI
 import os 
 
+'''
+Iterates through subregions and cell types, and saves the extracellular recordings summed over all cells in each subregion-cell type combination to a pickle file
+'''
+
 rank = MPI.COMM_WORLD.Get_rank()
 
 nranks = MPI.COMM_WORLD.Get_size()

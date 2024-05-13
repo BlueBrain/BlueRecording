@@ -6,10 +6,13 @@ import sys
 from mpi4py import MPI
 import os 
 
+'''
+Iterates through subregions and cell types, and saves the spike reports for each subregion-cell type combination to a pickle file
+'''
+
 rank = MPI.COMM_WORLD.Get_rank()
 
 nranks = MPI.COMM_WORLD.Get_size()
-
 
 s = bp.Simulation('../sscxSimulation/simulation_config.json')
 population_name = s.reports['lfp_report'].population_names[0]

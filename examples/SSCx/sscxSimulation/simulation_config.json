@@ -25,17 +25,10 @@
   },
 
   "target_simulator": "CORENEURON",
-<<<<<<< HEAD
-  "network": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/BlueRecording/examples/SSCx/data/simulation/configuration/circuit_config.json",
-  "node_set": "Mosaic",
-  "output": {
-    "output_dir": "/gpfs/bbp.cscs.ch/project/proj83/tharayil/BlueRecording/examples/SSCx/sscxSimulation/reporting",
-=======
   "network": "../data/simulation/configuration/circuit_config.json",
   "node_set": "Mosaic",
   "output": {
     "output_dir": "./reporting",
->>>>>>> db1edb8d5a343cdeb7c210c866eea0a6c18589b1
     "spikes_file": "spikes.h5"
   },
 

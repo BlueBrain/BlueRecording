@@ -54,7 +54,7 @@ cd spack
 git checkout tharayil/neurodamus-updates
 spack env create neurodamus
 spack env activate -p neurodamus
-spack install --add neurodamus-models@unstable+coreneuron
+spack install --add neurodamus-models@develop+coreneuron
 ```
 Then, create modules for neurodamus and its dependencies. To do so, make sure that `py-neurodamus`,`neurodamus-models`,and `neuron` are included in your `~/.spack/modules.yaml` file. An example is provided [here](https://github.com/BlueBrain/BlueRecording/blob/main/modules.yaml). Then, run 
 ```
@@ -63,7 +63,7 @@ module use $SPACK_INSTALL_PREFIX/modules/linux-rhel7-skylake
 ```
 The second of the two lines above must be run every time you begin a new terminal session. 
 
-Neurodamus-models expects that you have modules available on your system for `python/3.11.6`, `intel-oneapi-mkl/2023.2.0`, and `hpe-mpi/2.27.p1.hmpt`
+Neurodamus-models expects that you have modules available on your system for `python/3.11.6`, `intel-oneapi-mkl/2023.2.0`, and `hpe-mpi/2.27.p1.hmpt`. The launch scripts provided in the examples folder assume that these modules are in an archive called `unstable`
 
 ## Testing
 

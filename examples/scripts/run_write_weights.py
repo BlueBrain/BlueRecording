@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import sys
 import pandas as pd
 from bluerecording.writeH5 import writeH5File

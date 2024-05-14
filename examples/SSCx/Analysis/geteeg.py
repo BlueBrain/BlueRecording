@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
 import bluepysnap as bp
 from bluepysnap.sonata_constants import Node
 import numpy as np

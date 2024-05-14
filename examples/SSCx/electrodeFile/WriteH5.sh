@@ -12,6 +12,7 @@
 #SBATCH --error=EEG_2_CoordsV.err
 #SBATCH --exclusive
 #SBATCH --mem=0
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 
 spack env activate bluerecording-dev

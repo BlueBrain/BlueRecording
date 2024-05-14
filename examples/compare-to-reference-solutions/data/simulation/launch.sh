@@ -8,7 +8,7 @@
 #SBATCH --exclusive
 #SBATCH --time=2:00:00
 #SBATCH --job-name=CortexNrdmsPySim
-
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 spack env activate neurodamus
 module load unstable

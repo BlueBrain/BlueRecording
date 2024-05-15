@@ -108,7 +108,7 @@ See [here](https://github.com/BlueBrain/BlueRecording/tree/main/examples)
 
 # Citation
 If you use this software, we kindly ask you to cite the following publication:
-Tharayil et al. BlueRecording: A Pipeline for efficient calculation of extracellular recordings in large-scale neural circuit models *bioRxiv, (2024)*
+[Tharayil et al. BlueRecording: A Pipeline for efficient calculation of extracellular recordings in large-scale neural circuit models *bioRxiv, (2024)*](https://www.biorxiv.org/content/10.1101/2024.05.14.591849v1)
 
 # Acknowledgment
 The development of this software was supported by funding to the Blue Brain Project, a research center of the École polytechnique fédérale de Lausanne (EPFL), from the Swiss government's ETH Board of the Swiss Federal Institutes of Technology.

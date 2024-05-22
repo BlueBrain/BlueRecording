@@ -156,11 +156,11 @@ def get_coeffs_pointSource(positions,electrodePos,sigma):
 
     return coeffs 
 
-def get_coeffs_objectiveCSD(positions,electrodePos,diameter):
+def get_coeffs_objectiveCSD(positions,electrodePos,radius):
     
     distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
    
-    coeffs = np.array((distances <= diameter).astype(int)) # Coeff is 1 if segment is within diameter, zero otherwise
+    coeffs = np.array((distances <= radius).astype(int)) # Coeff is 1 if segment is within radius, zero otherwise
     
     coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
 

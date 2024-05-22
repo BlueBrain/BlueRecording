@@ -26,7 +26,7 @@ def sigma():
     return 1
 
 @pytest.fixture
-def diameter():
+def radius():
     return 50
 
 @pytest.fixture
@@ -278,10 +278,10 @@ def test_electrodeType():
     with pytest.raises(AssertionError):
         ElectrodeType(badType)
 
-def test_objectiveCSD(positions,electrodePosition,diameter,gids):
+def test_objectiveCSD(positions,electrodePosition,radius,gids):
     
     newPositions = getSegmentMidpts(positions,gids)
-    coeffs = get_coeffs_objectiveCSD(newPositions,electrodePosition,diameter)
+    coeffs = get_coeffs_objectiveCSD(newPositions,electrodePosition,radius)
     
     somaDistance = np.sqrt(3*10**2)
     expectedSomaCoeff = 1

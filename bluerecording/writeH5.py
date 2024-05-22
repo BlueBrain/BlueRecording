@@ -156,6 +156,18 @@ def get_coeffs_pointSource(positions,electrodePos,sigma):
 
     return coeffs 
 
+def get_coeffs_objectiveCSD(positions,electrodePos,diameter):
+    
+    distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
+   
+    coeffs = np.array(distances <= diameter) # Coeff is 1 if segment is within diameter, zero otherwise
+    
+    coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
+
+    coeffs.columns = positions.columns
+
+    return coeffs 
+
 def geth5Dataset(h5f, group_name, dataset_name):
     """
     Find and get dataset from h5 file.
@@ -416,7 +428,7 @@ def sort_electrode_names(electrodeKeys,population_name):
             
 def ElectrodeType(electrodeType):
     
-    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity':
+    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity' or electrodeType == 'ObjectiveCSD':
         return 0
     else:
         raise AssertionError("Electrode type not recognized")
@@ -484,6 +496,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
             if electrodeType == 'PointSource':
                 
                 coeffs = get_coeffs_pointSource(newPositions, epos, sigma)
+
+            elif electrodeType == 'ObjectiveCSD':
+
+                coeffs = get_coeffs_objectiveCSD(newPositions,epos,sigma)
                 
             else:
             

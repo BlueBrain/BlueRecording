@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='bluerecording',
-    version='0.1',    
+    version='0.1.1',    
     description='A tool for calculating extracellular recording lead fields',
     url='https://github.com/BlueBrain/BlueRecording',
     author='Blue Brain Project, EPFL',

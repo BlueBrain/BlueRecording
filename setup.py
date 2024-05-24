@@ -7,7 +7,7 @@ setup(
     description='A tool for calculating extracellular recording lead fields',
     url='https://github.com/BlueBrain/BlueRecording',
     author='Blue Brain Project, EPFL',
-    license='NONE!',
+    license='GPL-3.0',
     packages=['bluerecording'],
     install_requires=[
     'bluepysnap',

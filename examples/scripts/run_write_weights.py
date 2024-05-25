@@ -2,7 +2,7 @@
 import sys
 import pandas as pd
 from bluerecording.writeH5 import writeH5File
-from bluerecording.utils import process_writeH5_input
+from bluerecording.utils import process_writeH5_inputs
 
 if __name__=='__main__':
 

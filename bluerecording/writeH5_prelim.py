@@ -7,6 +7,8 @@ import sys
 import bluepysnap as bp
 import json
 from .utils import *
+import pkg_resources
+import datetime
 
 class ElectrodeFileStructure(object):
 
@@ -153,7 +155,7 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
     h5id.set_mdc_config(cc)
     #####
 
-    h5 = ElectrodeFileStructure(h5file, nodeIds, electrodes, population_name, circuit=circuitpath) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(h5file, nodeIds, electrodes, population_name, circuit=circuitpath,version=pkg_resources.get_distribution("bluerecording").version,date=datetime.date.today()) # Initializes fields in h5 file
 
 
     write_all_neuron(sectionIdsFrame, population_name, h5, h5file, electrodes)  # For each node_id, initializes coefficient field in h5 file

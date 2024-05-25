@@ -434,7 +434,7 @@ def ElectrodeType(electrodeType):
         raise AssertionError("Electrode type not recognized")
     
 
-def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None):
+def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None,radius=[50]):
 
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -473,6 +473,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
     
     reciprocityIdx = 0 # Keeps track of number of non-analytical electrodes
     sigmaIdx = 0 # Keeps track of number of analytical electrodes
+    radiusIdx = 0 # Keeps track of number of objective CSD electrodes
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
@@ -489,7 +490,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
             
             coeffs = get_coeffs_lineSource(positions,columns,epos,sigma[sigmaIdx])
 
-            if len(simga) > 1:
+            if len(sigma) > 1:
                 sigmaIdx += 1
             
         else:
@@ -503,11 +504,13 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
 
                 if len(sigma) > 1:
                     sigmaIdx += 1
-                coeffs = get_coeffs_pointSource(newPositions, epos, sigma)
 
             elif electrodeType == 'ObjectiveCSD':
 
-                coeffs = get_coeffs_objectiveCSD(newPositions,epos,sigma)
+                coeffs = get_coeffs_objectiveCSD(newPositions,epos,radius[radiusIdx])
+
+                if len(radius) > 1:
+                    radiusIdx += 1
                 
             else:
             

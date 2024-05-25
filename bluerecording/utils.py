@@ -9,29 +9,34 @@ def process_writeH5_inputs(inputs):
 
     path_to_fields = None 
     sigma = [0.277] # Default conductance, in S/m
+    radius = [50] # Default radius for objective CSD calculation, in um
 
-    if len(inputs)>6: # Specify conductance or a potential field. If both are used, conductance must be first
+    if len(inputs)>6: # Specify conductance for analytic electrodes, or a potential field for reciprocity electrodes, or radius for objective csf. 
 
-        isConductance, inputList = splitInput(inputs[6])
+        for inputElement in inputs[6:]:
+        
+            inputType, inputList = splitInput(inputElement)
+    
+            if inputType == 'conductance':
+                sigma = inputList
+            elif inputType == 'radius':
+                radius = inputList
+            else:
+                path_to_fields = inputList
 
-        if isConductance:
-            sigma = inputList
-        else:
-            path_to_fields = inputList
-            
-    if len(inputs)>7:
-        isConductance, path_to_fields = splitInput(inputs[7])
+    return sigma, path_to_fields, radius
 
-        if isConductance:
-            raise AssertionError('Expecting paths to h5 files, not floats') 
-
-    return sigma, path_to_fields
-
-def conductance_to_floats(inputList):
+def process_inputList(inputList):
 
     '''
-    Takes a list of inputs. If they are conductances, this function converts them to floats. Raises an error if some are conductances and others are not
+    Takes a list of inputs. If they are conductances or radii, this function converts them to floats. Raises an error if some elements of the list  are floats and others are not
     '''
+
+    inputType = None
+    
+    if inputList[0] == 'radius':
+        inputType = 'radius'
+        inputList = inputList[1:]
 
     numFloats = 0
 
@@ -44,18 +49,18 @@ def conductance_to_floats(inputList):
             pass
 
     if numFloats == len(inputList):
-
-        isConductance = 1
+        if inputType == 'radius':
+            pass
+        else:
+            inputType = 'conductance'
 
     elif numFloats == 0:
-
-        isConductance = 0
-
+        if inputType is None:
+            inputType = 'paths'
     else:
-
         raise AssertionError('Mix of numbers and strings in input')
 
-    return isConductance, inputList
+    return inputType, inputList
 
 def splitInput(inputString):
 
@@ -68,9 +73,9 @@ def splitInput(inputString):
     else:
         inputList = [inputString] # Converts to list so that we can still call inputString[0]
 
-    isConductance, inputList = conductance_to_floats(inputList)
+    inputType, inputList = process_inputList(inputList)
 
-    return isConductance, inputList
+    return inputType, inputList
 
 def getSimulationInfo(path_to_simconfig):
 

@@ -3,42 +3,53 @@ import pytest
 import numpy as np
 from bluerecording.utils import *
 
-def test_conductance_to_floats():
+def test_process_inputList():
 
     conductanceList = ['0.1','333','23.5']
     pathList = ['assasd','k23hbe2k','sndkjansd']
     badList = ['222.0','asdsd']
+    radiusList = ['radius','200']
 
-    isConductance, inputList = conductance_to_floats(conductanceList)
+    inputType, inputList = process_inputList(conductanceList)
 
-    assert isConductance == 1
+    assert inputType == 'conductance'
     assert inputList == [0.1,333.0,23.5]
 
-    isConductance, inputList = conductance_to_floats(pathList)
+    inputType, inputList = process_inputList(pathList)
 
-    assert isConductance == 0
+    assert inputType == 'paths'
     assert inputList == pathList
 
     with pytest.raises(AssertionError) as excinfo:
-        conductance_to_floats(badList)
+        process_inputList(badList)
 
     assert str(excinfo.value) == 'Mix of numbers and strings in input'
+
+    inputType, inputList = process_inputList(radiusList)
+
+    assert inputType == 'radius'
+    assert inputList == [200.]
 
 def test_splitInput():
 
     inputString = '1 2 3'
-    isconductance, output = splitInput(inputString)
+    inputType, output = splitInput(inputString)
     assert output == [1.,2.,3.]
-    assert isconductance == 1
+    assert inputType == 'conductance'
 
     inputString = 'a b c'
-    isconductance, output = splitInput(inputString)
+    inputType, output = splitInput(inputString)
     assert output == ['a','b','c']
-    assert isconductance == 0
+    assert inputType == 'paths'
 
     inputString = '1'
-    isconductance, output = splitInput(inputString)
-    assert isconductance == 1
+    inputType, output = splitInput(inputString)
+    assert inputType == 'conductance'
+    assert output == [1]
+
+    inputString = 'radius 1'
+    inputType, output = splitInput(inputString)
+    assert inputType == 'radius'
     assert output == [1]
 
 def test_process_writeH5_inputs():
@@ -51,27 +62,50 @@ def test_process_writeH5_inputs():
     
     sysArgVBase = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder]
 
-    sigma, path_to_h5 = process_writeH5_inputs(sysArgVBase)
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgVBase)
 
     assert sigma == [0.277]
     assert path_to_h5 is None
+    assert radius == [50]
 
     sigmaString = '0.7'
     sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigmaString] 
-    sigma, path_to_h5 = process_writeH5_inputs(sysArgV)
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
     assert sigma == [0.7]
     assert path_to_h5 is None
+    assert radius == [50]
 
     path = 'aaa.h5'
     sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,path]
-    sigma, path_to_h5 = process_writeH5_inputs(sysArgV)
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
     assert sigma == [0.277]
     assert path_to_h5 == ['aaa.h5']
+    assert radius == [50]
 
     sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigmaString,path] 
-    sigma, path_to_h5 = process_writeH5_inputs(sysArgV)
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
     assert sigma == [0.7]
     assert path_to_h5 == ['aaa.h5']
+    assert radius == [50]
+   
+    radiusString = 'radius 10'
+    sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,radiusString] 
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
+    assert sigma == [0.277]
+    assert path_to_h5 is None
+    assert radius == [10.]
+
+    sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigmaString,radiusString] 
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
+    assert sigma == [0.7]
+    assert path_to_h5 is None
+    assert radius == [10.]
+
+    sysArgV = ['functionName',path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,radiusString,path,sigmaString] 
+    sigma, path_to_h5, radius = process_writeH5_inputs(sysArgV)
+    assert sigma == [0.7]
+    assert path_to_h5 == ['aaa.h5']
+    assert radius == [10.]
 
 def test_getSimulationInfo(path_to_simconfig_with_output):
     

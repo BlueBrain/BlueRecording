@@ -5,6 +5,72 @@ import numpy as np
 from voxcell.nexus.voxelbrain import Atlas
 from sklearn.decomposition import PCA
 
+def process_writeH5_inputs(inputs):
+
+    path_to_fields = None 
+    sigma = [0.277] # Default conductance, in S/m
+
+    if len(inputs)>6: # Specify conductance or a potential field. If both are used, conductance must be first
+
+        isConductance, inputList = splitInput(inputs[6])
+
+        if isConductance:
+            sigma = inputList
+        else:
+            path_to_fields = inputList
+            
+    if len(inputs)>7:
+        isConductance, path_to_fields = splitInput(inputs[7])
+
+        if isConductance:
+            raise AssertionError('Expecting paths to h5 files, not floats') 
+
+    return sigma, path_to_fields
+
+def conductance_to_floats(inputList):
+
+    '''
+    Takes a list of inputs. If they are conductances, this function converts them to floats. Raises an error if some are conductances and others are not
+    '''
+
+    numFloats = 0
+
+    for i, entry in enumerate(inputList):
+
+        try: # If entry is a number, converts to float
+            inputList[i] = float(entry)
+            numFloats += 1
+        except:
+            pass
+
+    if numFloats == len(inputList):
+
+        isConductance = 1
+
+    elif numFloats == 0:
+
+        isConductance = 0
+
+    else:
+
+        raise AssertionError('Mix of numbers and strings in input')
+
+    return isConductance, inputList
+
+def splitInput(inputString):
+
+    '''
+    Takes an input string for conductance (for analytic electrodes) or paths to h5 potential field files (for reciprocity electrodes). If the string has multiple entries separated by spaces, returns a list of the entries. BlueRecording will then assume that each analytic or recprocity electrode uses a different conductance or E field, respecitively
+    '''
+
+    if ' ' in inputString: # If multiple potential field files or conductances, splits them into a list
+        inputList = inputString.split(' ')
+    else:
+        inputList = [inputString] # Converts to list so that we can still call inputString[0]
+
+    isConductance, inputList = conductance_to_floats(inputList)
+
+    return isConductance, inputList
 
 def getSimulationInfo(path_to_simconfig):
 

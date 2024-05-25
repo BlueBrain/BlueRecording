@@ -20,4 +20,4 @@ source ~/bluerecording-dev/bin/activate
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50
 
-srun -n 1 python ../../../scripts/run_write_weights.py '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' 'Infinite_VeryFar_HighRes.h5 Infinite_VeryFar_HighRes.h5'
+srun -n 1 python ../../../scripts/run_write_weights.py '../../data/simulation/simulation_config.json' '../../data/getPositions/positions' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'Infinite_VeryFar_HighRes.h5 Infinite_VeryFar_HighRes.h5'

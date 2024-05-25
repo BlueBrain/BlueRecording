@@ -26,4 +26,4 @@ FILES_PER_FOLDER=50
 ELECTRODE_CSV='electrodes.csv'
 TISSUE_CONDUCTANCE=0.374556
  
-srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' $TISSUE_CONDUCTANCE 'ECoG.h5 EEG.h5 LFP.h5 ECoG.h5 EEG.h5 LFP.h5'
+srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config.json' '../data/getPositions/positions_all_new' 'coeffs.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER $TISSUE_CONDUCTANCE 'ECoG.h5 EEG.h5 LFP.h5 ECoG.h5 EEG.h5 LFP.h5'

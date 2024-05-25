@@ -422,7 +422,7 @@ def ElectrodeType(electrodeType):
         raise AssertionError("Electrode type not recognized")
     
 
-def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=0.277,path_to_fields=None):
+def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None):
 
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -460,6 +460,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
     electrodeNames = sort_electrode_names(h5['electrodes'].keys(),population_name)
     
     reciprocityIdx = 0 # Keeps track of number of non-analytical electrodes
+    sigmaIdx = 0 # Keeps track of number of analytical electrodes
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
@@ -474,7 +475,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         
         if electrodeType == 'LineSource':
             
-            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma)
+            coeffs = get_coeffs_lineSource(positions,columns,epos,sigma[sigmaIdx])
+
+            if len(simga) > 1:
+                sigmaIdx += 1
             
         else:
 
@@ -483,15 +487,16 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
             
             if electrodeType == 'PointSource':
                 
-                coeffs = get_coeffs_pointSource(newPositions, epos, sigma)
+                coeffs = get_coeffs_pointSource(newPositions, epos, sigma[sigmaIdx])
+
+                if len(sigma) > 1:
+                    sigmaIdx += 1
                 
             else:
             
                 if electrodeType == 'DipoleReciprocity':
 
                     center = newPositions.mean(axis=1)
-
-                    #center = newPositions.iloc[:,0]#.values
                     
                     coeffs = get_coeffs_dipoleReciprocity(newPositions,path_to_fields[reciprocityIdx],center)
 

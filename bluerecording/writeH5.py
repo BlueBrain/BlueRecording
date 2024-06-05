@@ -171,11 +171,35 @@ def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,radius):
 
 def get_coeffs_objectiveCSD_Disk(positions,electrodePos,radius,subsampling,allEpos):
 
+    ### Finds main axis of electrode array
+    pca = PCA(n_components=3)
+    pca.fit(allEpos)
+    main_axis = pca.components_[0]/np.linalg.norm(pca.components_[0])
+    ###
+
+    allEpos_projected = np.matmul(allEpos,main_axis)
+
+    differences = np.diff(allEpos_projected)
+
+    diskThickness = np.mean(differences) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+
+    ### Projects compartment positions onto plane containing epos normal to electrode array
+    differenceVectors = positions - electrodePos
     
+    projectionDistances = np.matmul(differenceVectors,main_axis) # Size len(positions)x1
     
-    distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
+    projectionVectors = main_axis.T # Size 1x3
+    for i in range(len(differenceVectors)-1):
+        projectionVectors = np.hstack((projectionVectors,main_axis.T))
+    
+    projectionVectors = projectionVectors * projectionDistances
+
+    displacementVectors = differenceVectors - projectionVectors
+    ###
+    
+    radialDistances = np.linalg.norm(displacementVectors,axis=0) # in microns
    
-    coeffs = np.array((distances <= radius).astype(int)) # Coeff is 1 if segment is within radius, zero otherwise
+    coeffs = np.array((distances <= radius and projectionDistances <= diskThickness).astype(int)) # Coeff is 1 if segment is within radius, zero otherwise
     
     coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
 

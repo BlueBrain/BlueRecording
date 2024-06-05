@@ -268,7 +268,7 @@ def test_sort_electrode_names():
 
 def test_electrodeType():
     
-    electrodeTypes = ['PointSource','LineSource','Reciprocity','DipoleReciprocity','ObjectiveCSD']
+    electrodeTypes = ['PointSource','LineSource','Reciprocity','DipoleReciprocity','ObjectiveCSDSphere','ObjectiveCSDDisk']
     
     for electrodeType in electrodeTypes:
         assert ElectrodeType(electrodeType) == 0
@@ -278,10 +278,10 @@ def test_electrodeType():
     with pytest.raises(AssertionError):
         ElectrodeType(badType)
 
-def test_objectiveCSD(positions,electrodePosition,radius,gids):
+def test_objectiveCSD_Sphere(positions,electrodePosition,radius,gids):
     
     newPositions = getSegmentMidpts(positions,gids)
-    coeffs = get_coeffs_objectiveCSD(newPositions,electrodePosition,radius)
+    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,electrodePosition,radius)
     
     somaDistance = np.sqrt(3*10**2)
     expectedSomaCoeff = 1

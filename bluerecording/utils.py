@@ -10,8 +10,9 @@ def process_writeH5_inputs(inputs):
     path_to_fields = None 
     sigma = [0.277] # Default conductance, in S/m
     radius = [50] # Default radius for objective CSD calculation, in um
+    subsampling = None # Indices of electrodes to be used f
 
-    if len(inputs)>6: # Specify conductance for analytic electrodes, or a potential field for reciprocity electrodes, or radius for objective csf. 
+    if len(inputs)>6: # Specify conductance for analytic electrodes, or a potential field for reciprocity electrodes, or radius for spherical/disk objective csd, or electrode subsampling for disc objective csd. 
 
         for inputElement in inputs[6:]:
         
@@ -21,10 +22,12 @@ def process_writeH5_inputs(inputs):
                 sigma = inputList
             elif inputType == 'radius':
                 radius = inputList
+            elif inputType == 'subsampling':
+                subsampling = inputList
             else:
                 path_to_fields = inputList
 
-    return sigma, path_to_fields, radius
+    return sigma, path_to_fields, radius, subsampling
 
 def process_inputList(inputList):
 
@@ -36,6 +39,9 @@ def process_inputList(inputList):
     
     if inputList[0] == 'radius':
         inputType = 'radius'
+        inputList = inputList[1:]
+    elif inputList[0] == 'subsampling':
+        inputType = 'subsampling'
         inputList = inputList[1:]
 
     numFloats = 0
@@ -51,12 +57,16 @@ def process_inputList(inputList):
     if numFloats == len(inputList):
         if inputType == 'radius':
             pass
+        elif inputType == 'subsampling':
+            raise AssertionError('Subsampling should be given in the form of a range, like \'5:9\', not as an integer')
         else:
             inputType = 'conductance'
 
     elif numFloats == 0:
         if inputType is None:
             inputType = 'paths'
+        elif inputType == 'subsampling':
+            pass
     else:
         raise AssertionError('Mix of numbers and strings in input')
 
@@ -76,6 +86,15 @@ def splitInput(inputString):
     inputType, inputList = process_inputList(inputList)
 
     return inputType, inputList
+
+def processSubsampling(inputString):
+    '''
+    Takes an input string of the form 5:9 specicifying the start and end points of an electrode array (i.e., with a particular spacing) and converts to integers
+    '''
+
+    start, end = inputString.split(':')
+
+    return [int(start), int(end)]
 
 def getSimulationInfo(path_to_simconfig):
 

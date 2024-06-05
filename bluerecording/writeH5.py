@@ -569,10 +569,10 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
                 for e in electrodeNames[electrodeIdx[0]:electrodeIdx[1]]:
                     allEpos.append( h5['electrodes'][str(e)]['position'][:] )
 
-                coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,radius[radiusIdx],allEpos)
+                coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,500,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
 
-                if len(radius) > 1:
-                    radiusIdx += 1
+                #if len(radius) > 1:
+                #    radiusIdx += 1
                 if len(subsampling) > 1:
                     subsamplingIdx += 1
                 

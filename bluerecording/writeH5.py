@@ -169,37 +169,45 @@ def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,radius):
 
     return coeffs 
 
-def get_coeffs_objectiveCSD_Disk(positions,electrodePos,radius,subsampling,allEpos):
+def get_coeffs_objectiveCSD_Disk(positions,electrodePos,radius,allEpos):
 
     ### Finds main axis of electrode array
-    pca = PCA(n_components=3)
+    pca = PCA(n_components=1)
     pca.fit(allEpos)
     main_axis = pca.components_[0]/np.linalg.norm(pca.components_[0])
+    main_axis = main_axis[:,np.newaxis]
     ###
 
-    allEpos_projected = np.matmul(allEpos,main_axis)
+    allEpos_projected = np.matmul(allEpos,main_axis).flatten()
+    
 
     differences = np.diff(allEpos_projected)
 
-    diskThickness = np.mean(differences) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+    diskThickness = np.abs(np.mean(differences)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+
 
     ### Projects compartment positions onto plane containing epos normal to electrode array
-    differenceVectors = positions - electrodePos
+    differenceVectors = positions.values - electrodePos[:,np.newaxis]
     
-    projectionDistances = np.matmul(differenceVectors,main_axis) # Size len(positions)x1
+    projectionDistances = np.matmul(differenceVectors.T,main_axis) # Size len(positions)x1
     
     projectionVectors = main_axis.T # Size 1x3
-    for i in range(len(differenceVectors)-1):
-        projectionVectors = np.hstack((projectionVectors,main_axis.T))
+    for i in range(differenceVectors.shape[1]-1):
+        projectionVectors = np.vstack((projectionVectors,main_axis.T))
     
     projectionVectors = projectionVectors * projectionDistances
 
-    displacementVectors = differenceVectors - projectionVectors
+    displacementVectors = differenceVectors - projectionVectors.T
     ###
     
     radialDistances = np.linalg.norm(displacementVectors,axis=0) # in microns
-   
-    coeffs = np.array((distances <= radius and projectionDistances <= diskThickness).astype(int)) # Coeff is 1 if segment is within radius, zero otherwise
+    
+    ### Coeff is 1 if segment is within disk, zero otherwise
+    coeffs1 = np.array((radialDistances <= radius).astype(int)).flatten() 
+    coeffs2 = np.array((np.abs(projectionDistances) <= diskThickness).astype(int)).flatten()
+
+    coeffs = coeffs1 * coeffs2
+    ###
     
     coeffs = pd.DataFrame(data=coeffs[np.newaxis,:])
 

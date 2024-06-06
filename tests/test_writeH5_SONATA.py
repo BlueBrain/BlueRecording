@@ -278,15 +278,30 @@ def test_electrodeType():
     with pytest.raises(AssertionError):
         ElectrodeType(badType)
 
-def test_objectiveCSD_Sphere(positions,electrodePosition,radius,gids):
+def test_objectiveCSD_Sphere(positions,gids):
+
+    allEpos = np.array([[0,0,0],[2,0,0]])
     
     newPositions = getSegmentMidpts(positions,gids)
-    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,electrodePosition,radius)
+    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,allEpos[0],allEpos)
     
-    somaDistance = np.sqrt(3*10**2)
+    somaDistance = 0
     expectedSomaCoeff = 1
+        
+    expectedSegmentCoeff = 1
     
-    segmentDistance = np.sqrt(10**2+10**2+(10-.5)**2)
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+    
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
+def test_objectiveCSD_Disk(positions,gids):
+
+    allEpos = np.array([[0,0,0],[1,0,0]])
+    
+    newPositions = getSegmentMidpts(positions,gids)
+    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,allEpos[0],allEpos)
+    
+    expectedSomaCoeff = 1
     
     expectedSegmentCoeff = 1
     

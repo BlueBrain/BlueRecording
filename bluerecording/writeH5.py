@@ -157,7 +157,26 @@ def get_coeffs_pointSource(positions,electrodePos,sigma):
 
     return coeffs 
 
-def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,radius):
+def getArraySpacing(allEpos):
+
+    ### Finds main axis of electrode array
+    pca = PCA(n_components=1)
+    pca.fit(allEpos)
+    main_axis = pca.components_[0]/np.linalg.norm(pca.components_[0])
+    main_axis = main_axis[:,np.newaxis]
+    ###
+
+    allEpos_projected = np.matmul(allEpos,main_axis).flatten()
+
+    arraySpacing = np.diff(allEpos_projected)
+
+    return main_axis, arraySpacing
+
+def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,allEpos):
+
+    _, arraySpacing = getArraySpacing(allEpos)
+
+    radius = np.abs(np.mean(arraySpacing)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
     
     distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
    
@@ -169,22 +188,13 @@ def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,radius):
 
     return coeffs 
 
-def get_coeffs_objectiveCSD_Disk(positions,electrodePos,radius,allEpos):
+def get_coeffs_objectiveCSD_Disk(positions,electrodePos,allEpos):
 
-    ### Finds main axis of electrode array
-    pca = PCA(n_components=1)
-    pca.fit(allEpos)
-    main_axis = pca.components_[0]/np.linalg.norm(pca.components_[0])
-    main_axis = main_axis[:,np.newaxis]
-    ###
+    radius = 500 # Hard-coded. Todo make user-configurable
 
-    allEpos_projected = np.matmul(allEpos,main_axis).flatten()
-    
+    main_axis, arraySpacing = getArraySpacing(allEpos)
 
-    differences = np.diff(allEpos_projected)
-
-    diskThickness = np.abs(np.mean(differences)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
-
+    diskThickness = np.abs(np.mean(arraySpacing)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
 
     ### Projects compartment positions onto plane containing epos normal to electrode array
     differenceVectors = positions.values - electrodePos[:,np.newaxis]
@@ -479,9 +489,30 @@ def ElectrodeType(electrodeType):
         return 0
     else:
         raise AssertionError("Electrode type not recognized")
-    
 
-def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None,radius=[50],subsampling=None):
+def get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, electrodeIdx):
+
+    if objective_csd_array_indices is None: # Assume all electrodes of given type are used to calculate CSD
+
+        allTypes = []
+        for electrode in electrodeNames:
+            allTypes.append( h5['electrodes'][str(electrode)]['type'][()].decode() )
+
+            arrayIdx = np.where(electrodeType==allTypes)
+
+    else:
+                    
+        arrayIdx = processSubsampling(objective_csd_array_indices[objectiveCSD_count])
+
+        if electrodeIdx not in arrayIdx:
+            objectiveCSD_count += 1
+            arrayIdx = processSubsampling(objective_csd_array_indices[objectiveCSD_count])
+            if electrodeIdx not in arrayIdx:
+                raise AssertionError('Electrode arrays used in objective CSD must be sequential in eletcrode file')
+
+    return arrayIdx
+
+def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None,objective_csd_array_indices=None):
 
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
@@ -520,8 +551,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
     
     reciprocityIdx = 0 # Keeps track of number of non-analytical electrodes
     sigmaIdx = 0 # Keeps track of number of analytical electrodes
-    radiusIdx = 0 # Keeps track of number of objective sphere CSD electrodes
-    subsamplingIdx = 0 # Keeps track of number of objective disk CSD electrodes
+    objectiveCSD_count = 0 # Keeps track of number of objective CSD electrodes
     
     for electrodeIdx, electrode in enumerate(electrodeNames):
 
@@ -529,7 +559,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         epos = h5['electrodes'][str(electrode)]['position'][:] # Gets position for each electrode
         
         
-        electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets position for each electrode
+        electrodeType = h5['electrodes'][str(electrode)]['type'][()].decode() # Gets type for each electrode
 
         
         ElectrodeType(electrodeType)
@@ -553,28 +583,23 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
                 if len(sigma) > 1:
                     sigmaIdx += 1
 
-            elif electrodeType == 'ObjectiveCSDSphere':
+            elif 'ObjectiveCSD' in electrodeType:
 
-                coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,epos,radius[radiusIdx])
+                arrayIdx = get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, electrodeIdx) 
 
-                if len(radius) > 1:
-                    radiusIdx += 1
-
-            elif electrodeType == 'ObjectiveCSDDisk':
-
-                allEpos = []
-
-                electrodeIdx = processSubsampling(subsampling[subsamplingIdx])
-                
-                for e in electrodeNames[electrodeIdx[0]:electrodeIdx[1]]:
+                allEpos = [] # List of electrode positions used to calculate CSD
+                            
+                for e in electrodeNames[arrayIdx]:
                     allEpos.append( h5['electrodes'][str(e)]['position'][:] )
 
-                coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,500,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
+                if electrodeType == 'ObjectiveCSDSphere':
 
-                #if len(radius) > 1:
-                #    radiusIdx += 1
-                if len(subsampling) > 1:
-                    subsamplingIdx += 1
+                    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,epos,allEpos)
+
+                elif electrodeType == 'ObjectiveCSDDisk':    
+
+                    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
+
                 
             else:
             

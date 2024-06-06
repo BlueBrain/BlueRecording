@@ -485,12 +485,12 @@ def sort_electrode_names(electrodeKeys,population_name):
             
 def ElectrodeType(electrodeType):
     
-    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity' or electrodeType == 'ObjectiveCSDSphere' or electrodeType == 'ObjectiveCSDDisk':
+    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity' or electrodeType == 'ObjectiveCSD_Sphere' or electrodeType == 'ObjectiveCSD_Disk':
         return 0
     else:
         raise AssertionError("Electrode type not recognized")
 
-def get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, electrodeIdx):
+def get_objectiveCSD_array(electrodeType,objective_csd_array_indices,objectiveCSD_count,electrodeNames, h5, electrodeIdx):
 
     if objective_csd_array_indices is None: # Assume all electrodes of given type are used to calculate CSD
 
@@ -498,7 +498,7 @@ def get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, elect
         for electrode in electrodeNames:
             allTypes.append( h5['electrodes'][str(electrode)]['type'][()].decode() )
 
-            arrayIdx = np.where(electrodeType==allTypes)
+        arrayIdx = [i for i, e in enumerate(allTypes) if e==electrodeType]
 
     else:
                     
@@ -510,7 +510,7 @@ def get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, elect
             if electrodeIdx not in arrayIdx:
                 raise AssertionError('Electrode arrays used in objective CSD must be sequential in eletcrode file')
 
-    return arrayIdx
+    return arrayIdx, objectiveCSD_count
 
 def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,files_per_folder,sigma=[0.277],path_to_fields=None,objective_csd_array_indices=None):
 
@@ -585,18 +585,18 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
 
             elif 'ObjectiveCSD' in electrodeType:
 
-                arrayIdx = get_objectiveCSD_array(objective_csd_array_indices,electrodeNames, h5, electrodeIdx) 
+                arrayIdx, objectiveCSD_count = get_objectiveCSD_array(electrodeType, objective_csd_array_indices, objectiveCSD_count, electrodeNames, h5, electrodeIdx) 
 
                 allEpos = [] # List of electrode positions used to calculate CSD
                             
                 for e in electrodeNames[arrayIdx]:
                     allEpos.append( h5['electrodes'][str(e)]['position'][:] )
 
-                if electrodeType == 'ObjectiveCSDSphere':
+                if electrodeType == 'ObjectiveCSD_Sphere':
 
                     coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,epos,allEpos)
 
-                elif electrodeType == 'ObjectiveCSDDisk':    
+                elif electrodeType == 'ObjectiveCSD_Disk':    
 
                     coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
 

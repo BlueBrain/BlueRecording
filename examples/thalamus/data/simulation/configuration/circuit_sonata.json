@@ -1,0 +1,75 @@
+{
+    "version": 2,
+    "manifest": {
+    "$BASE_DIR": ".",
+    "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
+    "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges",
+    "$COMPONENT_DIR": "$BASE_DIR/components"
+    },
+    "components": {
+    },
+    "node_sets_file": "$NETWORK_NODES_DIR/node_sets.json",
+    "mechanisms_dir": "$BASE_DIR/mechanisms_mod",
+    "networks": {
+        "nodes": [{
+            "nodes_file": "$NETWORK_NODES_DIR/thalamus_neurons/nodes.h5",
+            "populations": {
+                "thalamus_neurons": {
+                    "type": "biophysical",
+                    "biophysical_neuron_models_dir": "$BASE_DIR/memodels_hoc",
+                    "alternate_morphologies": {
+                        "neurolucida-asc": "$BASE_DIR/morphologies/morphologies_asc",
+                        "h5v1": "$BASE_DIR/morphologies/morphologies_h5"
+                    }
+                }
+            }
+        },{
+            "nodes_file": "$NETWORK_NODES_DIR/CorticoThalamic_projections/nodes.h5",
+            "populations": {
+                "CorticoThalamic_projections": {
+                    "type": "virtual"
+                }
+            }
+        },{
+            "nodes_file": "$NETWORK_NODES_DIR/MedialLemniscus_projections/nodes.h5",
+            "populations": {
+                "MedialLemniscus_projections": {
+                    "type": "virtual"
+                }
+            }
+        }],
+        "edges": [{
+                "edges_file": "$NETWORK_EDGES_DIR/thalamus_neurons__thalamus_neurons__chemical/edges.h5",
+                "populations": {
+                    "thalamus_neurons__thalamus_neurons__chemical": {
+                        "type": "chemical"
+                    }
+                }
+            },
+            {
+                "edges_file": "$NETWORK_EDGES_DIR/thalamus_neurons__thalamus_neurons__electrical_synapse/edges.h5",
+                "populations": {
+                    "thalamus_neurons__thalamus_neurons__electrical_synapse": {
+                        "type": "electrical"
+                    }
+                }
+            },
+            {
+                "edges_file": "$NETWORK_EDGES_DIR/MedialLemniscus_projections__thalamus_neurons__chemical/edges.h5",
+                "populations": {
+                    "MedialLemniscus_projections__thalamus_neurons__chemical": {
+                        "type": "chemical"
+                    }
+                }
+            },
+            {
+                "edges_file": "$NETWORK_EDGES_DIR/CorticoThalamic_projections__thalamus_neurons__chemical/edges.h5",
+                "populations": {
+                    "CorticoThalamic_projections__thalamus_neurons__chemical": {
+                        "type": "chemical"
+                    }
+                }
+            }
+        ]
+    }
+}

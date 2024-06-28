@@ -1,9 +1,13 @@
+x86_64/
 **/core*
 figures/
 positions_all_new/
 **/*coeffs*.h5
 **/*.SUCCESS
 networks/
+network/
+examples/allen/data/simulation/configuration/components
+bkg_inputs/
 atlas/
 reporting/
 output_sonata/

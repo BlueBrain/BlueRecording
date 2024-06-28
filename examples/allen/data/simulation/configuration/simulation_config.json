@@ -1,0 +1,37 @@
+{
+
+  "run": {
+    "tstop": 3000.0,
+    "dt": 0.025,
+    "spike_threshold": -15,
+    "random_seed":1
+  },
+
+  "target_simulator":"CORENEURON",
+  "network": "./circuit_config.json",
+
+  "conditions": {
+    "celsius": 34.0,
+    "v_init": -80
+  },
+
+  "inputs": {
+    "BKG_spikes": {
+      "input_type": "spikes",
+      "module": "synapse_replay",
+      "spike_file": "bkg_inputs/results/bkg_spikes_n1_fr1000_dt0.25_2.trial_0.h5",
+      "node_set": "bkg",
+      "delay":0,
+      "duration":3000.0
+    }
+  },
+
+  "output":{
+    "log_file": "log.txt",
+    "output_dir": "./reporting",
+    "spikes_file": "spikes.h5",
+    "spikes_file_csv": "spikes.csv"
+  }
+
+
+}

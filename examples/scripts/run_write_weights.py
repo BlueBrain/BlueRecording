@@ -26,7 +26,7 @@ if __name__=='__main__':
     if len(sys.argv)>7: # Specify conductance or a potential field. If both are used, conductance must be first
 
         try:
-            sigma = float(sys.argv[7]) # If the argument is a number, assume it is a conductance
+            sigma = [float(sys.argv[7])] # If the argument is a number, assume it is a conductance
         except:
             path_to_fields = sys.argv[7]
             

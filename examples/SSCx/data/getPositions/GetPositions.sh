@@ -24,7 +24,7 @@ FILES_PER_FOLDER=50
 for i in {0..4235}
 do
 
-    folder="positions_all_new/$(($i/$CHUNK_SIZE))"
+    folder="positions_all_new/$(($i/$FILES_PER_FOLDER))"
     mkdir -p $folder 2>/dev/null
 
 done

@@ -1,10 +1,11 @@
 {
     "version": 2,
     "manifest": {
-    "$BASE_DIR": ".",
+    "$BASE_DIR": "/gpfs/bbp.cscs.ch/project/proj55/iavarone/releases/circuits/O1/2019-11-19_sonata_Zenodo/",
     "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
     "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges",
-    "$COMPONENT_DIR": "$BASE_DIR/components"
+    "$COMPONENT_DIR": "$BASE_DIR/components",
+    "$MORPHOLOGIES": "$BASE_DIR/morphologies"
     },
     "components": {
     },

@@ -1,5 +1,5 @@
 #!/bin/bash -l
-#SBATCH --account=proj55
+#SBATCH --account=proj85
 #SBATCH --partition=prod
 #SBATCH --nodes=32
 #SBATCH --cpus-per-task=2

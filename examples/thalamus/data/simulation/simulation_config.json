@@ -11,7 +11,7 @@
         "random_seed": 100001
     },
     "target_simulator": "CORENEURON",
-    "network": "/gpfs/bbp.cscs.ch/project/proj55/iavarone/releases/circuits/O1/2019-11-19_sonata_Zenodo/circuit_sonata.json",
+    "network": "/gpfs/bbp.cscs.ch/project/proj83/scratch/home/tharayil/BlueRecording/examples/thalamus/data/simulation/configuration/circuit_sonata.json",
     "node_set": "mc2_Column",
     "output": {
         "output_dir": "./reporting",

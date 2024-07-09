@@ -294,8 +294,13 @@ def get_morph_path(population, i, path_to_simconfig):
             finalmorphpath = basedir
             for m in morphpath.split('/')[1:]:
                 finalmorphpath = finalmorphpath + '/'+m
+
+    if os.path.exists(finalmorphpath+'/ascii/')
+        fileName = finalmorphpath+'/ascii/'+morphName+'.asc'
+    else:
+        fileName = finalmorphpath+'/morphologies_asc/'+morphName+'.asc'
             
-    return finalmorphpath+'/ascii/'+morphName+'.asc'
+    return fileName
     
 
 def getMorphology(population, i, path_to_simconfig):

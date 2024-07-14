@@ -170,7 +170,7 @@ def getArraySpacing(allEpos):
 
     arraySpacing = np.diff(allEpos_projected)
 
-    arraySpacing = arraySpacing[arraySpacing != 0] # removes zeros in order to not take into account electrodes on the same plane
+    arraySpacing = arraySpacing[arraySpacing >1e-3] # removes zeros in order to not take into account electrodes on the same plane
 
     return main_axis, arraySpacing
 

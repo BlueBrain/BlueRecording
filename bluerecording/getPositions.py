@@ -446,6 +446,7 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
             for k in np.arange(1,numSomas):
                 xyz = np.hstack((xyz,somaPos.reshape(3,1)))
 
+        morphSectionIdx = 0 # Index used if morphology file lists dendrites before axons
 
         for secName in list(sections[1:]):
 
@@ -483,8 +484,6 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
             else:
 
-                morphSectionIdx = 0
-
                 if m.sections[morphSectionIdx].type == 3 or m.sections[morphSectionIdx].type == 4: # If dendrite
 
                     ptIdx = m.indices[morphSectionIdx]
@@ -494,15 +493,14 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
                     segPos = interp_points(secPts,numCompartments)
 
+                    morphSectionIdx += 1
+
                 elif m.sections[morphSectionIdx].type == 2: # If axon
 
                     segPos = interp_points_axon(axonPoints,runningLens,secName,numCompartments,somaPos)
 
                 else:
                     raise ValueError('Non-axonal and non-dendritic section found in morphology file')
-
-                morphSectionIdx += 1
-
 
             xyz = np.hstack((xyz,segPos.T))
 

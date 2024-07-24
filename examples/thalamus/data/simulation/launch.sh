@@ -11,7 +11,11 @@
 
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-module load unstable
-module load neurodamus-thalamus py-neurodamus
+#module load unstable
+#module load neurodamus-thalamus py-neurodamus
+
+module load archive/2024-05 neurodamus-thalamus
+export PATH=/gpfs/bbp.cscs.ch/project/proj83/home/weji/combined_models_new_2024_05/x86_64:$PATH
+export PYTHONPATH=/gpfs/bbp.cscs.ch/project/proj83/home/weji/neurodamus-3.3.0-gj-correction:$PYTHONPATH
 
 srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

@@ -274,6 +274,29 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
     segPos = np.array(segPos)
     return segPos
 
+def remove_variables(js, finalmorphpath):
+
+    '''
+    Removes references to variables in path to morphology
+    Assumes that all references are in the manifest section
+    '''
+
+    while '$' in finalmorphpath:
+
+        elements = finalmorphpath.split('/')
+
+        for i, element in enumerate(elements):
+
+            if '$' in element:
+                element = js['manifest'][element]
+                
+            if i == 0:
+                finalmorphpath = element
+            else:
+                finalmorphpath = finalmorphpath + '/' + element
+
+    return finalmorphpath
+
 def get_morph_path(population, i, path_to_simconfig):
 
     morphName = population.get(i, 'morphology') # Gets name of the morphology file for node_id i
@@ -284,16 +307,15 @@ def get_morph_path(population, i, path_to_simconfig):
 
         js = json.load(f)
 
-        if 'components' in js.keys() and 'morphologies_dir' in js['components'].keys() and '$MORPHOLOGIES' not in js['components']['morphologies_dir']:
-                finalmorphpath = js['components']['morphologies_dir'] + '/morphologies'
+        if 'components' in js.keys() and 'morphologies_dir' in js['components'].keys():
+            finalmorphpath = js['components']['morphologies_dir']
 
         else:
+            finalmorphpath = js['manifest']['$MORPHOLOGIES']
 
-            basedir = js['manifest']['$BASE_DIR']
-            morphpath = js['manifest']['$MORPHOLOGIES']
-            finalmorphpath = basedir
-            for m in morphpath.split('/')[1:]:
-                finalmorphpath = finalmorphpath + '/'+m
+        finalmorphpath = remove_variables(js, finalmorphpath)
+
+        finalmorphpath = concretize_path(circuitpath,finalmorphpath)
 
     if os.path.exists(finalmorphpath+'/ascii/'):
         fileName = finalmorphpath+'/ascii/'+morphName+'.asc'

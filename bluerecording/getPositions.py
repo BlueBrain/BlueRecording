@@ -297,6 +297,25 @@ def remove_variables(js, finalmorphpath):
 
     return finalmorphpath
 
+def tryFileNames(morphName, finalmorphpath):
+
+    asc = finalmorphpath+'/ascii/'+morphName+'.asc'
+    asc1 = finalmorphpath+'/'+morphName+'.asc'
+    asc2 = finalmorphpath+'/morphologies_asc/'+morphName+'.asc'
+
+    swc = finalmorphpath+'/swc/'+morphName+'.swc'
+    swc1 = finalmorphpath+'/'+morphName+'.swc'
+    swc2 = finalmorphpath+'/morphologies_swc/'+morphName+'.swc'
+
+    options = [asc, asc1, asc2, swc, swc1, swc2]
+
+    for option in options:
+        if os.path.exists(option):
+            fileName = option
+            break
+
+    return fileName
+
 def get_morph_path(population, i, path_to_simconfig):
 
     morphName = population.get(i, 'morphology') # Gets name of the morphology file for node_id i
@@ -315,12 +334,9 @@ def get_morph_path(population, i, path_to_simconfig):
 
         finalmorphpath = remove_variables(js, finalmorphpath)
 
-        finalmorphpath = concretize_path(circuitpath,finalmorphpath)
+        finalmorphpath = concretize_path(circuitpath,finalmorphpath) # Goes from relative to absolute path
 
-    if os.path.exists(finalmorphpath+'/ascii/'):
-        fileName = finalmorphpath+'/ascii/'+morphName+'.asc'
-    else:
-        fileName = finalmorphpath+'/morphologies_asc/'+morphName+'.asc'
+    fileName = tryFileNames(morphName, finalmorphpath)
 
     return fileName
 

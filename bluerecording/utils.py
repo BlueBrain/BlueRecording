@@ -146,7 +146,9 @@ def concretize_path(known_path, newpath):
 
     path_to_dir = absolute_path.rstrip(known_filename)
 
-    newpath = path_to_dir+newpath
+    if newpath[0] != '/': # Checks that newpath is not already an absolute path
+
+        newpath = path_to_dir+newpath
 
     newpath = os.path.normpath(newpath)
     

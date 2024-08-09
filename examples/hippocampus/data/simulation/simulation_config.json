@@ -1,0 +1,119 @@
+{
+    "manifest": {
+        "$CURRENT_DIR": "."
+    },
+    "run": {
+        "random_seed": 1234,
+        "dt": 0.025,
+        "tstop": 2.0
+    },
+    "conditions": {
+        "extracellular_calcium": 1.0,
+        "v_init": -65.0,
+        "celsius": 34.0,
+        "spike_location": "soma",
+        "mechanisms": {
+            "ProbAMPANMDA_EMS": {},
+            "ProbGABAAB_EMS": {},
+            "GluSynapse": {}
+        }
+    },
+    "network": "/gpfs/bbp.cscs.ch/project/proj112/circuits/CA1/20211110-BioM/sonata/circuit_config.json",
+    "target_simulator": "CORENEURON",
+    "node_set": "cylinder300",
+    "output": {
+        "output_dir": "./reporting"
+    },
+    "inputs": {
+        "ThresholdIntoMosaic": {
+            "node_set": "Mosaic",
+            "input_type": "current_clamp",
+            "module": "noise",
+            "mean_percent": 120.0,
+            "variance": 0.001,
+            "delay": 0.0,
+            "duration": 20000.0
+        },
+        "hypamp_mosaic": {
+            "node_set": "Mosaic",
+            "input_type": "current_clamp",
+            "module": "hyperpolarizing",
+            "delay": 0.0,
+            "duration": 20000.0
+        },
+        "negative_step_injection": {
+            "node_set": "PV",
+            "input_type": "current_clamp",
+            "module": "linear",
+            "amp_start": -0.2,
+            "delay": 10000.0,
+            "duration": 10000.0
+        },
+        "CurrentIntoMosaic": {
+            "node_set": "Mosaic",
+            "input_type": "current_clamp",
+            "module": "linear",
+            "amp_start": 0.0,
+            "amp_end": 0.0,
+            "delay": 0.0,
+            "duration": 20000.0
+        }
+    },
+    "connection_overrides": [
+        {
+            "source": "Mosaic",
+            "target": "Mosaic",
+            "weight": 1.0,
+            "spont_minis": 0.0,
+            "name": "All-All"
+        },
+        {
+            "source": "Mosaic",
+            "target": "Mosaic",
+            "synapse_configure": "%s.Use *= 0.99",
+            "name": "All-All-ACh"
+        },
+        {
+            "source": "Excitatory",
+            "target": "Excitatory",
+            "synapse_configure": "%s.tau_r_NMDA = 2.93 %s.tau_d_NMDA = 148.5",
+            "name": "NMDA_EE"
+        },
+        {
+            "source": "Excitatory",
+            "target": "nonCCK",
+            "synapse_configure": "%s.tau_r_NMDA = 2.93 %s.tau_d_NMDA = 148.5",
+            "name": "NMDA_MGE"
+        },
+        {
+            "source": "Excitatory",
+            "target": "CCK",
+            "synapse_configure": "%s.tau_r_NMDA = 2.93 %s.tau_d_NMDA = 298.75",
+            "name": "NMDA_CGE"
+        },
+        {
+            "source": "Inhibitory",
+            "target": "Mosaic",
+            "synapse_configure": "%s.GABAB_ratio = 0",
+            "name": "GABA_B"
+        },
+        {
+            "source": "Excitatory",
+            "target": "Mosaic",
+            "synapse_configure": "%s.mg = 1.0",
+            "name": "MGGate"
+        }
+    ],
+    "reports": {
+        "AllCompartments": {
+            "cells": "LFPCompartments",
+            "sections": "all",
+            "type": "compartment",
+            "variable_name": "v",
+            "unit": "mV",
+            "dt": 0.5,
+            "start_time": 0.0,
+            "end_time": 20000.0
+        }
+    }
+}

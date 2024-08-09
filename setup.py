@@ -11,7 +11,7 @@ setup(
     packages=['bluerecording'],
     install_requires=[
     'bluepysnap',
-    'libsonata',
+    'libsonata @ git+https://github.com/BlueBrain/libsonata',
     'scikit-learn',
     'voxcell',
     'scipy',
@@ -25,7 +25,8 @@ setup(
     'neuron',
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
     'pytest-cov',
-    'ipympl'
+    'ipympl',
+    'neo'
     ]
    )
 

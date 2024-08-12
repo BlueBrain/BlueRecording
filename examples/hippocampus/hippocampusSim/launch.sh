@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --account=proj85
 #SBATCH --partition=prod
-#SBATCH --nodes=400
+#SBATCH --nodes=40
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=0
 #SBATCH --constraint=cpu
@@ -15,4 +15,4 @@
 spack env activate hippocampus
 module load neurodamus-hippocampus/develop 
 
-srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config_big.json --lb-mode=RoundRobin
+srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config_small.json --lb-mode=RoundRobin

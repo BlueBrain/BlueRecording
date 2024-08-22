@@ -21,5 +21,5 @@ source ~/bluerecording-dev/bin/activate
 
 mkdir ../hippocampusSim/pkls_big
 
-srun -n 12 python geteeg.py
+srun -n 12 python geteeg_big.py
 

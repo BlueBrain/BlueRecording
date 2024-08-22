@@ -16,7 +16,7 @@ tIdx = MPI.COMM_WORLD.Get_rank()
 nranks = MPI.COMM_WORLD.Get_size()
 
 
-s = bp.Simulation('../hippocampusSim/simulation_config_small.json')
+s = bp.Simulation('../hippocampusSim/simulation_config_big.json')
 population_name = s.reports['lfp_report'].population_names[0]
 
 r  = s.reports['lfp_report'][population_name]
@@ -39,4 +39,4 @@ for iteration in range(numIter):
     eeg = eeg.T.groupby(level='electrode').sum().T # Sums over all gids
     
     
-    eeg.to_pickle('../hippocampusSim/pkls/eeg_'+types[tIdx]+'_'+str(iteration)+'.pkl')
+    eeg.to_pickle('../hippocampusSim/pkls_big/eeg_'+types[tIdx]+'_'+str(iteration)+'.pkl')

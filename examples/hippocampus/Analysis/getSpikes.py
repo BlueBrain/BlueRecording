@@ -15,7 +15,7 @@ rank = MPI.COMM_WORLD.Get_rank()
 
 nranks = MPI.COMM_WORLD.Get_size()
 
-s = bp.Simulation('../hippocampusSim/simulation_config.json')
+s = bp.Simulation('../hippocampusSim/simulation_config_small.json')
 population_name = s.reports['lfp_report'].population_names[0]
 
 types = np.sort(list(s.circuit.nodes.property_values('mtype')))

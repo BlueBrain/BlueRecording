@@ -22,7 +22,7 @@
     "target_simulator": "CORENEURON",
     "node_set": "cylinder300",
     "output": {
-        "output_dir": "./reporting"
+        "output_dir": "./reporting_small"
     },
     "inputs": {
         "ThresholdIntoMosaic": {

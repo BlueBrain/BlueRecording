@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --account=proj83
 #SBATCH --partition=prod
-#SBATCH --nodes=1
+#SBATCH --nodes=40
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=0
 #SBATCH --constraint=cpu
@@ -15,5 +15,4 @@ spack env activate neurodamus
 module load unstable
 module load neurodamus-neocortex/develop neuron/develop py-neurodamus/develop
 
-#nrnivmodl components/mechanisms/modfiles
-srun dplace special mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin
+srun dplace special -mpi -python $NEURODAMUS_PYTHON/init.py --configFile=simulation_config.json --lb-mode=RoundRobin

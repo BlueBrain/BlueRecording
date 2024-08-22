@@ -26,7 +26,10 @@ setup(
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
     'pytest-cov',
     'ipympl',
-    'neo'
+    'neo',
+    'xarray',
+    'allensdk @ git+https://github.com/AllenInstitute/AllenSDK',
+    'allenAnalysis @ git+git@github.com:joseph-tharayil/AllenAnalysis'
     ]
    )
 

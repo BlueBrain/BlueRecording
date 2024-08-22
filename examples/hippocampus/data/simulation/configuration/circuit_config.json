@@ -1,0 +1,60 @@
+{
+    "manifest": {
+      "$BASE_DIR": ".",
+      "$COMPONENTS_DIR": "$BASE_DIR/components",
+      "$NETWORK_NODES_DIR": "$BASE_DIR/networks/nodes",
+      "$NETWORK_EDGES_DIR": "$BASE_DIR/networks/edges/functional",
+      "$DATA_DIR": "/gpfs/bbp.cscs.ch/project/proj112/circuits/CA1/20211110-BioM/data"
+    },
+    "components": {
+      "morphologies_dir": "$COMPONENTS_DIR/morphologies",
+      "biophysical_neuron_models_dir": "$COMPONENTS_DIR/biophysical_neuron_models"
+    },
+    "data":{
+      "local_synaptome": "$DATA_DIR/ca1_synaptome.npz",
+      "projection_synaptome": "$DATA_DIR/ca3_synaptome.npz"
+    },
+    "node_sets_file": "$BASE_DIR/node_sets.json",
+    "atlas": "/gpfs/bbp.cscs.ch/project/proj112/entities/atlas/20211004_BioM",
+    "networks": {
+      "nodes": [
+        {
+          "nodes_file": "$NETWORK_NODES_DIR/hippocampus_neurons/nodes.h5",
+          "populations":{
+              "hippocampus_neurons": {
+                  "type": "biophysical"
+                  }
+            }
+        },
+        {
+          "nodes_file": "$NETWORK_NODES_DIR/CA3_projections/nodes.h5",
+          "populations":{
+              "CA3_projections": {
+                  "type": "virtual"
+                }        
+              }
+        }
+        ],
+      "edges": [
+        {
+            "edges_file": "$NETWORK_EDGES_DIR/hippocampus_neurons__hippocampus_neurons__chemical_synapse/edges.h5",
+            "populations": {
+                "hippocampus_neurons__hippocampus_neurons__chemical_synapse":{
+                    "type": "chemical",
+                    "synaptome": "$DATA_DIR/ca1_synaptome.npz",
+                    "auxillary_edges_dir": "$DATA_DIR/local_edges" 
+                  }
+          }
+        },
+        {
+          "edges_file": "$NETWORK_EDGES_DIR/CA3_projections__hippocampus_neurons__chemical_synapse/edges.h5",
+          "populations": {
+              "CA3_projections__hippocampus_neurons__chemical_synapse":{
+                  "type": "chemical",
+                  "synaptome": "$DATA_DIR/ca3_synaptome.npz"
+                }
+          }
+        }
+        ]
+    }
+}

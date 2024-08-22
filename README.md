@@ -73,7 +73,7 @@ Neurodamus-models expects that you have modules available on your system for `py
 
 ## Testing
 
-Please note that some of the unit tests rely on the following configuration files *tests/data/simulation_config.json*, *tests/data/configuration/circuit_config.json*, *examples/compare-to-reference-solutions/data/simulation/simulation_config.json*, and *examples/compare-to-reference-solutions/data/simulation/configuration/circuit_config.json*. These configuration files contain relative paths to files, which must be changed to absolute paths before running BlueRecording. You must also download the folder atlas.zip from our Zenodo repository (10.5281/zenodo.10927050) and unzip it into the folder examples/data/atlas.
+You must download the folder atlas.zip from our Zenodo repository (10.5281/zenodo.10927050) and unzip it into the folder examples/data/atlas.
 
 After following the instructions above, run `pytest tests`
 

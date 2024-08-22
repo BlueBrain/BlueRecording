@@ -4,7 +4,7 @@
     "tstop": 12000,
     "random_seed": 175,
     "run_mode":"WholeCell",
-    "electrodes_file": "../../../electrodeFile/coeffs_eeg.h5"
+    "electrodes_file": "../../electrodeFile/coeffs_eeg.h5"
   },
 
   "conditions": {
@@ -24,7 +24,7 @@
   },
 
   "target_simulator": "CORENEURON",
-  "network": "../../../../SSCx/data/simulation/configuration/circuit_config.json",
+  "network": "../../../SSCx/data/simulation/configuration/circuit_config.json",
   "node_set": "hex_O1",
   "output": {
     "output_dir": "./reporting",

@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --job-name="EEG_1_CoordsV"
 #SBATCH --partition=prod
-#SBATCH --nodes=20
+#SBATCH --nodes=6
 #SBATCH -C clx
 #SBATCH --cpus-per-task=2
 #SBATCH --time=24:00:00
@@ -21,7 +21,7 @@ source ~/bluerecording-dev/bin/activate
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50
 
-for i in {0..457}
+for i in {0..6}
 do
 
     folder="positions_all_new/$(($i/$FILES_PER_FOLDER))"
@@ -29,5 +29,5 @@ do
 
 done
 
-srun -n 457 python ../../../scripts/run_get_positions.py "../simulation/simulation_config.json" "positions_all_new" $NEURONS_PER_FILE $FILES_PER_FOLDER
+srun -n 6 python ../../../scripts/run_get_positions.py "../simulation/simulation_config.json" "positions_all_new" $NEURONS_PER_FILE $FILES_PER_FOLDER
 

@@ -1,11 +1,18 @@
+x86_64/
 **/core*
 figures/
 positions_all_new/
+positions_all_new_big/
 **/*coeffs*.h5
 **/*.SUCCESS
 networks/
+network/
+examples/allen/data/simulation/configuration/components
+bkg_inputs/
 atlas/
 reporting/
+reporting_small/
+reporting_big/
 output_sonata/
 **/*.png
 **/*.pyc
@@ -25,4 +32,8 @@ bluerecording.egg-info
 neurodamus/
 positions/
 pkls/
+pkls_big/
 htmlcov/
+**/EEG.h5
+**/ECoG.h5
+**/LFP.h5

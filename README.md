@@ -14,7 +14,7 @@ Our documentation and examples assume that you are running BlueRecording on a Li
 
 Bluerecording requires mpi4py, h5py, and hdf5 built with MPI support. These should be installed with spack, as per the instructions in the following section. Bluerecording also depends on several other python packages, which are automatically installed with setuptools when Bluerecording is installed.
 
-Running neural simulations to generate inputs to BlueRecording (and to calculate extracellular signals using weights files produced by BlueRecording) requires [neurodamus](https://github.com/BlueBrain/neurodamus), the BBP Simulation Control application for Neuron, [neurodamus-models](https://github.com/BlueBrain/neurodamus-models), which contains mod files for neural mechanisms. These should be installed in a separate spack environment
+Running neural simulations to generate inputs to BlueRecording (and to calculate extracellular signals using weights files produced by BlueRecording) requires [neurodamus](https://github.com/BlueBrain/neurodamus), the BBP Simulation Control application for Neuron, [neurodamus-models](https://github.com/BlueBrain/neurodamus-models), which contains mod files for neural mechanisms. These should be installed in a separate spack environment. The neural mechanisms vary based on the circuit simulated (in the paper and the provided examples, we simulate the neocortex and the thalamus), so the installation instructions are slightly different in each case.
 
 ## Installation
 
@@ -43,15 +43,14 @@ pip install -e .
 
 ### Neurodamus
 
-We recommend installing Neurodamus and the Neurodamus-Models mechanisms in a separate spack environment. 
+We recommend installing Neurodamus and the Neurodamus-Models mechanisms in a separate spack environment. Separate environments should be used for the cortex and hippocampus packages.
 
-First, run 
+To install Neurodamus for the neocortex, first run 
 
 ```
 git clone https://github.com/BlueBrain/spack.git
 . spack/share/spack/setup-env.sh
 cd spack
-git checkout tharayil/neurodamus-updates
 spack env create neurodamus
 spack env activate -p neurodamus
 spack install --add neurodamus-models@develop+coreneuron
@@ -62,6 +61,13 @@ spack module tcl refresh
 module use $SPACK_INSTALL_PREFIX/modules/linux-rhel7-skylake
 ```
 The second of the two lines above must be run every time you begin a new terminal session. 
+
+To intall Neorodamus for the hippocampus, follow the same steps as for the neocortex, except that the spack commands should be:
+```
+spack env create hippocampus
+spack env activate -p hippocampus
+spack install --add neurodamus-models@develop+coreneuron model=hippocampus
+```
 
 Neurodamus-models expects that you have modules available on your system for `python/3.11.6`, `intel-oneapi-mkl/2023.2.0`, and `hpe-mpi/2.27.p1.hmpt`. The launch scripts provided in the examples folder assume that these modules are in an archive called `unstable`
 

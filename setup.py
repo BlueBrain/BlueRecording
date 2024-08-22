@@ -25,7 +25,11 @@ setup(
     'neuron',
     'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
     'pytest-cov',
-    'ipympl'
+    'ipympl',
+    'neo',
+    'xarray',
+    'allensdk @ git+https://github.com/AllenInstitute/AllenSDK',
+    'allenAnalysis @ git+git@github.com:joseph-tharayil/AllenAnalysis'
     ]
    )
 

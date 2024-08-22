@@ -1,6 +1,6 @@
 # Hippocampal simulations
 
-This repo contains code used to create figures 6 in the BlueRecording paper. Unfortunately, the data required to run the neural simulations is too large to be shared generally. If you are interested in reproducing these figures, please contact the author. You will be provided with files that should be placed in the *data/simulation/configuration* folder. You will then be able to run the simulations as per the following instructions:
+This repo contains code used to create Figure 7 in the BlueRecording paper. Unfortunately, the data required to run the neural simulations is too large to be shared generally. If you are interested in reproducing these figures, please contact the author. You will be provided with files that should be placed in the *data/simulation/configuration* folder. You will then be able to run the simulations as per the following instructions:
 
 1. Run *data/simulation/launch_small.sh* and *data/simulation/launch_big.sh* to produce a one-timestep compartment report
 2. Run *data/getPositions/GetPositions_Small.sh* and *data/getPositions/GetPositions_Big.sh* to interpolate segment positions

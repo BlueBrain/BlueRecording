@@ -34,3 +34,6 @@ positions/
 pkls/
 pkls_big/
 htmlcov/
+**/EEG.h5
+**/ECoG.h5
+**/LFP.h5

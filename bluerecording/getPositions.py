@@ -55,7 +55,7 @@ def interp_points(coords, ncomps):
     npoints = coords.shape[0]
 
     for dim in range(coords.shape[1]):
-        
+
         distances = np.cumsum(np.linalg.norm(np.diff(coords,axis=0),axis=1))
         distances /= distances[-1]
         distances = np.insert(distances,0,0)
@@ -126,7 +126,7 @@ def get_axon_points(m,center):
     idxs.reverse() # We put the section indices in order from soma to end of the axon
 
     lastpt = somaPos
-    
+
     points = somaPos.reshape(-1,3)
     runningLen = [0]
 
@@ -231,7 +231,7 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
                     idxBig += 1
                 else:
                     idxSmall -= 1 # If the two points are identical, then idxSmall can never be zero, since otherwise this would imply a one-point axon
-            
+
             idx = [idxSmall, idxBig]
 
             axonRelevant = axonPoints[idx]
@@ -256,7 +256,7 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
         lensRelevant = (runningLens[idx] - startPoint) / secLen
 
     for i in range(numCompartments+1): # Interpolates segment positions
-    
+
         frac = (i * segLen) / secLen
 
 
@@ -274,8 +274,50 @@ def interp_points_axon(axonPoints, runningLens, secName, numCompartments, somaPo
     segPos = np.array(segPos)
     return segPos
 
+def remove_variables(js, finalmorphpath):
+
+    '''
+    Removes references to variables in path to morphology
+    Assumes that all references are in the manifest section
+    '''
+
+    while '$' in finalmorphpath:
+
+        elements = finalmorphpath.split('/')
+
+        for i, element in enumerate(elements):
+
+            if '$' in element:
+                element = js['manifest'][element]
+                
+            if i == 0:
+                finalmorphpath = element
+            else:
+                finalmorphpath = finalmorphpath + '/' + element
+
+    return finalmorphpath
+
+def tryFileNames(morphName, finalmorphpath):
+
+    asc = finalmorphpath+'/ascii/'+morphName+'.asc'
+    asc1 = finalmorphpath+'/'+morphName+'.asc'
+    asc2 = finalmorphpath+'/morphologies_asc/'+morphName+'.asc'
+
+    swc = finalmorphpath+'/swc/'+morphName+'.swc'
+    swc1 = finalmorphpath+'/'+morphName+'.swc'
+    swc2 = finalmorphpath+'/morphologies_swc/'+morphName+'.swc'
+
+    options = [asc, asc1, asc2, swc, swc1, swc2]
+
+    for option in options:
+        if os.path.exists(option):
+            fileName = option
+            break
+
+    return fileName
+
 def get_morph_path(population, i, path_to_simconfig):
-    
+
     morphName = population.get(i, 'morphology') # Gets name of the morphology file for node_id i
 
     circuitpath = getCircuitPath(path_to_simconfig) # path to circuit_config file
@@ -284,40 +326,36 @@ def get_morph_path(population, i, path_to_simconfig):
 
         js = json.load(f)
 
-        if 'components' in js.keys() and 'morphologies_dir' in js['components'].keys() and '$MORPHOLOGIES' not in js['components']['morphologies_dir']:
-                finalmorphpath = js['components']['morphologies_dir'] + '/morphologies'
-        
-        else:
-        
-            basedir = js['manifest']['$BASE_DIR']
-            morphpath = js['manifest']['$MORPHOLOGIES']
-            finalmorphpath = basedir
-            for m in morphpath.split('/')[1:]:
-                finalmorphpath = finalmorphpath + '/'+m
+        if 'components' in js.keys() and 'morphologies_dir' in js['components'].keys():
+            finalmorphpath = js['components']['morphologies_dir']
 
-    if os.path.exists(finalmorphpath+'/ascii/'):
-        fileName = finalmorphpath+'/ascii/'+morphName+'.asc'
-    else:
-        fileName = finalmorphpath+'/morphologies_asc/'+morphName+'.asc'
-            
+        else:
+            finalmorphpath = js['manifest']['$MORPHOLOGIES']
+
+        finalmorphpath = remove_variables(js, finalmorphpath)
+
+        finalmorphpath = concretize_path(circuitpath,finalmorphpath) # Goes from relative to absolute path
+
+    fileName = tryFileNames(morphName, finalmorphpath)
+
     return fileName
-    
+
 
 def getMorphology(population, i, path_to_simconfig):
 
-    
+
     finalmorphpath = get_morph_path(population, i, path_to_simconfig)
 
     mImmutable = Morphology(finalmorphpath) # Immutable MorphIO morphology object
 
     m = MutableMorph(mImmutable) # Mutable version, so that we can change the positions to orient the cell correctly within the circuit
-    
+
     m, center = positionMorphology(m, population, i)
 
     return m, center
 
 def get_transform(population, i):
-    
+
     center = np.array([population.get(group=[i],properties='x'),population.get(group=[i],properties='y'),population.get(group=[i],properties='z')]) # Gets soma position
 
     center = center.flatten()
@@ -334,23 +372,23 @@ def get_transform(population, i):
     rotQuat /= np.linalg.norm(rotQuat)
     rotation = R.from_quat(rotQuat.flatten())
     ###
-    
+
     return center, rotation
 
 def apply_transform(m, center, rotation):
-    
+
     m.points = R.apply(rotation,m.points) # Rotates cell
 
     m.points += center # Translates cell
-    
+
     return m
 
 def positionMorphology(m, population, i):
-    
+
     center, rotation = get_transform(population, i)
 
     m = apply_transform(m, center, rotation)
-    
+
     return m, center
 
 def getNewIndex(colIdx):
@@ -373,24 +411,37 @@ def getNewIndex(colIdx):
 
     return newCols
 
+def checkAxonsFirst(morphology):
+
+    '''
+    Checks if the morphology file is has axons first (like with cortical neurons)
+    or dendrites first (like thalamic neurons)
+    '''
+
+    if morphology.sections[0].type == 2:
+        axonFirst = True
+    else:
+        axonFirst = False
+
+    return axonFirst
 
 def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_positions_folder,replace_axons=True):
-    
+
     '''
     path_to_simconfig refers to the BlueConfig from the 1-timestep simulation used to get the segment positions
     path_to_positions_folder refers to the path to the top-level folder containing pickle files with the position of each segment.
     neurons_per_file is the number of neurons in each of the segment positions pickle files.
     files_per_folder is the number of positions pickle files in each subfolder in segment_position_folder. This parameter is used in order to avoid stressing the file system with too many files in a given folder
     '''
-    
+
     newidx = MPI.COMM_WORLD.Get_rank()
 
     report, nodeIds = getSimulationInfo(path_to_simconfig)
     population = getPopulationObject(path_to_simconfig)
-    
+
     if len(nodeIds)/neurons_per_file > MPI.COMM_WORLD.Get_size():
         raise AssertionError("Make sure that enough processes have been allocated to write position files")
-       
+
     try:
         ids = nodeIds[neurons_per_file*newidx:neurons_per_file*(newidx+1)]
     except:
@@ -407,8 +458,11 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
     for idx, i in enumerate(ids): # Iterates through node_ids and gets segment positions
 
         m, center = getMorphology(population,i, path_to_simconfig)
+
+        axonsFirst = checkAxonsFirst(m)
+
         somaPos = center[:,np.newaxis]
-        
+
         if replace_axons: # If the axons are replaced by a stub axon, we need to get the positions thereof
 
             axonPoints, runningLens = get_axon_points(m,center) # Gets 3d positions and cumulative length of the axon
@@ -430,6 +484,7 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
             for k in np.arange(1,numSomas):
                 xyz = np.hstack((xyz,somaPos.reshape(3,1)))
 
+        morphSectionIdx = 0 # Index used if morphology file lists dendrites before axons
 
         for secName in list(sections[1:]):
 
@@ -448,11 +503,16 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
                 segPos = interp_points_axon(axonPoints,runningLens,secName,numCompartments,somaPos)
 
-            else:
+            elif axonsFirst:
 
-                try: # Most other sections are dendritic, and are therefore included in the morphIO morphology object
+                secId = secName - 1
 
-                    secId = secName-1
+                if secId >= len(m.indices): # If the section is not in the morphIO object, then it is the myelinated part of the AIS
+
+                    segPos = interp_points_axon(axonPoints,runningLens,secName,numCompartments,somaPos)
+
+                else: # Most other sections are dendritic, and are therefore included in the morphIO morphology object
+
                     ptIdx = m.indices[secId]
                     pts = m.points[ptIdx]
 
@@ -460,10 +520,25 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
 
                     segPos = interp_points(secPts,numCompartments)
 
-                except: # If the section is not in the morphIO object, then it is the myelinated part of the AIS
+            else:
+
+                if m.sections[morphSectionIdx].type == 3 or m.sections[morphSectionIdx].type == 4: # If dendrite
+
+                    ptIdx = m.indices[morphSectionIdx]
+                    pts = m.points[ptIdx]
+
+                    secPts = np.array(pts)
+
+                    segPos = interp_points(secPts,numCompartments)
+
+                    morphSectionIdx += 1
+
+                elif m.sections[morphSectionIdx].type == 2: # If axon
 
                     segPos = interp_points_axon(axonPoints,runningLens,secName,numCompartments,somaPos)
 
+                else:
+                    raise ValueError('Non-axonal and non-dendritic section found in morphology file')
 
             xyz = np.hstack((xyz,segPos.T))
 
@@ -472,5 +547,3 @@ def getPositions(path_to_simconfig, neurons_per_file, files_per_folder, path_to_
     positionsOut = pd.DataFrame(xyz,columns=newCols)
 
     positionsOut.to_pickle(path_to_positions_folder+'/' + str(int(newidx / files_per_folder)) + '/positions'+str(newidx)+'.pkl')
-
-

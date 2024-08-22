@@ -3,6 +3,15 @@ import pytest
 import numpy as np
 from bluerecording.utils import *
 
+def test_concretize_path():
+
+    circuitpath = './configuration/circuit.json'
+    path_to_simconfig = '/gpfs/bbp.cscs.ch/project/proj85/sim.json'
+
+    path = concretize_path(path_to_simconfig,circuitpath)
+
+    assert path=='/gpfs/bbp.cscs.ch/project/proj85/configuration/circuit.json'
+
 def test_process_inputList():
 
     conductanceList = ['0.1','333','23.5']

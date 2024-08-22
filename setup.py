@@ -11,7 +11,7 @@ setup(
     packages=['bluerecording'],
     install_requires=[
     'bluepysnap',
-    'libsonata',
+    'libsonata>=0.1.28',
     'scikit-learn',
     'voxcell',
     'scipy',

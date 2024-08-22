@@ -168,9 +168,9 @@ def getArraySpacing(allEpos):
 
     allEpos_projected = np.matmul(allEpos,main_axis).flatten()
 
-    arraySpacing = np.diff(allEpos_projected)
+    arraySpacing = np.abs(np.diff(allEpos_projected))
 
-    arraySpacing = arraySpacing[arraySpacing != 0] # removes zeros in order to not take into account electrodes on the same plane
+    arraySpacing = arraySpacing[arraySpacing >1e-3] # removes zeros in order to not take into account electrodes on the same plane
 
     return main_axis, arraySpacing
 
@@ -178,7 +178,12 @@ def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,allEpos):
 
     _, arraySpacing = getArraySpacing(allEpos)
 
-    radius = np.abs(np.mean(arraySpacing)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+    
+    
+    #radius = np.abs(np.mean(arraySpacing)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+    
+    
+    radius = 10
     
     distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
    

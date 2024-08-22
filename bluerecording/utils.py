@@ -2,6 +2,7 @@
 import bluepysnap as bp
 import json
 import numpy as np
+import os
 from voxcell.nexus.voxelbrain import Atlas
 from sklearn.decomposition import PCA
 
@@ -132,6 +133,28 @@ def getPopulationName(path_to_simconfig):
 
     return population_name
 
+
+def concretize_path(known_path, newpath):
+
+    '''
+    Given a path to a particular file known_path, and a different path newpath which is defined relative to the file in known_path, returns an absolute path to newpath
+    '''
+
+    absolute_path = os.path.abspath(known_path)
+
+    known_filename = known_path.split('/')[-1]
+
+    path_to_dir = absolute_path.rstrip(known_filename)
+
+    if newpath[0] != '/': # Checks that newpath is not already an absolute path
+
+        newpath = path_to_dir+newpath
+
+    newpath = os.path.normpath(newpath)
+    
+    return newpath
+    
+
 def getCircuitPath(path_to_simconfig):
 
     '''
@@ -141,6 +164,9 @@ def getCircuitPath(path_to_simconfig):
     with open(path_to_simconfig) as f:
 
         circuitpath = json.load(f)['network']
+    
+    circuitpath =  concretize_path(path_to_simconfig, circuitpath)
+    
 
     return circuitpath
 
@@ -170,6 +196,7 @@ def getAtlasInfo(path_to_simconfig,electrodePositions):
     with open(circuitpath) as f:
         path_to_atlas = json.load(f)['components']['provenance']['atlas_dir']
 
+    path_to_atlas = concretize_path(circuitpath,path_to_atlas)
 
     atlas = Atlas.open(path_to_atlas)
     brain_regions = atlas.load_data('brain_regions')

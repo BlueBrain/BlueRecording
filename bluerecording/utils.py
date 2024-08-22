@@ -2,9 +2,92 @@
 import bluepysnap as bp
 import json
 import numpy as np
+import os
 from voxcell.nexus.voxelbrain import Atlas
 from sklearn.decomposition import PCA
 
+def process_writeH5_inputs(inputs):
+
+    path_to_fields = None 
+    sigma = [0.277] # Default conductance, in S/m
+    objective_csd_array_indices = None # Indices of electrodes to be used f
+
+    if len(inputs)>6: # Specify conductance for analytic electrodes, or a potential field for reciprocity electrodes, or radius for spherical/disk objective csd, or electrode subsampling for disc objective csd. 
+
+        for inputElement in inputs[6:]:
+        
+            inputType, inputList = splitInput(inputElement)
+    
+            if inputType == 'conductance':
+                sigma = inputList
+            elif inputType == 'ObjectiveCSD_Idx':
+                objective_csd_array_indices = inputList
+            else:
+                path_to_fields = inputList
+
+    return sigma, path_to_fields, objective_csd_array_indices
+
+def process_inputList(inputList):
+
+    '''
+    Takes a list of inputs. If they are conductances, this function converts them to floats. Raises an error if some elements of the list  are floats and others are not
+    '''
+
+    inputType = None
+    
+    if inputList[0] == 'objective_csd_array_indices':
+        inputType = 'ObjectiveCSD_Idx'
+        inputList = inputList[1:]
+
+    numFloats = 0
+
+    for i, entry in enumerate(inputList):
+
+        try: # If entry is a number, converts to float
+            inputList[i] = float(entry)
+            numFloats += 1
+        except:
+            pass
+
+    if numFloats == len(inputList):
+        if inputType == 'ObjectiveCSD_Idx':
+            raise AssertionError('Indices for objective CSD arrays should be given in the form of a range, like \'5:9\', not as an integer')
+        else:
+            inputType = 'conductance'
+
+    elif numFloats == 0:
+        if inputType is None:
+            inputType = 'paths'
+        elif inputType == 'ObjectiveCSD_Idx':
+            pass
+    else:
+        raise AssertionError('Mix of numbers and strings in input')
+
+    return inputType, inputList
+
+def splitInput(inputString):
+
+    '''
+    Takes an input string for conductance (for analytic electrodes) or paths to h5 potential field files (for reciprocity electrodes). If the string has multiple entries separated by spaces, returns a list of the entries. BlueRecording will then assume that each analytic or recprocity electrode uses a different conductance or E field, respecitively
+    '''
+
+    if ' ' in inputString: # If multiple potential field files or conductances, splits them into a list
+        inputList = inputString.split(' ')
+    else:
+        inputList = [inputString] # Converts to list so that we can still call inputString[0]
+
+    inputType, inputList = process_inputList(inputList)
+
+    return inputType, inputList
+
+def processSubsampling(inputString):
+    '''
+    Takes an input string of the form 5:9 specicifying the start and end points of an electrode array (i.e., with a particular spacing) and converts to integers
+    '''
+
+    start, end = inputString.split(':')
+
+    return np.arange(int(start), int(end))
 
 def getSimulationInfo(path_to_simconfig):
 
@@ -50,6 +133,28 @@ def getPopulationName(path_to_simconfig):
 
     return population_name
 
+
+def concretize_path(known_path, newpath):
+
+    '''
+    Given a path to a particular file known_path, and a different path newpath which is defined relative to the file in known_path, returns an absolute path to newpath
+    '''
+
+    absolute_path = os.path.abspath(known_path)
+
+    known_filename = known_path.split('/')[-1]
+
+    path_to_dir = absolute_path.rstrip(known_filename)
+
+    if newpath[0] != '/': # Checks that newpath is not already an absolute path
+
+        newpath = path_to_dir+newpath
+
+    newpath = os.path.normpath(newpath)
+    
+    return newpath
+    
+
 def getCircuitPath(path_to_simconfig):
 
     '''
@@ -59,6 +164,9 @@ def getCircuitPath(path_to_simconfig):
     with open(path_to_simconfig) as f:
 
         circuitpath = json.load(f)['network']
+    
+    circuitpath =  concretize_path(path_to_simconfig, circuitpath)
+    
 
     return circuitpath
 
@@ -88,6 +196,7 @@ def getAtlasInfo(path_to_simconfig,electrodePositions):
     with open(circuitpath) as f:
         path_to_atlas = json.load(f)['components']['provenance']['atlas_dir']
 
+    path_to_atlas = concretize_path(circuitpath,path_to_atlas)
 
     atlas = Atlas.open(path_to_atlas)
     brain_regions = atlas.load_data('brain_regions')

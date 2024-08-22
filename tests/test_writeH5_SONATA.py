@@ -26,6 +26,10 @@ def sigma():
     return 1
 
 @pytest.fixture
+def radius():
+    return 50
+
+@pytest.fixture
 def data_twoSections():
     
     '''
@@ -61,6 +65,34 @@ def positions():
     pos = pd.DataFrame(data=positions,columns=columnMultiIndex)
     
     return pos
+
+@pytest.fixture(scope="module")
+def electrodes_objective():
+    
+    electrodes = {'a':{'position':np.array([1,0,0]),'type':'Reciprocity','region':'Outside','layer':'Outside'},
+                  'b':{'position':np.array([1,0,0]),'type':'Reciprocity','region':'Outside','layer':'Outside'},
+                 'name':{'position':np.array([1,0,0]),'type':'ObjectiveCSD_Disk','region':'Outside','layer':'Outside'},
+                 'name1':{'position':np.array([2,0,0]),'type':'ObjectiveCSD_Disk','region':'Outside','layer':'Outside'},
+                 'name2':{'position':np.array([1,0,0]),'type':'ObjectiveCSD_Disk','region':'Outside','layer':'Outside'},
+                 'name3':{'position':np.array([2,0,0]),'type':'ObjectiveCSD_Disk','region':'Outside','layer':'Outside'}}
+    
+    return electrodes
+
+@pytest.fixture(scope="module")
+def write_ElectrodeFileStructure_objective(path_to_weights_file, electrodes_objective, gids, population_name):
+    
+    '''
+    Creates h5 file, without any weights
+    '''
+    
+
+    h5file = h5py.File(path_to_weights_file,'w')
+
+    h5 = ElectrodeFileStructure(h5file, gids, electrodes_objective, population_name, circuit='test') # Initializes fields in h5 file
+
+    h5file.close()
+    
+    return path_to_weights_file, h5
 
 def test_get_position_file_name(filesPerFolder, numPositionFiles):
     
@@ -264,7 +296,7 @@ def test_sort_electrode_names():
 
 def test_electrodeType():
     
-    electrodeTypes = ['PointSource','LineSource','Reciprocity','DipoleReciprocity']
+    electrodeTypes = ['PointSource','LineSource','Reciprocity','DipoleReciprocity','ObjectiveCSD_Sphere','ObjectiveCSD_Disk']
     
     for electrodeType in electrodeTypes:
         assert ElectrodeType(electrodeType) == 0
@@ -273,5 +305,60 @@ def test_electrodeType():
     
     with pytest.raises(AssertionError):
         ElectrodeType(badType)
+
+def test_objectiveCSD_Sphere(positions,gids):
+
+    allEpos = np.array([[0,0,0],[2,0,0]])
     
+    newPositions = getSegmentMidpts(positions,gids)
+    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,allEpos[0],allEpos)
+    
+    somaDistance = 0
+    expectedSomaCoeff = 1
+        
+    expectedSegmentCoeff = 1
+    
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+    
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
+def test_objectiveCSD_Disk(positions,gids):
+
+    allEpos = np.array([[0,0,0],[1,0,0]])
+    
+    newPositions = getSegmentMidpts(positions,gids)
+    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,allEpos[0],allEpos)
+    
+    expectedSomaCoeff = 1
+    
+    expectedSegmentCoeff = 1
+    
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+    
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
+def test_get_objectiveCSD_array(write_ElectrodeFileStructure_objective):
+
+    
+    electrodeType = 'ObjectiveCSD_Disk'
+    objective_csd_array_indices = None
+    objectiveCSD_count = 0
+    electrodeNames = ['a','b','name','name1','name2','name3']
+    
+    h5File = write_ElectrodeFileStructure_objective[0]
+    h5 = h5py.File(h5File,'r+')
+    electrodeIdx = 0
+
+    arrayIdx, objectiveCSD_count = get_objectiveCSD_array(electrodeType,objective_csd_array_indices,objectiveCSD_count,electrodeNames, h5, electrodeIdx)
+
+    assert arrayIdx == [2,3,4,5]
+    assert objectiveCSD_count == 0
+
+    objective_csd_array_indices = ['2:3','4:5']
+    electrodeIdx = 4
+
+    arrayIdx, objectiveCSD_count = get_objectiveCSD_array(electrodeType,objective_csd_array_indices,objectiveCSD_count,electrodeNames, h5, electrodeIdx)
+
+    np.testing.assert_equal(arrayIdx,np.arange(4,5))
+    assert objectiveCSD_count == 1
     

@@ -3,15 +3,15 @@ from setuptools import setup
 
 setup(
     name='bluerecording',
-    version='0.1',    
+    version='0.1.4',    
     description='A tool for calculating extracellular recording lead fields',
     url='https://github.com/BlueBrain/BlueRecording',
     author='Blue Brain Project, EPFL',
-    license='NONE!',
+    license='GPL-3.0',
     packages=['bluerecording'],
     install_requires=[
     'bluepysnap',
-    'libsonata @ git+https://github.com/BlueBrain/libsonata',
+    'libsonata>=0.1.28',
     'scikit-learn',
     'voxcell',
     'scipy',

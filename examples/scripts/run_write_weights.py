@@ -2,6 +2,7 @@
 import sys
 import pandas as pd
 from bluerecording.writeH5 import writeH5File
+from bluerecording.utils import process_writeH5_inputs
 
 if __name__=='__main__':
 
@@ -39,5 +40,7 @@ if __name__=='__main__':
         else:
             path_to_fields = [path_to_fields] # Converts to list so that we can still call path_to_fields[0]
 
+    # Radius is the radius to be used for the objective csd calculation
+    sigma, path_to_fields, objectiveCsdIdx = process_writeH5_inputs(sys.argv)
     
-    writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,numFilesPerFolder,sigma,path_to_fields)
+    writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per_file,numFilesPerFolder,sigma,path_to_fields,objectiveCsdIdx)

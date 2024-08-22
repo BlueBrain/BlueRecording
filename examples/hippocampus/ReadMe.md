@@ -7,5 +7,5 @@ This repo contains code used to create Figure 7 in the BlueRecording paper. Unfo
 3. Run *electrodeFile/WriteH5Prelim_Small.sh* and *electrodeFile/WriteH5Prelim_Big.sh* to initialize the weights file
 4. Run *electrodeFile/WriteH5_Small.sh* and *electrodeFile/WriteH5_Big.sh* to calculate the segment weights
 5. Run *hippocampusSimulaton/launch_small.sh* and *hippocampusSimulaton/launch_big.sh* to run the full simulation of hippocampus, with extracellular recordings
-6. Run *Analysis/GetEEG_Small.sh* and *Analysis/GetEEG_Big.sh* to load the simulaiton results and save them in pickle files grouped by region
-7. Run *Analysis/plotSignals.ipynb* to produce Figure 6
+6. Run *Analysis/GetSpikes.sh* and *Analysis/GetSpikes_Big.sh* to load the spike reports from the simulation results and save them in pickle files grouped by region. Run *Analysis/GetEEG.sh* and *Analysis/GetEEG_Big.sh* to load the EEG reports from the simulation results and save them in pickle files grouped by region. 
+7. Run *Analysis/plotPSD_and_CSD.ipynb* and *Analysis/plotSpikes_and_LFP.ipynb* to produce Figure 7

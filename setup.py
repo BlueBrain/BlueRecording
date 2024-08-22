@@ -10,7 +10,7 @@ setup(
     license='GPL-3.0',
     packages=['bluerecording'],
     install_requires=[
-    'bluepysnap',
+    'bluepysnap>=1.0',
     'libsonata>=0.1.28',
     'scikit-learn',
     'voxcell',
@@ -28,7 +28,6 @@ setup(
     'ipympl',
     'neo',
     'xarray',
-    'allensdk @ git+https://github.com/AllenInstitute/AllenSDK',
     'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
     ]
    )

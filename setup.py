@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='bluerecording',
-    version='0.1.4',    
+    version='0.2.0',    
     description='A tool for calculating extracellular recording lead fields',
     url='https://github.com/BlueBrain/BlueRecording',
     author='Blue Brain Project, EPFL',
@@ -29,7 +29,7 @@ setup(
     'neo',
     'xarray',
     'allensdk @ git+https://github.com/AllenInstitute/AllenSDK',
-    'allenAnalysis @ git+git@github.com:joseph-tharayil/AllenAnalysis'
+    'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
     ]
    )
 

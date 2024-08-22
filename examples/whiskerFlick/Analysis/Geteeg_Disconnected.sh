@@ -18,8 +18,8 @@ source ~/bluerecording-dev/bin/activate
 
 for i in {0..10}
 do
-    mkdir ../whiskerFlickSim/original/$i/pkls
+    mkdir ../whiskerFlickSim/disconnected/$i/pkls
 done
 
-srun -n 60 python geteeg.py
+srun -n 60 python geteeg_disconnected.py
 

@@ -12,7 +12,7 @@ nranks = MPI.COMM_WORLD.Get_size()
 
 numfolders = 10
 
-folder = '../whiskerFlickSim/original/'+str(rank % numfolders)
+folder = '../whiskerFlickSim/disconnected/'+str(rank % numfolders)
 
 ranksPerFolder = int(nranks/numfolders)
 

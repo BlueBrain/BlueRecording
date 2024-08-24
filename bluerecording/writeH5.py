@@ -531,7 +531,7 @@ def sort_electrode_names(electrodeKeys,population_name):
 
 def ElectrodeType(electrodeType):
 
-    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity' or electrodeType == 'ObjectiveCSD_Sphere' or electrodeType == 'ObjectiveCSD_Disk':
+    if electrodeType == 'LineSource' or electrodeType == 'PointSource' or electrodeType == 'DipoleReciprocity' or electrodeType == 'Reciprocity' or electrodeType == 'ObjectiveCSD_Sphere' or electrodeType == 'ObjectiveCSD_Disk' or electrodeType == 'ObjectiveCSD_Plane':
         return 0
     else:
         raise AssertionError("Electrode type not recognized")

@@ -40,6 +40,7 @@ python -m venv bluerecording-dev
 source bluerecording-dev/bin/activate
 pip install -e .
 ```
+Note that before running pip install, you must have a recent version of gcc available (installation was tested with gcc 12.3.0)
 
 ### Neurodamus
 

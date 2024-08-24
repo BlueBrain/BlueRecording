@@ -23,7 +23,7 @@ class ElectrodeFileStructure(object):
         lst_ids: node ids
         electrodes: Dictionary with metadata about electrodes
         population_name: Sonata population
-        **kwargs: currently expected to take the circuit path
+        **kwargs: currently expected to take the circuit path, bluerecording version number, and date of writing
         '''
 
 
@@ -38,12 +38,12 @@ class ElectrodeFileStructure(object):
         for key, electrode in electrodes.items(): # Iterates through electrodes
 
 
-            
+
             h5.create_dataset("electrodes/" + str(key) + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
             index += 1
 
             for item in electrode.items(): # Iterates through metadata fields for each electrode
-            
+
                 h5.create_dataset("electrodes/" + str(key) + '/' + item[0],
                               data=item[1])
         ####
@@ -67,15 +67,15 @@ class ElectrodeFileStructure(object):
         return '/electrodes/'+population_name+'/scaling_factors'
 
 def get_offsets(sectionIdsFrame):
-    
+
     unique, counts = np.unique(sectionIdsFrame['id'].values,return_counts=True) # Unique node_ids and number of segments per node id
 
     out_offsets = np.hstack((np.array([0]),np.cumsum(counts))) # Offset from start of list for each node id
-    
+
     return out_offsets
 
 def write_all_neuron(sectionIdsFrame, population_name, h5, file, electrode_struc):
-    
+
     file.create_dataset(h5.weights(population_name), data=np.ones([len(sectionIdsFrame['id'].values),len(electrode_struc.items())+1])) # Initializes /electrodes/{population_name}/scaling_factors with array of ones of size nSegments x (nElectrodes+1)
 
     out_offsets = get_offsets(sectionIdsFrame)
@@ -111,7 +111,7 @@ def makeElectrodeDict(electrode_csv):
             region = electrode_df['region'].iloc[i]
         else:
             region = 'NA'
-            
+
         if 'type' in electrode_df.columns:
             electrodeType = electrode_df['type'].iloc[i]
         else:
@@ -143,7 +143,7 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
 
     sectionIdsFrame = data.columns.to_frame()
     sectionIdsFrame.index = range(len(sectionIdsFrame))
-    
+
     electrodes = makeElectrodeDict(electrode_csv) # Dictionary containing metadata about the electrodes
 
     h5file = h5py.File(outputfile,'w') # Creates h5 file for coefficients
@@ -161,5 +161,3 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
     write_all_neuron(sectionIdsFrame, population_name, h5, h5file, electrodes)  # For each node_id, initializes coefficient field in h5 file
 
     h5file.close()
-
-

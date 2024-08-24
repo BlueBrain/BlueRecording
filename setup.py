@@ -10,7 +10,7 @@ setup(
     license='GPL-3.0',
     packages=['bluerecording'],
     install_requires=[
-    'bluepysnap>=1.0',
+    'bluepysnap',
     'libsonata>=0.1.28',
     'scikit-learn',
     'voxcell',
@@ -23,12 +23,14 @@ setup(
     'matplotlib',
     'MEAutility',
     'neuron',
-    'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities.git#egg=connectome-utilities',
+    'connectome-utilities @ git+https://github.com/BlueBrain/ConnectomeUtilities',
     'pytest-cov',
     'ipympl',
     'neo',
-    'xarray',
-    'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
-    ]
+    'xarray'#,
+    #'allensdk>=2.16',
+    #'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
+    ],
+    pip_options=['--only-binary=matplotlib'],
    )
 

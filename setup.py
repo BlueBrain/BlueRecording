@@ -10,7 +10,7 @@ setup(
     license='GPL-3.0',
     packages=['bluerecording'],
     install_requires=[
-    'bluepysnap',
+    'bluepysnap>=1.0.0',
     'libsonata>=0.1.28',
     'scikit-learn',
     'voxcell',
@@ -27,9 +27,9 @@ setup(
     'pytest-cov',
     'ipympl',
     'neo',
-    'xarray'#,
-    #'allensdk>=2.16',
-    #'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
+    'xarray',
+    'allensdk @ git+https://github.com/joseph-tharayil/AllenSDK',
+    'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
     ],
     pip_options=['--only-binary=matplotlib'],
    )

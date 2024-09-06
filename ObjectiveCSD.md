@@ -15,3 +15,4 @@ You can also specify parametersby setting the value of the `type` column in the 
 - `ObjectiveCSD_Plane_X` will set the thickness of the plane to X $\mu$m
 
 ## Calculating disk thickness from a subset of electrodes
+It is possible that your electrodes csv file (and consequently your h5 weights file) will contain multiple electrode arrays from which you wish to calculate the objective disk or objective plane CSD. In this case, you can supply the argument `objective_csd_array_indices` to the function `bluerecording.writeH5.writeH5File()`. `objective_csd_array_indices` is a list of strings, with each string having the form `"a:b"`, where a and bv are the start and end indices in the csv file of one of the electrode arrays. If the thickness of the disks/planes is not specified as described in the section above, BlueRecording will estimate the thickness for each array separately based on the `objective_csd_array_indices` argmuent

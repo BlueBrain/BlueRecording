@@ -174,13 +174,12 @@ def getArraySpacing(allEpos):
 
     return main_axis, arraySpacing
 
-def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,allEpos):
+def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,allEpos,radius=None):
 
     _, arraySpacing = getArraySpacing(allEpos)
 
-    #radius = np.abs(np.mean(arraySpacing)/2) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
-
-    radius = 10
+    if radius is None:
+        radius = 10 # Default value of 10 um
 
     distances = np.linalg.norm(positions.values-electrodePos[:,np.newaxis],axis=0) # in microns
 
@@ -193,11 +192,12 @@ def get_coeffs_objectiveCSD_Sphere(positions,electrodePos,allEpos):
     return coeffs
 
 
-def get_coeffs_objectiveCSD_Plane(compartment_positions,electrodePos,allEpos):
+def get_coeffs_objectiveCSD_Plane(compartment_positions,electrodePos,allEpos,planeThickness=None):
 
     main_axis, arraySpacing = getArraySpacing(allEpos)
 
-    planeThickness = getThickness(arraySpacing) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+    if planeThickness is None: # If no value provided, estimates value from spacing between electrodes
+        planeThickness = getThickness(arraySpacing) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
 
     axialDistances, _ = distances_in_planar_coords(compartment_positions,electrodePos,main_axis)
 
@@ -246,13 +246,15 @@ def distances_in_planar_coords(compartment_positions, electrodePos, main_axis):
     return np.abs(axialDistances), radialDistances
 
 
-def get_coeffs_objectiveCSD_Disk(compartment_positions,electrodePos,allEpos):
+def get_coeffs_objectiveCSD_Disk(compartment_positions,electrodePos,allEpos,radius=None,diskThickness=None):
 
-    radius = 500 # Hard-coded. Todo make user-configurable
+    if radius is None:
+        radius = 500 # Default radius of 500 um
 
     main_axis, arraySpacing = getArraySpacing(allEpos)
 
-    diskThickness = getThickness(arraySpacing) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
+    if diskThickness is None: # If no disk thickness provided, estimate value from spacing between electrodes
+        diskThickness = getThickness(arraySpacing) # Assumes that all electrodes are evenly spaced. TODO: Relax this assumption
 
     axialDistances, radialDistances = distances_in_planar_coords(compartment_positions,electrodePos,main_axis)
 
@@ -585,7 +587,7 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
         return 1
 
 
-    data = getMinimalReport(r,node_ids) # Loads compartment report for sleected node_ids
+    data = getMinimalReport(r,node_ids) # Loads compartment report for selected node_ids
 
 
     columns = data.columns
@@ -638,17 +640,17 @@ def writeH5File(path_to_simconfig,segment_position_folder,outputfile,neurons_per
                 for e in electrodeNames[arrayIdx]:
                     allEpos.append( h5['electrodes'][str(e)]['position'][:] )
 
-                if electrodeType == 'ObjectiveCSD_Sphere':
+                radius = h5['electrodes'][str(electrode)]['type'].attrs.get('radius',None)
+                thickness = h5['electrodes'][str(electrode)]['type'].attrs.get('thickness', None)
 
-                    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,epos,allEpos)
+                if electrodeType == 'ObjectiveCSD_Sphere':
+                    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,epos,allEpos,radius)
 
                 elif electrodeType == 'ObjectiveCSD_Disk':
-
-                    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
+                    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,epos,allEpos,radius,thickness)
 
                 elif electrodeType == 'ObjectiveCSD_Plane':
-
-                    coeffs = get_coeffs_objectiveCSD_Plane(newPositions,epos,allEpos) # Radius is hardcoded to 500 um for disk. TODO make this user-configurable
+                    coeffs = get_coeffs_objectiveCSD_Plane(newPositions,epos,allEpos,thickness)
 
 
             else:

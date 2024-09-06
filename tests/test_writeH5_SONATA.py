@@ -322,6 +322,17 @@ def test_objectiveCSD_Sphere(positions,gids):
 
     pd.testing.assert_frame_equal(coeffs,expectedOutput)
 
+    coeffs = get_coeffs_objectiveCSD_Sphere(newPositions,allEpos[0],allEpos,radius=.1)
+
+    somaDistance = 0
+    expectedSomaCoeff = 1
+
+    expectedSegmentCoeff = 0
+
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
 def test_objectiveCSD_Disk(positions,gids):
 
     allEpos = np.array([[0,0,0],[1,0,0]])
@@ -343,6 +354,26 @@ def test_objectiveCSD_Disk(positions,gids):
     expectedSomaCoeff = 0
 
     expectedSegmentCoeff = 0
+
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
+    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,allEpos[0],allEpos,radius=.1)
+
+    expectedSomaCoeff = 1
+
+    expectedSegmentCoeff = 0
+
+    expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
+
+    pd.testing.assert_frame_equal(coeffs,expectedOutput)
+
+    coeffs = get_coeffs_objectiveCSD_Disk(newPositions,allEpos[0],allEpos,diskThickness=10)
+
+    expectedSomaCoeff = 1
+
+    expectedSegmentCoeff = 1
 
     expectedOutput = pd.DataFrame(data=np.hstack((expectedSomaCoeff,expectedSegmentCoeff))[np.newaxis,:],columns=newPositions.columns)
 

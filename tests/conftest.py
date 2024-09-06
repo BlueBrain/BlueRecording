@@ -119,6 +119,13 @@ def electrodes():
     return electrodes
 
 @pytest.fixture(scope="module")
+def electrodes_objective():
+
+    electrodes = {'name':{'position':np.array([1,2,3]),'type':{'type':'ObjectiveCSD_Disk','radius':500,'thickness':10},'region':'Outside','layer':'Outside'}}
+
+    return electrodes
+
+@pytest.fixture(scope="module")
 def gids():
 
     return [1,2]
@@ -144,6 +151,22 @@ def write_ElectrodeFileStructure(path_to_weights_file, electrodes, gids, populat
     h5file = h5py.File(path_to_weights_file,'w')
 
     h5 = ElectrodeFileStructure(h5file, gids, electrodes, population_name, circuit='test') # Initializes fields in h5 file
+
+    h5file.close()
+
+    return path_to_weights_file, h5
+
+@pytest.fixture(scope="module")
+def write_ElectrodeFileStructure_objective(path_to_weights_file, electrodes_objective, gids, population_name):
+
+    '''
+    Creates h5 file, without any weights
+    '''
+
+
+    h5file = h5py.File(path_to_weights_file,'w')
+
+    h5 = ElectrodeFileStructure(h5file, gids, electrodes_objective, population_name, circuit='test') # Initializes fields in h5 file
 
     h5file.close()
 

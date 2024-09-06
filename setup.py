@@ -29,7 +29,9 @@ setup(
     'neo',
     'xarray',
     'allensdk @ git+https://github.com/joseph-tharayil/AllenSDK',
-    'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis'
+    'cinplaAnalysis @ git+https://github.com/joseph-tharayil/CINPLA_Allen_V1_analysis',
+    'pytz',
+    'python-dateutil'
     ],
     pip_options=['--only-binary=matplotlib'],
    )

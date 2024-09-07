@@ -23,7 +23,6 @@ PATH_TO_POSITIONS_FOLDER='../data/getPositions/positions_all_new_big'
 OUTPUT_FILE='coeffs_big.h5'
 NEURONS_PER_FILE=1000
 FILES_PER_FOLDER=50
-ELECTRODE_CSV='electrodes.csv'
 TISSUE_CONDUCTANCE=0.374556
  
-srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config_big.json' '../data/getPositions/positions_all_new_big' 'coeffs_big.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER 'electrodes.csv' $TISSUE_CONDUCTANCE 
+srun -n 12000 python ../../scripts/run_write_weights.py '../data/simulation/simulation_config_big.json' '../data/getPositions/positions_all_new_big' 'coeffs_big.h5' $NEURONS_PER_FILE $FILES_PER_FOLDER $TISSUE_CONDUCTANCE 

@@ -1,7 +1,7 @@
 {
    "run": {
     "dt": 0.025,
-    "tstop": 12000,
+    "tstop": 2200,
     "random_seed": 843,
     "run_mode":"WholeCell",
     "electrodes_file": "../../../electrodeFile/coeffs_eeg.h5"

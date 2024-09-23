@@ -1,7 +1,7 @@
 #!/bin/bash -l
 #SBATCH --account=proj83
 #SBATCH --partition=prod
-#SBATCH --nodes=40
+#SBATCH --nodes=400
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=0
 #SBATCH --constraint=cpu

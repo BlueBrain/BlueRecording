@@ -1,6 +1,6 @@
 # Objective CSD calculation
 
-BlueRecording permits the calculation of the "Objective CSD" metrics defined in the paper [iCSD produces spurious results in dense electrode arrays](). Two variants of the metric are defined in this paper: Objective Sphere CSD ($o_sCSD$) and Objective Disk CSD ($o_DCSD$). In addition, BlueRecording supports a third variant, "Objective Plane CSD", which is effectively $o_DCSD$ with a disk of infinite radius.
+BlueRecording permits the calculation of the "Objective CSD" metrics defined in the forthcoming paper "iCSD produces spurious results in dense electrode arrays". Two variants of the metric are defined in this paper: Objective Sphere CSD ($o_sCSD$) and Objective Disk CSD ($o_DCSD$). In addition, BlueRecording supports a third variant, "Objective Plane CSD", which is effectively $o_DCSD$ with a disk of infinite radius.
 
 ## Objective CSD electrodes in the input CSV file
 In the CSV file used as an input to `bluerecording.writeH5_prelim.initializeH5File()`, electrodes using the objective CSD methods can be specified by setting the value of the `type` column to `ObjectiveCSD_Sphere`, `ObjectiveCSD_Disk`, or `ObjectiveCSD_Plane`. BlueRecording will use the following defaults:

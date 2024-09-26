@@ -1,0 +1,59 @@
+==> neuron: Executing phase: 'cmake'
+==> [2024-08-06-12:59:49.188976] '/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/cmake-3.27.7-slyoes/bin/cmake' '-G' 'Unix Makefiles' '-DCMAKE_INSTALL_PREFIX:STRING=/gpfs/bbp.cscs.ch/home/tharayil/spack_install/software/install_oneapi-2023.2.0-skylake/neuron-9.0.a17-vwod6s' '-DCMAKE_BUILD_TYPE:STRING=RelWithDebInfo' '-DCMAKE_INTERPROCEDURAL_OPTIMIZATION:BOOL=OFF' '-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON' '-DCMAKE_INSTALL_RPATH_USE_LINK_PATH:BOOL=ON' '-DCMAKE_INSTALL_RPATH:STRING=/gpfs/bbp.cscs.ch/home/tharayil/spack_install/software/install_oneapi-2023.2.0-skylake/neuron-9.0.a17-vwod6s/lib;/gpfs/bbp.cscs.ch/home/tharayil/spack_install/software/install_oneapi-2023.2.0-skylake/neuron-9.0.a17-vwod6s/lib64;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/gettext-0.22.3-nbi5w5/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/bzip2-1.0.8-vdqwmg/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libiconv-1.17-nv4xh4/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libxml2-2.10.3-oh2g4i/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/xz-5.4.1-wwn5en/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/zlib-ng-2.1.4-z7jpg7/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/ncurses-6.4-6kdbhv/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/hpe-mpi-2.27.p1.hmpt-6rr256/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libsonata-report-1.2.3-5ol425/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/hdf5-1.14.3-5o77ye/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-numpy-1.26.1-elr5pn/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/intel-oneapi-mkl-2023.2.0-twl2n4/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/python-3.11.6-bj4i6m/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-sympy-1.11.1-t5tove/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/readline-8.2-pdugg7/lib;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/spdlog-1.12.0-ihotvb/lib64;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/fmt-10.1.1-evtttr/lib64' '-DCMAKE_PREFIX_PATH:STRING=/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/readline-8.2-pdugg7;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-numpy-1.26.1-elr5pn;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/nmodl-0.7.a4-35a6rk;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-sympy-1.11.1-t5tove;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-setuptools-68.0.0-p3xbqx;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/py-pip-23.1.2-77ku3v;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libsonata-report-1.2.3-5ol425;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/spdlog-1.12.0-ihotvb;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/fmt-10.1.1-evtttr;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/hdf5-1.14.3-5o77ye;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/gettext-0.22.3-nbi5w5;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/tar-1.34-zz4acm;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/ncurses-6.4-6kdbhv;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libxml2-2.10.3-oh2g4i;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/xz-5.4.1-wwn5en;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/bzip2-1.0.8-vdqwmg;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/zlib-ng-2.1.4-z7jpg7;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/libiconv-1.17-nv4xh4;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/gmake-4.4.1-swjylu;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/intel-oneapi-mkl-2023.2.0-twl2n4;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/python-3.11.6-bj4i6m;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/ninja-1.11.1-nxtlgo;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/hpe-mpi-2.27.p1.hmpt-6rr256;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/flex-2.6.3-edx4lf;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/cmake-3.27.7-slyoes;/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/bison-3.8.2-qcx3sg' '-DNRN_ENABLE_BACKTRACE:BOOL=OFF' '-DNRN_ENABLE_CORENEURON:BOOL=ON' '-DNRN_ENABLE_INTERVIEWS:BOOL=OFF' '-DNRN_ENABLE_MPI:BOOL=ON' '-DNRN_ENABLE_PYTHON:BOOL=ON' '-DNRN_ENABLE_RX3D:BOOL=OFF' '-DNRN_ENABLE_TESTS:BOOL=OFF' '-DCORENRN_ENABLE_SHARED:BOOL=ON' '-DPYTHON_EXECUTABLE:STRING=/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/python-3.11.6-bj4i6m/bin/python3.11' '-DCORENRN_ENABLE_SPLAYTREE_QUEUING:STRING=ON' '-DCORENRN_ENABLE_TIMEOUT:STRING=OFF' '-DCORENRN_ENABLE_OPENMP:BOOL=OFF' '-DCORENRN_ENABLE_LEGACY_UNITS:BOOL=OFF' '-DCORENRN_ENABLE_UNIT_TESTS:BOOL=OFF' '-DCORENRN_NMODL_FLAGS:STRING=codegen --force' '-DNRN_ENABLE_MATH_OPT:STRING=ON' '-DCMAKE_CXX_FLAGS:STRING=-march=skylake -mtune=skylake' '-DCORENRN_NMODL_FLAGS:STRING=' '-DNRN_AVOID_ABSOLUTE_PATHS:STRING=ON' '-DNRN_ENABLE_MPI_DYNAMIC:STRING=ON' '-DCORENRN_NMODL_DIR:STRING=/gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/nmodl-0.7.a4-35a6rk' '-DCORENRN_ENABLE_REPORTING:BOOL=ON' '/tmp/tharayil/spack-stage/spack-stage-neuron-9.0.a17-vwod6ss5n6eqec6j4ug42ridpksk7qzq/spack-src'
+-- The C compiler identification is IntelLLVM 2023.2.0
+-- The CXX compiler identification is IntelLLVM 2023.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /gpfs/bbp.cscs.ch/home/tharayil/spack/lib/spack/env/oneapi/icx - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /gpfs/bbp.cscs.ch/home/tharayil/spack/lib/spack/env/oneapi/icpx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Sub-module : missing external/coding-conventions : running git submodule update  --init
+Submodule 'external/coding-conventions' (https://github.com/BlueBrain/hpc-coding-conventions.git) registered for path 'external/coding-conventions'
+Cloning into 'external/coding-conventions'...
+Submodule path 'external/coding-conventions': checked out '3d157f9c8ea94d196a825aaa7f523265e360dc4b'
+-- Fetching git submodule external/Random123: running git submodule update --init;--recursive -- external/Random123
+Submodule 'external/Random123' (https://github.com/BlueBrain/Random123.git) registered for path 'external/Random123'
+Cloning into 'external/Random123'...
+Submodule path 'external/Random123': checked out 'b5cb15614e8f3eb0ff316bdc50c300ddd32fa3c1'
+-- 3rd party project: using Random123 from "external/Random123"
+-- Fetching git submodule external/eigen: running git submodule update --init;--recursive -- external/eigen
+Submodule 'external/eigen' (https://gitlab.com/libeigen/eigen.git) registered for path 'external/eigen'
+Cloning into 'external/eigen'...
+Submodule path 'external/eigen': checked out '3147391d946bb4b6c68edd901f2add6ac1f31f8c'
+-- 3rd party project: using eigen from "external/eigen"
+-- Sub-module : missing /tmp/tharayil/spack-stage/spack-stage-neuron-9.0.a17-vwod6ss5n6eqec6j4ug42ridpksk7qzq/spack-src/external/fmt : running git submodule update  --init
+Submodule 'external/fmt' (https://github.com/fmtlib/fmt) registered for path 'external/fmt'
+Cloning into 'external/fmt'...
+Submodule path 'external/fmt': checked out 'e69e5f977d458f2650bb346dadf2ad30c5320281'
+-- Version: 10.2.1
+-- Build type: RelWithDebInfo
+-- Checking if /gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/python-3.11.6-bj4i6m/bin/python3.11 is a working python
+-- Found BISON: /gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/bison-3.8.2-qcx3sg/bin/bison (found version "3.8.2") 
+-- Found FLEX: /gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_externals/install_gcc-12.3.0-skylake/flex-2.6.3-edx4lf/bin/flex (found suitable version "2.6.3", minimum required is "2.6") 
+-- Found Readline: /gpfs/bbp.cscs.ch/ssd/apps/bsd/2024-02-01/stage_applications/install_gcc-12.3.0-skylake/readline-8.2-pdugg7/include  
+-- Found MPI_C: /lib64/libpthread.so (found version "3.1") 
+-- Found MPI_CXX: /lib64/libpthread.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+MPT: libxmpi.so 'HPE HMPT 2.27  12/20/23 18:46:18'
+-- Sub-module : missing /tmp/tharayil/spack-stage/spack-stage-neuron-9.0.a17-vwod6ss5n6eqec6j4ug42ridpksk7qzq/spack-src/external/nanobind : running git submodule update --recursive;--depth;1 --init
+usage: git submodule [--quiet] add [-b <branch>] [-f|--force] [--name <name>] [--reference <repository>] [--] <repository> [<path>]
+   or: git submodule [--quiet] status [--cached] [--recursive] [--] [<path>...]
+   or: git submodule [--quiet] init [--] [<path>...]
+   or: git submodule [--quiet] deinit [-f|--force] [--] <path>...
+   or: git submodule [--quiet] update [--init] [--remote] [-N|--no-fetch] [-f|--force] [--rebase] [--reference <repository>] [--merge] [--recursive] [--] [<path>...]
+   or: git submodule [--quiet] summary [--cached|--files] [--summary-limit <n>] [commit] [--] [<path>...]
+   or: git submodule [--quiet] foreach [--recursive] <command>
+   or: git submodule [--quiet] sync [--recursive] [--] [<path>...]
+CMake Error at cmake/ExternalProjectHelper.cmake:45 (message):
+  git submodule init failed
+Call Stack (most recent call first):
+  cmake/ExternalProjectHelper.cmake:66 (nrn_initialize_submodule)
+  CMakeLists.txt:443 (nrn_add_external_project)
+
+
+-- Configuring incomplete, errors occurred!

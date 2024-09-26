@@ -10,7 +10,7 @@ The folder *circuitTest* is an example of performing extracellular recordings fr
 
 The folder *SSCx* is an example of BlueRecording's ability to produce signals from a large (~4.2M neurons) neural circuits. It contains the code to reproduce Figures 3-5 in the aforementioned paper. The data requried to run the simulations in that folder must be obtained from the authors.
 
-The folder *whiskerFlick* is an example of BlueRecording's ability to generate biological insights about the meaning of the EEG signal. It contains the code to reproduce Figure 6 in the aforementioned paper. These simulations rely on the same data as the examples in the *SSCx* folder.
+The folder *whiskerFlick* is an example of BlueRecording's ability to generate biological insights about the meaning of the EEG signal. It contains the code to reproduce Figure 6 in the aforementioned paper. These simulations rely on the same data as the examples in the SSCx folder.
 
 The folder *hippocampus* is an example of BlueRecording's ability to produce signals from circuits besides the BBP somatosensory cortex model. It contains the code to reproduce Figure 7 in the aforementioned paper. The data requried to run the simulations in that folder must be obtained from the authors.
 

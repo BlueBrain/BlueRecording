@@ -7,6 +7,8 @@ import sys
 import bluepysnap as bp
 import json
 from .utils import *
+import pkg_resources
+import datetime
 
 class ElectrodeFileStructure(object):
 
@@ -21,7 +23,7 @@ class ElectrodeFileStructure(object):
         lst_ids: node ids
         electrodes: Dictionary with metadata about electrodes
         population_name: Sonata population
-        **kwargs: currently expected to take the circuit path
+        **kwargs: currently expected to take the circuit path, bluerecording version number, and date of writing
         '''
 
 
@@ -35,14 +37,24 @@ class ElectrodeFileStructure(object):
         ### Iterates through electrode dictionary to write metadata
         for key, electrode in electrodes.items(): # Iterates through electrodes
 
-
-            
             h5.create_dataset("electrodes/" + str(key) + '/'+population_name,data=index) # Index of the column corresponding to this electrode in /electrodes/{population_name}/scaling_factors
             index += 1
 
             for item in electrode.items(): # Iterates through metadata fields for each electrode
-            
-                h5.create_dataset("electrodes/" + str(key) + '/' + item[0],
+
+                if item[0] == 'type' and isinstance(item[1],dict): # If electrodetype is a dict produced by process_ObjectiveCSD(), write the real electrode type string and the metadata
+
+                    dset = h5.create_dataset("electrodes/" + str(key) + '/' + item[0],
+                                      data=item[1]['type'])
+
+                    for entry in item[1].items(): # Write parameters for objective calculation
+
+                        if entry[0] !='type':
+                            dset.attrs.create(entry[0],entry[1])
+
+                else:
+
+                    h5.create_dataset("electrodes/" + str(key) + '/' + item[0],
                               data=item[1])
         ####
 
@@ -65,15 +77,15 @@ class ElectrodeFileStructure(object):
         return '/electrodes/'+population_name+'/scaling_factors'
 
 def get_offsets(sectionIdsFrame):
-    
+
     unique, counts = np.unique(sectionIdsFrame['id'].values,return_counts=True) # Unique node_ids and number of segments per node id
 
     out_offsets = np.hstack((np.array([0]),np.cumsum(counts))) # Offset from start of list for each node id
-    
+
     return out_offsets
 
 def write_all_neuron(sectionIdsFrame, population_name, h5, file, electrode_struc):
-    
+
     file.create_dataset(h5.weights(population_name), data=np.ones([len(sectionIdsFrame['id'].values),len(electrode_struc.items())+1])) # Initializes /electrodes/{population_name}/scaling_factors with array of ones of size nSegments x (nElectrodes+1)
 
     out_offsets = get_offsets(sectionIdsFrame)
@@ -109,9 +121,14 @@ def makeElectrodeDict(electrode_csv):
             region = electrode_df['region'].iloc[i]
         else:
             region = 'NA'
-            
+
         if 'type' in electrode_df.columns:
             electrodeType = electrode_df['type'].iloc[i]
+
+            if 'ObjectiveCSD' in electrodeType:
+
+                electrodeType = process_objectiveCSD(electrodeType) # Returns a dict containing parameters for objective CSD electrodes
+
         else:
             electrodeType = 'LineSource'
 
@@ -121,6 +138,80 @@ def makeElectrodeDict(electrode_csv):
 
     return electrodes
 
+def check_input_type_objectiveCSD(objectiveType,input):
+
+    if objectiveType == 'ObjectiveCSD_Sphere' or objectiveType == 'ObjectiveCSD_Plane':
+        try:
+            assert len(input) == 3
+        except:
+            raise ValueError(objectiveType + ' must provide either no numerical parameters or exactly one')
+    elif objectiveType =='ObjectiveCSD_Disk':
+        try:
+            assert len(input) == 3 or len(input)==4
+        except:
+            raise ValueError(objectiveType + ' must provide one or two numerical parameters')
+    else:
+        raise ValueError('Invalid electrode type')
+
+    for numericalParameter in input[2:]:
+        try:
+            float(numericalParameter)
+        except:
+            raise ValueError('Invalid numerical parameter provided to objective CSD electrode')
+
+    return 0
+
+def process_objectiveCSD(electrodeType):
+
+    '''
+    If the electrode is one of the objective CSD electrodes, this function processes the input string to determine the radius (for a sphere) or thickness (for disk and plane) and diameter (for disk)
+    If these items are provided, returns them in a dict
+    If these items aren't provided, then returns the electrode type as a string
+
+    electrodeType is of format objectveCSD_CalculationMethod, objectveCSD_CalculationMethod_X, or objectveCSD_Disk_X_Y
+    if calculationMethod == Sphere, X == radius, in um
+    If calculationMethod == Plane, X == thickness, in um
+    if calculationMethod == Disk, X == radius, Y == thickess, both in um
+    '''
+
+
+    input = electrodeType.split('_')
+
+    if len(input) < 2:
+        raise ValueError(electrodeType + ' is an invalid objective electrode type')
+
+    elif len(input)==2: # If no other options are provided, returns string, for backwards compatibility with previous versions
+        return electrodeType
+
+    else:
+
+        objectiveType = input[0] + '_' + input[1]
+        objectiveDict = {'type':objectiveType}
+
+        check_input_type_objectiveCSD(objectiveType, input)
+
+        if objectiveType == 'ObjectiveCSD_Sphere':
+
+            radius = float(input[2])
+            objectiveDict['radius'] = radius
+
+        elif objectiveType == 'ObjectiveCSD_Plane':
+
+            thickness = float(input[2])
+            objectiveDict['thickness'] = thickness
+
+        elif objectiveType == 'ObjectiveCSD_Disk':
+
+            radius = float(input[2])
+            objectiveDict['radius'] = radius
+
+            if len(input)==4:
+                thickness = float(input[3])
+                objectiveDict['thickness'] = thickness
+        else:
+            raise ValueError("Invalid electrode type value")
+
+        return objectiveDict
 
 def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
 
@@ -141,7 +232,7 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
 
     sectionIdsFrame = data.columns.to_frame()
     sectionIdsFrame.index = range(len(sectionIdsFrame))
-    
+
     electrodes = makeElectrodeDict(electrode_csv) # Dictionary containing metadata about the electrodes
 
     h5file = h5py.File(outputfile,'w') # Creates h5 file for coefficients
@@ -153,11 +244,9 @@ def initializeH5File(path_to_simconfig,outputfile,electrode_csv):
     h5id.set_mdc_config(cc)
     #####
 
-    h5 = ElectrodeFileStructure(h5file, nodeIds, electrodes, population_name, circuit=circuitpath) # Initializes fields in h5 file
+    h5 = ElectrodeFileStructure(h5file, nodeIds, electrodes, population_name, circuit=circuitpath,version=pkg_resources.get_distribution("bluerecording").version,date=str(datetime.date.today())) # Initializes fields in h5 file
 
 
     write_all_neuron(sectionIdsFrame, population_name, h5, h5file, electrodes)  # For each node_id, initializes coefficient field in h5 file
 
     h5file.close()
-
-

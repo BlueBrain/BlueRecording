@@ -9,7 +9,7 @@ We assume that you are running these examples on a Linux system with slurm. If t
 ## Instructions
 
 ### Download data
-Download the files Infinite_VeryFar_HighRes.h5 and Infinite_Close_HighRes_SmallSphere.h5 from 10.5281/zenodo.10927050 into the folders distant-electrodes/electrodeFile and close-electrodes/electrodeFile, respectively.
+Download the files Infinite_VeryFar_HighRes.h5 and Infinite_Close_HighRes_SmallSphere.h5 from [our Zenodo repository](https://zenodo.org/records/10927050) into the folders distant-electrodes/electrodeFile and close-electrodes/electrodeFile, respectively.
 
 ### Calculating Segment Positions
 

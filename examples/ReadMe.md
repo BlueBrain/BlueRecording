@@ -8,7 +8,7 @@ The folder *compare_to_reference_electrodes* is an example of BlueRecording's ab
 
 The folder *circuitTest* is an example of performing extracellular recordings fron a network of 100 cells. Some of the data required to run the examples must be downloaded from our Zenodo repository at 10.5281/zenodo.10927050
 
-The folder *SSCx* is an example of BlueRecording's ability to produce signals from a large (~4.2M neurons) neural circuits. It contains the code to reproduce Figures 3-5 in the aforementioned paper. The data requried to run the simulations in that folder must be obtained from the authors.
+The folder *SSCx* is an example of BlueRecording's ability to produce signals from a large (~4.2M neurons) neural circuits. It contains the code to reproduce Figures 3-5 in the aforementioned paper. The data requried to run the simulations in that folder can be downloaded [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/HISHXN&version=1.0).
 
 The folder *whiskerFlick* is an example of BlueRecording's ability to generate biological insights about the meaning of the EEG signal. It contains the code to reproduce Figure 6 in the aforementioned paper. These simulations rely on the same data as the examples in the SSCx folder.
 

@@ -3,7 +3,7 @@
 This repo contains code used to create figures 3-5 in the BlueRecording paper. To reproduce these figures:
 
 1. Download the [somatosensory cortex model](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/HISHXN&version=1.0) and save it to the folder *data/simulation/configuration* following the instructions in the download link. Make sure to use the .asc morphology files.
-2. Download the files EEG.h5, ECoG.h5, and LFP.h5 from our Zenodo repository (10.5281/zenodo.10927050) and copy them to the electrodeFile directory
+2. Download the files EEG.h5, ECoG.h5, and LFP.h5 from [our Zenodo repository](https://zenodo.org/records/14419388) and copy them to the electrodeFile directory
 3. Run *data/simulation/launch.sh* to produce a one-timestep compartment report
 4. Run *data/getPositions/GetPositions.sh* to interpolate segment positions
 5. Run *electrodeFile/WriteH5Prelim.sh* to initialize the weights file
